@@ -1,11 +1,13 @@
 <script setup>
-    import { receiveData } from '@/services/api';
-    import { doThings } from '@/services/prepareData.js';
+    import ViraInput from '@/mods/ViraInput/ViraInput.vue';
 
-    // receiveData();
-    doThings();
+    import { prepareData, ready } from '@/services/data.js';
+
+    prepareData();
 </script>
 
 <template>
-    <h1>Here we go!</h1>
+    <ViraInput
+        
+    />
 </template>

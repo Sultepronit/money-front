@@ -49,11 +49,34 @@ const parsedDataRow = {
     }
 }
 
+function parseData(data) {
+    return data.map(row => {
+        return {
+            date: row.date,
+            vira: {
+                black: {
+                    balance: row.vira_black,
+                    incomeParts: JSON.parse(row.vira_black_income) || []
+                },
+                white: {
+                    balance: row.vira_white,
+                    incomeParts: JSON.parse(row.vira_white_income) || []
+                },
+                cash: {
+                    incomeParts: JSON.parse(row.vira_cash_income) || [],
+                    expenceParts: JSON.parse(row.vira_cash_expence) || []
+                }
+            }
+        };
+    });
+}
+
 async function doThings() {
     const data = await receiveData();
     console.log(data);
     fillTheNull(data);
     console.log(data);
+    console.log(parseData(data));
 }
 
 export { doThings };
