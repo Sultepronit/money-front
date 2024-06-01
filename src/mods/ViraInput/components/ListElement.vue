@@ -1,6 +1,4 @@
 <script setup>
-import CardStats from './CardStats.vue';
-import CashStats from './CashStats.vue';
 import StatsPattern from './StatsPattern.vue';
 
 const { entry } = defineProps(['date', 'entry']);
@@ -21,9 +19,10 @@ const { entry } = defineProps(['date', 'entry']);
 
 <style scoped>
 .date {
-    /* text-align: center; */
+    text-align: center;
     color: blue;
     font-weight: bold;
+    padding-inline: 1em;
 }
 .flex {
     display: flex;

@@ -1,8 +1,9 @@
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { receiveData } from './api.js';
 
 const ready = ref(false); // ???
 const data = ref([]);
+const reversed = computed(() => data.value.slice().reverse());
 
 function parseBalances(data) {
     const fillable = [
@@ -17,10 +18,12 @@ function parseBalances(data) {
             if(row[column] === null) {
                 row[column] = previous[column];
 
-                row[`${column}_change`] = 0;
+                // row[`${column}_change`] = 0;
             } else {
-                row[`${column}_change`] = previous ? previous[column] - row[column] : 0;
+                // row[`${column}_change`] = previous ? previous[column] - row[column] : 0;
             }
+
+            row[`${column}_previous`] = previous ? previous[column] : 0;
         }
 
         previous = row;
@@ -29,20 +32,28 @@ function parseBalances(data) {
 
 class Parted {
     constructor(parts) {
-        this.parts = parts || [0];
+        this.parts = parts || [];
+    }
+
+    update(parts) {
+        this.parts = parts;
     }
 
     get sum() {
-        return this.parts.reduce((acc, num) => acc + num);
+        return this.parts.reduce((acc, num) => acc + Number(num), 0);
     }
 }
 
 class Card {
-    constructor(title, balance, change, income) {
+    constructor(title, balance, previous, income) {
         this.title = title;
         this.balance = balance;
-        this.change = change;
+        this.previous = previous;
         this.income = new Parted(income);
+    }
+
+    get change() {
+        return this.balance - this.previous;
     }
 
     get expence() {
@@ -58,18 +69,15 @@ function parseData(data) {
                 black: new Card(
                     'чорна',
                     row.vira_black,
-                    row.vira_black_change,
-                    row.vira_black_income || [45, 500]
+                    row.vira_black_previous,
+                    row.vira_black_income
                 ),
-                white: {
-                    title: 'біла',
-                    balance: row.vira_white,
-                    change: row.vira_white_change,
-                    income: new Parted(row.vira_white_income || [77, 100]),
-                    get expence() {
-                        return this.income.sum - this.change;
-                    }
-                },
+                white: new Card(
+                    'біла',
+                    row.vira_white,
+                    row.vira_white_previous,
+                    row.vira_white_income || [77, 100]
+                ),
                 cash: {
                     title: 'готівка',
                     income: new Parted(row.vira_cash_income || [1000]),
@@ -108,4 +116,4 @@ async function prepareData() {
     ready.value = true;
 }
 
-export { prepareData, ready, data };
+export { prepareData, ready, data, reversed };
