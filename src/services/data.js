@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue';
-import { receiveData } from './api.js';
+import { receiveData, patch } from './api.js';
 
 const ready = ref(false); // ???
 const data = ref([]);
@@ -25,13 +25,18 @@ function parseBalances(data) {
 }
 
 class Parted {
-    constructor(parts) {
+    constructor(parts, dbColumn, date) {
         this.parts = parts || [];
+        this.dbColumn = dbColumn;
+        this.date = date;
     }
 
     update(parts) {
         this.parts = parts;
-        console.log('save', parts);
+        console.log('save to', this.dbColumn, parts);
+        const changes = {};
+        changes[this.dbColumn] = parts;
+        patch(this.date, changes);
     }
 
     get sum() {
@@ -40,14 +45,19 @@ class Parted {
 }
 
 class Card {
-    constructor(balance, previous, income) {
-        this.balance = ref(balance);
-        this.previous = previous;
-        this.income = new Parted(income);
+    constructor(dbRow, dbBalance, dbIncome, previousBalance) {
+        // console.log(dbRow);
+        // console.log(dbRow[dbBalance]);
+        this.balance = ref(dbRow[dbBalance]);
+        this.previousBalance = previousBalance;
+        // this.income = new Parted(income);
+        this.income = new Parted(dbRow[dbIncome], dbIncome, dbRow.date);
+        this.dbBalance = dbBalance;
+        this.dbIncome = dbIncome;
     }
 
     get change() {
-        return this.balance - this.previous;
+        return this.balance - this.previousBalance;
     }
 
     get expense() {
@@ -63,14 +73,16 @@ function parseData(data) {
             date: row.date,
             vira: {
                 black: new Card(
-                    row.vira_black,
+                    row,
+                    'vira_black',
+                    'vira_black_income',
                     previousRow?.vira.black.balance || 0,
-                    row.vira_black_income
                 ),
                 white: new Card(
-                    row.vira_white,
+                    row,
+                    'vira_white',
+                    'vira_white_income',
                     previousRow?.vira.white.balance || 0,
-                    row.vira_white_income
                 ),
                 cash: {
                     income: new Parted(row.vira_cash_income),
