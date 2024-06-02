@@ -7,7 +7,7 @@ console.log(props);
 function updateIncome(index, value) {
     const copy = [...props.income.parts];
     if(index === 0) {
-        if(Number(value) == 0) return;
+        if(Number(value) === 0) return;
 
         copy.unshift(value);
     } else {

@@ -43,8 +43,7 @@ class Parted {
 class Card {
     constructor(title, balance, previous, income) {
         this.title = title;
-        // this.balance = balance;
-        this.balance = ref(balance);
+        this.balance = balance;
         this.previous = previous;
         this.income = new Parted(income);
     }
@@ -59,22 +58,20 @@ class Card {
 }
 
 function parseData(data) {
-    const result = [];
-    let previousRow = null;
-    for(const row of data) {
-        const parsedRow = {
+    return data.map(row => {
+        return {
             date: row.date,
             vira: {
                 black: new Card(
                     'чорна',
                     row.vira_black,
-                    previousRow?.vira.black.balance || 0,
+                    row.vira_black_previous,
                     row.vira_black_income
                 ),
                 white: new Card(
                     'біла',
                     row.vira_white,
-                    previousRow?.vira.white.balance || 0,
+                    row.vira_white_previous,
                     row.vira_white_income || [77, 100]
                 ),
                 cash: {
@@ -99,12 +96,7 @@ function parseData(data) {
                 }
             }
         };
-
-        result.push(parsedRow);
-        previousRow = parsedRow;
-    };
-
-    return result;
+    });
 }
 
 async function prepareData() {

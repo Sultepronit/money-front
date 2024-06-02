@@ -30,7 +30,8 @@ const { entry } = defineProps(['date', 'entry', 'index']);
             :change="entry.black.change"
             :balance="entry.black.balance"
         />
-        <EditCard
+        <EditCard2
+            :income="entry.black.income"
             :index="index"
             cardName="black"
         />
@@ -60,7 +61,7 @@ const { entry } = defineProps(['date', 'entry', 'index']);
 .the-entry {
     margin: 0.1rem;
     padding: 0.1rem;
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
 }
 .header {
     /* margin-bottom: 0.2em; */
@@ -75,7 +76,9 @@ const { entry } = defineProps(['date', 'entry', 'index']);
 }
 .account {
     /* padding-top: 0.2em; */
-    /* margin-bottom: 0.2em; */
-    border-top: 2px solid gray;
+    margin-bottom: 0.2em;
+    /* border-top: 2px solid gray; */
+    border: 1px solid gray;
+    border-radius: 0.2em;
 }
 </style>

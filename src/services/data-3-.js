@@ -26,6 +26,10 @@ function parseBalances(data) {
     }
 }
 
+// class Balance {
+
+// }
+
 class Parted {
     constructor(parts) {
         this.parts = parts || [];
@@ -43,19 +47,30 @@ class Parted {
 class Card {
     constructor(title, balance, previous, income) {
         this.title = title;
-        // this.balance = balance;
-        this.balance = ref(balance);
+        this.balance = balance;
         this.previous = previous;
         this.income = new Parted(income);
     }
 
     get change() {
-        return this.balance - this.previous;
+        console.log(this);
+        return this.balance - this.previous();
     }
 
     get expence() {
         return this.income.sum - this.change;
     }
+
+    // get linkToBalance() {
+    //     return this.balance;
+    // }
+    linkToBalance() {
+        return this.balance;
+    }
+}
+
+function returnZero() {
+    return 0;
 }
 
 function parseData(data) {
@@ -68,13 +83,16 @@ function parseData(data) {
                 black: new Card(
                     'чорна',
                     row.vira_black,
-                    previousRow?.vira.black.balance || 0,
+                    // row.vira_black_previous,
+                    // previousRow?.vira.black.linkToBalance || returnZero,
+                    previousRow?.vira.black.linkToBalance,
                     row.vira_black_income
                 ),
                 white: new Card(
                     'біла',
                     row.vira_white,
-                    previousRow?.vira.white.balance || 0,
+                    // row.vira_white_previous,
+                    previousRow?.vira.white.linkToBalance || returnZero,
                     row.vira_white_income || [77, 100]
                 ),
                 cash: {
@@ -102,6 +120,7 @@ function parseData(data) {
 
         result.push(parsedRow);
         previousRow = parsedRow;
+        console.log(previousRow);
     };
 
     return result;

@@ -5,8 +5,8 @@ defineProps(['title', 'income', 'expence', 'change', 'balance']);
 <template>
     <p class="title">{{ title }}</p>
     <div class="flex">
-        <p class="column income">{{ income }}</p>
-        <p class="column expence">{{ expence }}</p>
+        <p class="column income">+{{ income }}</p>
+        <p class="column expence">-{{ expence }}</p>
         <p class="column">{{ change }}</p>
         <p class="column balance">{{ balance }}</p>
     </div>
