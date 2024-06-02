@@ -1,12 +1,12 @@
 <script setup>
-defineProps(['title', 'income', 'expence', 'change', 'balance']);
+defineProps(['title', 'income', 'expense', 'change', 'balance']);
 </script>
 
 <template>
     <p class="title">{{ title }}</p>
     <div class="flex">
         <p class="column income">+{{ income }}</p>
-        <p class="column expence">-{{ expence }}</p>
+        <p class="column expense">-{{ expense }}</p>
         <p class="column">{{ change }}</p>
         <p class="column balance">{{ balance }}</p>
     </div>
@@ -31,7 +31,7 @@ defineProps(['title', 'income', 'expence', 'change', 'balance']);
 .income {
     color: green;
 }
-.expence {
+.expense {
     color: red;
 }
 .balance {

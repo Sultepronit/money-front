@@ -10,7 +10,7 @@ const { entry } = defineProps(['date', 'entry']);
     <p class="date">{{ date }}</p>
     <StatsPattern
         :income="entry.income"
-        :expence="entry.expence"
+        :expense="entry.expense"
         :change="entry.change"
         :balance="entry.balance"
     />

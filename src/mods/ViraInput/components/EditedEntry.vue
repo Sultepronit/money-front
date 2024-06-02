@@ -1,10 +1,14 @@
 <script setup>
-import CardStats from './CardStats.vue';
 import StatsPattern from './StatsPattern.vue';
-import EditCard from './EditCard.vue';
+// import EditCard from './EditCard.vue';
 import EditCard2 from './EditCard2.vue';
+import EditCash from './EditCash.vue';
+
+import { ref } from 'vue';
 
 const { entry } = defineProps(['date', 'entry', 'index']);
+
+const current = ref('black');
 
 </script>
 
@@ -14,42 +18,55 @@ const { entry } = defineProps(['date', 'entry', 'index']);
         <p class="date">{{ date }}</p>
         <div class="total">
             <StatsPattern
-                :income="entry?.income"
-                :expence="entry.expence"
+                :income="entry.income"
+                :expense="entry.expense"
                 :change="entry.change"
                 :balance="entry.balance"
             />
         </div>
     </div>
 
-    <div class="account black">
+    <div class="account black" @click="current='black'">
         <StatsPattern
             title="чорна"
             :income="entry.black.income.sum"
-            :expence="entry.black.expence"
+            :expense="entry.black.expense"
             :change="entry.black.change"
             :balance="entry.black.balance"
         />
         <EditCard2
+            v-show="current === 'black'"
             :income="entry.black.income"
             :index="index"
             cardName="black"
         />
     </div>
-    <div class="account white">
-        <CardStats :card="entry.white" />
+    <div class="account white"  @click="current='white'">
+        <StatsPattern
+            title="біла"
+            :income="entry.white.income.sum"
+            :expense="entry.white.expense"
+            :change="entry.white.change"
+            :balance="entry.white.balance"
+        />
         <EditCard2
+            v-show="current === 'white'"
             :income="entry.white.income"
             :index="index"
             cardName="white"
         />
     </div>
-    <div class="account cash">
+    <div class="account cash"  @click="current='cash'">
         <StatsPattern
-            :title="entry.cash.title"
+            title="готівка"
             :income="entry.cash.income.sum"
-            :expence="entry.cash.expence.sum"
+            :expense="entry.cash.expense.sum"
             :change="entry.cash.change"
+        />
+        <EditCash
+            v-show="current === 'cash'"
+            :income="entry.cash.income"
+            :expense="entry.cash.expense"
         />
     </div>
     <!-- <pre>{{ entry }}</pre> -->

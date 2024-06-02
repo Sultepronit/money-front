@@ -18,8 +18,6 @@ function parseBalances(data) {
             if(row[column] === null) {
                 row[column] = previous[column];
             } 
-
-            row[`${column}_previous`] = previous ? previous[column] : 0;
         }
 
         previous = row;
@@ -33,6 +31,7 @@ class Parted {
 
     update(parts) {
         this.parts = parts;
+        console.log('save', parts);
     }
 
     get sum() {
@@ -41,9 +40,7 @@ class Parted {
 }
 
 class Card {
-    constructor(title, balance, previous, income) {
-        this.title = title;
-        // this.balance = balance;
+    constructor(balance, previous, income) {
         this.balance = ref(balance);
         this.previous = previous;
         this.income = new Parted(income);
@@ -53,7 +50,7 @@ class Card {
         return this.balance - this.previous;
     }
 
-    get expence() {
+    get expense() {
         return this.income.sum - this.change;
     }
 }
@@ -66,30 +63,27 @@ function parseData(data) {
             date: row.date,
             vira: {
                 black: new Card(
-                    'чорна',
                     row.vira_black,
                     previousRow?.vira.black.balance || 0,
                     row.vira_black_income
                 ),
                 white: new Card(
-                    'біла',
                     row.vira_white,
                     previousRow?.vira.white.balance || 0,
-                    row.vira_white_income || [77, 100]
+                    row.vira_white_income
                 ),
                 cash: {
-                    title: 'готівка',
-                    income: new Parted(row.vira_cash_income || [1000]),
-                    expence: new Parted(row.vira_cash_expence || [50, 22]),
+                    income: new Parted(row.vira_cash_income),
+                    expense: new Parted(row.vira_cash_expense),
                     get change() {
-                        return this.income.sum - this.expence.sum
+                        return this.income.sum - this.expense.sum
                     }
                 },
                 get income() {
                     return this.black.income.sum + this.white.income.sum + this.cash.income.sum;
                 },
-                get expence() {
-                    return this.black.expence + this.white.expence + this.cash.expence.sum;
+                get expense() {
+                    return this.black.expense + this.white.expense + this.cash.expense.sum;
                 },
                 get change() {
                     return this.black.change + this.white.change + this.cash.change;
