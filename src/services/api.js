@@ -1,8 +1,9 @@
 const apiUrl = import.meta.env.VITE_API_URL;
 
 async function receiveData() {
+    const url = apiUrl + 'data';
     try {
-        const resp = await fetch(apiUrl);
+        const resp = await fetch(url);
         const data = await resp.json();
 
         return data;
