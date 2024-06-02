@@ -25,7 +25,7 @@ defineProps(['title', 'income', 'expense', 'change', 'balance']);
 .column {
     width: 20%;
     text-align: right;
-    padding-right: 1em;
+    /* padding-right: 1em; */
     /* background: yellow; */
 }
 .income {

@@ -1,5 +1,13 @@
 * {
     margin: 0;
     padding: 0;
-    block-size: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 1.4rem;
+}
+
+input {
+    font: inherit;
 }
