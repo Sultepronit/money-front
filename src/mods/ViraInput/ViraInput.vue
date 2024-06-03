@@ -43,8 +43,8 @@ const edited = computed(() => list.value[editedIndex.value]);
 }
 .list {
     /* position: fixed; */
-    position: sticky;
-    bottom: 0;
+    /* position: sticky;
+    bottom: 0; */
     /* width: 98%; */
     height: calc(100vh - 17em);
     overflow: auto;

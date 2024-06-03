@@ -1,13 +1,17 @@
 <script setup>
-    import ViraInput from '@/mods/ViraInput/ViraInput.vue';
+import ViraInput from '@/mods/ViraInput/ViraInput.vue';
+import SecureScreen from '@/mods/SecureScreen/SecureScreen.vue';
 
-    import { prepareData, ready } from '@/services/data.js';
+// import { ref } from 'vue';
+import { loggedIn } from './utils/security';
+import { prepareData, ready } from '@/services/data.js';
 
-    prepareData();
+// const loggedIn = ref(false);
+
+prepareData();
 </script>
 
 <template>
-    <ViraInput
-        
-    />
+    <SecureScreen v-if="!loggedIn"/>
+    <ViraInput v-if="loggedIn" />
 </template>
