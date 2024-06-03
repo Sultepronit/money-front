@@ -4,7 +4,7 @@ defineProps(['title', 'income', 'expense', 'change', 'balance']);
 
 <template>
     <p class="title">{{ title }}</p>
-    <div class="flex">
+    <div class="the-stats">
         <p class="column income">+{{ income }}</p>
         <p class="column expense">-{{ expense }}</p>
         <p class="column">{{ change }}</p>
@@ -18,12 +18,13 @@ defineProps(['title', 'income', 'expense', 'change', 'balance']);
     font-weight: bold;
     padding-inline: 1em;
 }
-.flex {
-    display: flex;
-    gap: 1em;
+.the-stats {
+    padding-inline: 0.3em;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 .column {
-    width: 20%;
+    /* width: 20%; */
     text-align: right;
     /* padding-right: 1em; */
     /* background: yellow; */

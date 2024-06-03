@@ -13,6 +13,7 @@ const edited = computed(() => list.value[editedIndex.value]);
 </script>
 
 <template>
+<section class="page">
     <EditedEntry
         v-if="edited"
         :date="edited.date"
@@ -30,9 +31,13 @@ const edited = computed(() => list.value[editedIndex.value]);
             @click="editedIndex = index"
         />
     </div>
+</section>
 </template>
 
 <style scoped>
+.page {
+    margin: 0.2rem;
+}
 .element {
     margin: 0.1rem;
     padding: 0.1rem;

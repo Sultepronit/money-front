@@ -1,32 +1,41 @@
 <script setup>
 import EditParts from './EditParts.vue';
+import EditAccount from './EditAccount.vue';
 import { reversed as list } from '@/services/data.js';
 const props = defineProps(['income', 'index', 'cardName']);
 
 </script>
 
 <template>
-<div class="area">
+    <EditAccount leftTitle="доходи" rightTitle="баланс">
+        <template #left>
+            <!-- <p class="title">доходи</p> -->
+            <EditParts :parted="income" />
+        </template>
+
+        <template #right>
+            <!-- <p class="title">баланс</p> -->
+            <input
+                type="number"
+                v-model="list[index].vira[cardName].balance"
+                @change="list[index].vira[cardName].saveBalance()"
+            >
+        </template>
+    </EditAccount>
+<!-- <div class="area">
     <div class="half">
-        <p class="title">доходи</p>
-        <EditParts :parted="income" />
+        
     </div>
     <div class="half">
-        <p class="title">баланс</p>
-        <input
-            type="number"
-            v-model="list[index].vira[cardName].balance"
-            @change="list[index].vira[cardName].saveBalance()"
-        >
+        
     </div>
-</div>
+</div> -->
 </template>
 
 <style scoped>
 .area {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /* display: flex; */
 }
 .half {
     /* border: 1px solid gray;

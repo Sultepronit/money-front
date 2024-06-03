@@ -83,7 +83,7 @@ function parseData(data) {
                     'vira_white_income',
                     previousRow?.vira.white.balance || 0,
                 ),
-                cash: { //new Parted(dbRow[dbIncome], dbIncome, dbRow.date);
+                cash: { 
                     income: new Parted(row.vira_cash_income, 'vira_cash_income', row.date),
                     expense: new Parted(row.vira_cash_expense, 'vira_cash_expense', row.date),
                     get change() {

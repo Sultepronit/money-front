@@ -20,6 +20,7 @@ function update(index, value) {
 </script>
 
 <template>
+<div class="the-area">
     <input
         v-for="(part, index) in ['', ...parted.parts]"
         :key="part"
@@ -27,9 +28,14 @@ function update(index, value) {
         :value="part"
         @change="update(index, $event.target.value)"
     >
+</div>
 </template>
 
 <style scoped>
+.the-area {
+    height: 5.6em;
+    overflow: auto;
+}
 input {
     width: 97%;
     text-align: right;

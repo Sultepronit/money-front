@@ -1,7 +1,6 @@
 <script setup>
 import StatsPattern from './StatsPattern.vue';
-// import EditCard from './EditCard.vue';
-import EditCard2 from './EditCard2.vue';
+import EditCard from './EditCard.vue';
 import EditCash from './EditCash.vue';
 
 import { ref } from 'vue';
@@ -34,7 +33,7 @@ const current = ref('black');
             :change="entry.black.change"
             :balance="entry.black.balance"
         />
-        <EditCard2
+        <EditCard
             v-show="current === 'black'"
             :income="entry.black.income"
             :index="index"
@@ -49,7 +48,7 @@ const current = ref('black');
             :change="entry.white.change"
             :balance="entry.white.balance"
         />
-        <EditCard2
+        <EditCard
             v-show="current === 'white'"
             :income="entry.white.income"
             :index="index"
