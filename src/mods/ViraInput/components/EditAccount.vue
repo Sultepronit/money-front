@@ -1,14 +1,14 @@
 <script setup>
-defineProps(['leftTitle', 'rightTitle']);
+defineProps(['leftTitle', 'rightTitle', 'rightClass']);
 </script>
 
 <template>
 <div class="area">
-    <div class="half">
+    <div class="half income">
         <p class="title">{{ leftTitle }}</p>
         <slot name="left"></slot>
     </div>
-    <div class="half">
+    <div class="half" :class="rightClass">
         <p class="title">{{ rightTitle }}</p>
         <slot name="right"></slot>
     </div>
@@ -17,8 +17,6 @@ defineProps(['leftTitle', 'rightTitle']);
 
 <style scoped>
 .area {
-    /* height: 7em;
-    overflow: hidden; */
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
@@ -29,12 +27,5 @@ defineProps(['leftTitle', 'rightTitle']);
 
 .title {
     text-align: center;
-}
-
-input {
-    width: 97%;
-    text-align: right;
-    /* padding-inline: 0.5em; */
-    /* padding-right: 0.5em; */
 }
 </style>

@@ -37,9 +37,7 @@ function update(index, value) {
     overflow: auto;
 }
 input {
-    width: 97%;
+    width: 100%;
     text-align: right;
-    /* padding-inline: 0.5em; */
-    /* padding-right: 0.5em; */
 }
 </style>

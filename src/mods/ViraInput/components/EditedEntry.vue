@@ -68,16 +68,16 @@ const current = ref('black');
             :expense="entry.cash.expense"
         />
     </div>
-    <!-- <pre>{{ entry }}</pre> -->
 
 </section>
 </template>
 
 <style scoped>
 .the-entry {
-    margin: 0.1rem;
-    padding: 0.1rem;
+    /* margin: 0.1rem;
+    padding: 0.1rem; */
     /* border: 2px solid blue; */
+    margin-bottom: 0.5em;
 }
 .header {
     /* margin-bottom: 0.2em; */

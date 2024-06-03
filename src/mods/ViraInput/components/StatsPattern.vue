@@ -29,13 +29,4 @@ defineProps(['title', 'income', 'expense', 'change', 'balance']);
     /* padding-right: 1em; */
     /* background: yellow; */
 }
-.income {
-    color: green;
-}
-.expense {
-    color: red;
-}
-.balance {
-    font-weight: bold;
-}
 </style>

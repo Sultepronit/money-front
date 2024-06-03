@@ -10,4 +10,15 @@ body {
 
 input {
     font: inherit;
+    color: inherit;
+}
+
+.income {
+    color: green;
+}
+.expense {
+    color: red;
+}
+.balance {
+    font-weight: bold;
 }

@@ -36,7 +36,13 @@ const edited = computed(() => list.value[editedIndex.value]);
 
 <style scoped>
 .page {
-    margin: 0.2rem;
+    /* height: 100vh; */
+    margin: 0.3rem;
+    /* overflow: hidden; */
+}
+.list {
+    height: 25vh;
+    overflow: auto;
 }
 .element {
     margin: 0.1rem;
