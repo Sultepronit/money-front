@@ -13,15 +13,15 @@ async function receiveData() {
     }
 }
 
-async function patch(date, changes) {
-    console.log('saving:', date, changes);
+async function patch(date, column, value) {
+    console.log('saving:', date, column, value);
 
     const url = `${apiUrl}${date}`;
     
     try {
         const response = await fetch(url, {
             method: 'PATCH',
-            body: JSON.stringify(changes)
+            body: JSON.stringify([column, value])
         });
         
         const results = await response.text();
@@ -29,7 +29,7 @@ async function patch(date, changes) {
         if(results !== '{"success":true}') {
             throw new Error('Wrong response: ' + results);
         }
-        // console.log('saved!')
+        console.log('saved!');
         // updateOrder.remove();
 
         return true;
