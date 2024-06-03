@@ -36,20 +36,27 @@ const edited = computed(() => list.value[editedIndex.value]);
 
 <style scoped>
 .page {
+    position: relative;
     /* height: 100vh; */
     margin: 0.3rem;
     /* overflow: hidden; */
 }
 .list {
-    height: 25vh;
+    position: fixed;
+    bottom: 0;
+    width: 98%;
+    height: calc(100vh - 17em);
     overflow: auto;
 }
 .element {
-    margin: 0.1rem;
+    /* margin: 0.1rem; */
+    margin: 0.4rem 0.1rem;
     padding: 0.1rem;
-    border: 1px solid;
+    /* border: 1px solid; */
+    border-radius: 0.4rem;
+    background-color: #ebeaea;
 }
 .selected {
-    background: lavenderblush;
+    background-color: #b5ffb5;
 }
 </style>

@@ -33,7 +33,7 @@ function update(index, value) {
 
 <style scoped>
 .the-area {
-    height: 5.6em;
+    height: 4.2em;
     overflow: auto;
 }
 input {

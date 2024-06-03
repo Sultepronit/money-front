@@ -2,12 +2,17 @@
 import EditParts from './EditParts.vue';
 import EditAccount from './EditAccount.vue';
 import { reversed as list } from '@/services/data.js';
-const props = defineProps(['income', 'index', 'cardName']);
 
+defineProps(['income', 'index', 'cardName']);
 </script>
 
 <template>
-    <EditAccount leftTitle="доходи" rightTitle="баланс" rightClass="balance">
+    <EditAccount
+        leftTitle="доходи"
+        leftClass="income"
+        rightTitle="баланс"
+        rightClass="balance"
+    >
         <template #left>
             <EditParts :parted="income" />
         </template>

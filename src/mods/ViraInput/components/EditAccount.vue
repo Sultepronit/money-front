@@ -1,10 +1,10 @@
 <script setup>
-defineProps(['leftTitle', 'rightTitle', 'rightClass']);
+defineProps(['leftTitle', 'leftClass', 'rightTitle', 'rightClass']);
 </script>
 
 <template>
 <div class="area">
-    <div class="half income">
+    <div class="half" :class="leftClass">
         <p class="title">{{ leftTitle }}</p>
         <slot name="left"></slot>
     </div>

@@ -3,7 +3,7 @@ import { receiveData, patch } from './api.js';
 
 const ready = ref(false); // ???
 const data = ref([]);
-const reversed = computed(() => data.value.slice().reverse());
+const reversed = computed(() => data.value.slice(1).reverse());
 
 function parseBalances(data) {
     const fillable = [

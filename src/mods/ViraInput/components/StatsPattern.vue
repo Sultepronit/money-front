@@ -15,7 +15,8 @@ defineProps(['title', 'income', 'expense', 'change', 'balance']);
 <style scoped>
 .title {
     text-align: center;
-    font-weight: bold;
+    /* font-weight: bold; */
+    font-style: italic;
     padding-inline: 1em;
 }
 .the-stats {

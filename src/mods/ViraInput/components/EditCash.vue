@@ -1,12 +1,12 @@
 <script setup>
 import EditParts from './EditParts.vue';
-import { reversed as list } from '@/services/data.js';
-defineProps(['income', 'expense']);
+import EditAccount from './EditAccount.vue';
 
+defineProps(['income', 'expense']);
 </script>
 
 <template>
-<div class="area">
+<!-- <div class="area">
     <div class="half">
         <p class="title">доходи</p>
         <EditParts :parted="income" />
@@ -15,7 +15,21 @@ defineProps(['income', 'expense']);
         <p class="title">розходи</p>
         <EditParts :parted="expense" />
     </div>
-</div>
+</div> -->
+    <EditAccount
+        leftTitle="доходи"
+        leftClass="income"
+        rightTitle="розходи"
+        rightClass="expense"
+    >
+        <template #left>
+            <EditParts :parted="income" />
+        </template>
+
+        <template #right>
+            <EditParts :parted="expense" />
+        </template>
+    </EditAccount>
 </template>
 
 <style scoped>
