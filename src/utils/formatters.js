@@ -1,6 +1,6 @@
 function ukrainianDate(string) {
     return (new Date(string))
-        .toLocaleDateString('uk-ua', { weekday: 'long', month: 'long', day: 'numeric' });
+        .toLocaleDateString('uk-ua', { weekday: 'short', month: 'short', day: 'numeric' });
 };
 
 export { ukrainianDate };
