@@ -13,6 +13,22 @@ async function receiveData() {
     }
 }
 
+async function dataForPassword(password) {
+    const url = apiUrl + 'data';
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: password
+        });
+        const data = await response.json();
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        alert('Data not received!');
+    }
+}
+
 async function patch(date, column, value) {
     console.log('saving:', date, column, value);
 
@@ -30,16 +46,15 @@ async function patch(date, column, value) {
             throw new Error('Wrong response: ' + results);
         }
         console.log('saved!');
-        // updateOrder.remove();
 
         return true;
     } catch (error) {
         // setStatus.failed();
         console.error(error);
-        // alert(`Not updated!`);
+        alert(`Not updated!`);
 
         // return repatch(table, card);
     }
 }
 
-export { receiveData, patch };
+export { receiveData, dataForPassword, patch };

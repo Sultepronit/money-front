@@ -3,7 +3,7 @@ import { receiveData, patch } from './api.js';
 
 const ready = ref(false); // ???
 const data = ref([]);
-const reversed = computed(() => data.value.slice(1).reverse());
+const reversed = computed(() => data.value.slice(3).reverse());
 
 function parseBalances(data) {
     const fillable = [
@@ -112,8 +112,8 @@ function parseData(data) {
     return result;
 }
 
-async function prepareData() {
-    const rawData = await receiveData();
+async function prepareData(rawData) {
+    // const rawData = await receiveData();
     console.log(rawData);
 
     parseBalances(rawData);
