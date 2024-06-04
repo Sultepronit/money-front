@@ -32,9 +32,11 @@ onMounted(() => {
 }
 .panel {
     margin-top: 20vh;
-    max-width: 90%;
+    /* max-width: 90%; */
 }
 .password {
+    /* width: 100%; */
+    width: 8em;
     font-size: 2rem;
     text-align: center;
 }

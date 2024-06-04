@@ -38,10 +38,10 @@ const edited = computed(() => list.value[editedIndex.value]);
 .page {
     /* position: relative; */
     /* height: 100vh; */
-    margin: 0.3rem;
     /* overflow: hidden; */
     max-width: 20em;
-    margin: auto;
+    /* margin: auto; */
+    margin: 0.3rem;
 }
 .list {
     /* position: fixed; */
