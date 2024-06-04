@@ -15,16 +15,29 @@ console.log(Chart.defaults);
 
 const chartOptions = {
     responsive: true,
-    // scales: {
-    //     x: {
-    //         type: 'time',
-    //         time: {
-    //             unit: 'month'
-    //         }
-    //     }
-    // }
+    // maintainAspectRatio: false
+    scales: {
+        x: {
+            type: 'time',
+            time: {
+                unit: 'month',
+            }
+        },
+        y: {
+            ticks: {
+                stepSize: 500,
+                callback: function(val) {
+                    return val % 2000 === 0 ? this.getLabelForValue(val) : '';
+                }
+            },
+            grid: {
+                color: function(context) {
+                    return context.tick && context.tick.value % 2000 === 0 ? 'black' : 'lightgray';
+                }
+            }
+        },
+    }
 };
-
 const chartData = computed(() => {
     return {
         datasets: [
@@ -34,19 +47,24 @@ const chartData = computed(() => {
                 borderColor: 'blue',
                 pointRadius: 0,
                 tension: 0.1,
-                data: data.value.map(entry => [entry.date, entry.vira.black.balance])
-                // data: [['2021-11-06', 1], ['2021-11-07'], 2]
+                data: data.value.map(entry => [
+                    entry.date,
+                    entry.vira.black.balance + entry.vira.white.balance
+                ])
             }
         ]
-    };
+    }
 });
+
 </script>
 
 <template>
-    <!-- <Line
-        :options="chartOptions",
+    <Line
+        :options="chartOptions"
         :data="chartData"
-    /> -->
-    <pre>{{ data[1] }}</pre>
-
+    />
 </template>
+
+<style scoped>
+
+</style>
