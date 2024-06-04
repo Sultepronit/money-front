@@ -5,7 +5,9 @@ import EditCash from './EditCash.vue';
 
 import { ref } from 'vue';
 
-const { entry } = defineProps(['date', 'entry', 'index']);
+import { ukrainianDate } from '@/utils/formatters.js';
+
+defineProps(['date', 'entry', 'index']);
 
 const current = ref('black');
 
@@ -14,7 +16,7 @@ const current = ref('black');
 <template>
 <section class="the-entry">
     <div class="header">
-        <p class="date">{{ date }}</p>
+        <p class="date">{{ ukrainianDate(date) }}</p>
         <div class="total">
             <StatsPattern
                 :income="entry.income"
@@ -25,7 +27,11 @@ const current = ref('black');
         </div>
     </div>
 
-    <div class="account black" @click="current='black'">
+    <div
+        class="account black"
+        :class="{edited: current === 'black'}"
+        @click="current='black'"
+    >
         <StatsPattern
             title="чорна"
             :income="entry.black.income.sum"
@@ -40,7 +46,11 @@ const current = ref('black');
             cardName="black"
         />
     </div>
-    <div class="account white"  @click="current='white'">
+    <div
+        class="account white" 
+        :class="{edited: current === 'white'}"
+        @click="current='white'"
+    >
         <StatsPattern
             title="біла"
             :income="entry.white.income.sum"
@@ -55,7 +65,11 @@ const current = ref('black');
             cardName="white"
         />
     </div>
-    <div class="account cash"  @click="current='cash'">
+    <div
+        class="account cash"
+        :class="{edited: current === 'cash'}"
+        @click="current='cash'"
+    >
         <StatsPattern
             title="готівка"
             :income="entry.cash.income.sum"
@@ -74,9 +88,6 @@ const current = ref('black');
 
 <style scoped>
 .the-entry {
-    /* margin: 0.1rem;
-    padding: 0.1rem; */
-    /* border: 2px solid blue; */
     margin-bottom: 0.5em;
 }
 .header {
@@ -87,14 +98,21 @@ const current = ref('black');
     font-size: 1.1em;
     text-align: center;
     color: blue;
-    font-weight: bold;
+    /* font-weight: bold; */
     padding-inline: 1em;
 }
 .account {
-    /* padding-top: 0.2em; */
     margin-bottom: 0.2em;
-    /* border-top: 2px solid gray; */
     border: 1px solid gray;
     border-radius: 0.2em;
 }
+.edited {
+    /* border-color: green;
+    border-width: 2px; */
+    border: 2px solid black;
+} 
+.edited .title {
+    font-weight: bold;
+}
+
 </style>

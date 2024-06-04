@@ -1,13 +1,15 @@
 <script setup>
 import StatsPattern from './StatsPattern.vue';
 
+import { ukrainianDate } from '@/utils/formatters.js';
+
 const { entry } = defineProps(['date', 'entry']);
 
 </script>
 
 <template>
 <div>
-    <p class="date">{{ date }}</p>
+    <p class="date">{{ ukrainianDate(date) }}</p>
     <StatsPattern
         :income="entry.income"
         :expense="entry.expense"
