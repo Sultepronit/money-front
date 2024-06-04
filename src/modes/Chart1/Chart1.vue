@@ -15,7 +15,7 @@ console.log(Chart.defaults);
 
 const chartOptions = {
     responsive: true,
-    // maintainAspectRatio: false
+    maintainAspectRatio: false,
     scales: {
         x: {
             type: 'time',
@@ -59,12 +59,18 @@ const chartData = computed(() => {
 </script>
 
 <template>
-    <Line
-        :options="chartOptions"
-        :data="chartData"
-    />
+    <div class="container">
+        <Line
+            :options="chartOptions"
+            :data="chartData"
+        />
+    </div>
+    <!-- <pre>{{ data[1] }}</pre> -->
 </template>
 
 <style scoped>
-
+.container {
+    width: 90%;
+    height: 90vh;
+}
 </style>
