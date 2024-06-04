@@ -3,6 +3,7 @@ import { patch } from './api.js';
 import { Vira } from '@/utils/dataStructures.js';
 
 const data = ref([]);
+const rawData = ref([]);
 const reversed = computed(() => data.value.slice(3).reverse());
 
 function parseBalances(data) {
@@ -40,15 +41,17 @@ function parseData(data) {
     return result;
 }
 
-async function prepareData(rawData) {
+async function prepareData(localRawData) {
     // const rawData = await receiveData();
-    console.log(rawData);
+    console.log(localRawData);
 
-    parseBalances(rawData);
-    console.log(rawData);
+    parseBalances(localRawData);
+    console.log(localRawData);
 
-    data.value = parseData(rawData);
+    rawData.value = localRawData;
+
+    data.value = parseData(localRawData);
     console.log(data.value);
 }
 
-export { prepareData, data, reversed };
+export { prepareData, rawData, data, reversed };
