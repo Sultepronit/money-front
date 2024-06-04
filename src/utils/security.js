@@ -14,7 +14,7 @@ async function handleLogin(password) {
         loggedIn.value = true;
     } else {
         console.log(data);
-        loginStatus.value = 'Но, шось не то 🙄';
+        loginStatus.value = 'Йой, шось не то 🙄';
         console.log('Try harder!');
     }
 }
