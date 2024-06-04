@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue';
-import { receiveData, patch } from './api.js';
+import { patch } from './api.js';
 
 const ready = ref(false); // ???
 const data = ref([]);
@@ -64,45 +64,85 @@ class Card {
     }
 }
 
+class Vira {
+    constructor(row, previousRow) {
+        this.black = new Card(
+            row,
+            'vira_black',
+            'vira_black_income',
+            previousRow?.vira.black.balance,
+        );
+
+        this.white = new Card(
+            row,
+            'vira_white',
+            'vira_white_income',
+            previousRow?.vira.white.balance,
+        );
+
+        this.cash = { 
+            income: new Parted(row.vira_cash_income, 'vira_cash_income', row.date),
+            expense: new Parted(row.vira_cash_expense, 'vira_cash_expense', row.date),
+            get change() {
+                return this.income.sum - this.expense.sum
+            }
+        };
+    }
+
+    get income() {
+        return this.black.income.sum + this.white.income.sum + this.cash.income.sum;
+    }
+    get expense() {
+        return this.black.expense + this.white.expense + this.cash.expense.sum;
+    }
+    get change() {
+        return this.black.change + this.white.change + this.cash.change;
+    }
+    get balance() {
+        return this.black.balance + this.white.balance;
+    }
+}
+
 function parseData(data) {
     const result = [];
     let previousRow = null;
     for(const row of data) {
         const parsedRow = {
             date: row.date,
-            vira: {
-                black: new Card(
-                    row,
-                    'vira_black',
-                    'vira_black_income',
-                    previousRow?.vira.black.balance || 0,
-                ),
-                white: new Card(
-                    row,
-                    'vira_white',
-                    'vira_white_income',
-                    previousRow?.vira.white.balance || 0,
-                ),
-                cash: { 
-                    income: new Parted(row.vira_cash_income, 'vira_cash_income', row.date),
-                    expense: new Parted(row.vira_cash_expense, 'vira_cash_expense', row.date),
-                    get change() {
-                        return this.income.sum - this.expense.sum
-                    }
-                },
-                get income() {
-                    return this.black.income.sum + this.white.income.sum + this.cash.income.sum;
-                },
-                get expense() {
-                    return this.black.expense + this.white.expense + this.cash.expense.sum;
-                },
-                get change() {
-                    return this.black.change + this.white.change + this.cash.change;
-                },
-                get balance() {
-                    return this.black.balance + this.white.balance;
-                }
-            }
+            vira: new Vira(row, previousRow),
+            // vira: {
+            //     black: new Card(
+            //         row,
+            //         'vira_black',
+            //         'vira_black_income',
+            //         previousRow?.vira.black.balance,
+            //     ),
+            //     white: new Card(
+            //         row,
+            //         'vira_white',
+            //         'vira_white_income',
+            //         previousRow?.vira.white.balance || 0,
+            //     ),
+            //     cash: { 
+            //         income: new Parted(row.vira_cash_income, 'vira_cash_income', row.date),
+            //         expense: new Parted(row.vira_cash_expense, 'vira_cash_expense', row.date),
+            //         get change() {
+            //             return this.income.sum - this.expense.sum
+            //         }
+            //     },
+            //     get income() {
+            //         return this.black.income.sum + this.white.income.sum + this.cash.income.sum;
+            //     },
+            //     get expense() {
+            //         return this.black.expense + this.white.expense + this.cash.expense.sum;
+            //     },
+            //     get change() {
+            //         return this.black.change + this.white.change + this.cash.change;
+            //     },
+            //     get balance() {
+            //         return this.black.balance + this.white.balance;
+            //     }
+            // }
         };
 
         result.push(parsedRow);

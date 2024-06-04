@@ -1,17 +1,17 @@
 const apiUrl = import.meta.env.VITE_API_URL;
 
-async function receiveData() {
-    const url = apiUrl + 'data';
-    try {
-        const resp = await fetch(url);
-        const data = await resp.json();
+// async function receiveData() {
+//     const url = apiUrl + 'data';
+//     try {
+//         const resp = await fetch(url);
+//         const data = await resp.json();
 
-        return data;
-    } catch (error) {
-        console.error(error);
-        alert('Data not received!');
-    }
-}
+//         return data;
+//     } catch (error) {
+//         console.error(error);
+//         alert('Data not received!');
+//     }
+// }
 
 async function dataForPassword(password) {
     const url = apiUrl + 'data';
@@ -25,7 +25,7 @@ async function dataForPassword(password) {
         return data;
     } catch (error) {
         console.error(error);
-        alert('Data not received!');
+        // alert('Data not received!');
     }
 }
 
@@ -57,4 +57,4 @@ async function patch(date, column, value) {
     }
 }
 
-export { receiveData, dataForPassword, patch };
+export { /*receiveData,*/ dataForPassword, patch };
