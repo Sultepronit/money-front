@@ -1,18 +1,21 @@
 import { ref, computed } from 'vue';
 import { patch } from './api.js';
-import { Vira } from '@/utils/dataStructures.js';
+import { Vira, Common } from '@/utils/dataStructures.js';
 
 const data = ref([]);
-const rawData = ref([]);
 const reversed = computed(() => data.value.slice(3).reverse());
 
 function parseBalances(data) {
     const fillable = [
         'vira_black',
-        'vira_white'
+        'vira_white',
+        'common_cash',
+        'common_usd',
+        'common_usd_rate'
     ];
 
-    let previous = null;
+    // let previous = null;
+    let previous = {};
 
     for(const row of data) {
         for(const column of fillable) {
@@ -32,6 +35,7 @@ function parseData(data) {
         const parsedRow = {
             date: row.date,
             vira: new Vira(row, previousRow),
+            common: new Common(row)
         };
 
         result.push(parsedRow);
@@ -41,17 +45,17 @@ function parseData(data) {
     return result;
 }
 
-async function prepareData(localRawData) {
+async function prepareData(rawData) {
     // const rawData = await receiveData();
-    console.log(localRawData);
+    console.log(rawData);
 
-    parseBalances(localRawData);
-    console.log(localRawData);
+    localStorage.setItem('rawData', JSON.stringify(rawData));
 
-    rawData.value = localRawData;
+    parseBalances(rawData);
+    console.log(rawData);
 
-    data.value = parseData(localRawData);
+    data.value = parseData(rawData);
     console.log(data.value);
 }
 
-export { prepareData, rawData, data, reversed };
+export { prepareData, data, reversed };

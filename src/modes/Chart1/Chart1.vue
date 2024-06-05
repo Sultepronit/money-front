@@ -46,7 +46,7 @@ const chartData = computed(() => {
                 backgroundColor: 'white',
                 borderColor: 'blue',
                 pointRadius: 0,
-                tension: 0.1,
+                // tension: 0.1,
                 data: data.value.map(entry => [
                     entry.date,
                     entry.vira.black.balance + entry.vira.white.balance

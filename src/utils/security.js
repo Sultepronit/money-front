@@ -8,7 +8,13 @@ const loginStatus = ref('Давай 😉');
 async function handleLogin(password) {
     loginStatus.value = 'Шось ся робе 😊';
 
-    const data = await dataForPassword(password);
+    let data = null;
+    if(password == 0) {
+        data = JSON.parse(localStorage.getItem('rawData'));
+    } else {
+        data = await dataForPassword(password);
+    }
+
     if(Array.isArray(data)) {
         prepareData(data);
         loggedIn.value = true;

@@ -80,4 +80,20 @@ class Vira {
     }
 }
 
-export { Vira };
+class Common {
+    constructor(row) {
+        this.cash = {
+            balance: row.common_cash
+        };
+
+        this.usd = {
+            balance: row.common_usd,
+            rate: row.common_usd_rate,
+            get uah() {
+                return this.balance * this.rate;
+            }
+        };
+    }
+}
+
+export { Vira, Common };
