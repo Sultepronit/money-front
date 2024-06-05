@@ -35,7 +35,10 @@ function parseData(data) {
         const parsedRow = {
             date: row.date,
             vira: new Vira(row, previousRow),
-            common: new Common(row)
+            common: new Common(row, previousRow),
+            get balance() {
+                return this.vira.balance + this.common.balance;
+            }
         };
 
         result.push(parsedRow);

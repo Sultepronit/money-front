@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { patch } from '@/services/api.js';
 
 class Parted {
@@ -80,19 +80,69 @@ class Vira {
     }
 }
 
+class Account {
+    constructor(dbRow, dbBalance, previousBalance) {
+        this.balance = ref(dbRow[dbBalance]);
+        this.dbBalance = dbBalance;
+        this.previousBalance = previousBalance;
+        this.date = dbRow.date;
+    }
+
+    update(newVal) {
+        this.balance = newVal;
+        patch(this.date, this.dbBalance, newVal);
+    }
+
+    get change() {
+        return this.balance - this.previousBalance;
+    }
+}
+
 class Common {
-    constructor(row) {
-        this.cash = {
-            balance: row.common_cash
-        };
+    constructor(row, previousRow) {
+        // this.cash = {
+        //     balance: row.common_cash,
+        //     date: row.date,
+        //     update(newVal) {
+        //         this.balance = newVal;
+        //         patch(this.date, 'common_cash', newVal);
+        //     }
+        // };
+        this.cash = new Account(row, 'common_cash', previousRow?.common.cash.balance);
 
         this.usd = {
+            date: row.date,
+
             balance: row.common_usd,
+            updateBalance(newVal) {
+                this.balance = newVal;
+                patch(this.date, 'common_usd', newVal);
+            },
+
             rate: row.common_usd_rate,
+            updateRate(newVal) {
+                this.rate = newVal;
+                patch(this.date, 'common_usd_rate', newVal);
+            },
+
             get uah() {
                 return this.balance * this.rate;
+            },
+            
+            previousUah: previousRow?.common.usd.uah,
+
+            get change() {
+                return this.uah - this.previousUah;
             }
         };
+    }
+
+    get change() {
+        return this.cash.change + this.usd.change;
+    }
+
+    get balance() {
+        return this.cash.balance + this.usd.uah;
     }
 }
 

@@ -2,6 +2,7 @@
 import SecureScreen from '@/modes/SecureScreen/SecureScreen.vue';
 import ViraInput from '@/modes/ViraInput/ViraInput.vue';
 import Chart1 from '@/modes/Chart1/Chart1.vue';
+import MainInput from '@/modes/MainInput/MainInput.vue';
 
 import { ref, computed } from 'vue';
 
@@ -13,7 +14,8 @@ window.addEventListener('hashchange', () => currentPath.value = window.location.
 console.log(currentPath);
 
 const routes = {
-    '#/chart1': Chart1
+    '#/chart1': Chart1,
+    '#/input': MainInput
 };
 
 const mode = computed(() => routes[currentPath.value] || ViraInput);

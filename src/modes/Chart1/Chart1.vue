@@ -25,14 +25,14 @@ const chartOptions = {
         },
         y: {
             ticks: {
-                stepSize: 500,
+                stepSize: 1000,
                 callback: function(val) {
-                    return val % 2000 === 0 ? this.getLabelForValue(val) : '';
+                    return val % 5000 === 0 ? this.getLabelForValue(val) : '';
                 }
             },
             grid: {
                 color: function(context) {
-                    return context.tick && context.tick.value % 2000 === 0 ? 'black' : 'lightgray';
+                    return context.tick && context.tick.value % 5000 === 0 ? 'black' : 'lightgray';
                 }
             }
         },
@@ -49,7 +49,44 @@ const chartData = computed(() => {
                 // tension: 0.1,
                 data: data.value.map(entry => [
                     entry.date,
-                    entry.vira.black.balance + entry.vira.white.balance
+                    entry.vira.balance
+                ])
+            },
+            {
+                label: 'cash',
+                backgroundColor: 'white',
+                borderColor: 'gray',
+                borderWidth: 5,
+                pointRadius: 0,
+                // tension: 0.1,
+                data: data.value.map(entry => [
+                    entry.date,
+                    entry.common.cash.balance
+                ])
+            },
+            {
+                label: 'usd',
+                backgroundColor: 'white',
+                borderColor: 'green',
+                borderWidth: 5,
+                pointRadius: 0,
+                // tension: 0.1,
+                data: data.value.map(entry => [
+                    entry.date,
+                    entry.common.usd.uah
+                ])
+            },
+            {
+                label: 'balance',
+                backgroundColor: 'lightgray',
+                borderColor: 'green',
+                borderWidth: 1,
+                pointRadius: 0,
+                // tension: 0.1,
+                // fill: true,
+                data: data.value.map(entry => [
+                    entry.date,
+                    entry.balance
                 ])
             }
         ]
