@@ -151,8 +151,20 @@ class Stefko {
                     + this.account3.balance
                     + this.account4.balance;
             }
-        }
+        };
+
+        this.debit = {
+            account1: new Account(row, 'stefko_debit_1', previousRow?.stefko.debit.account1.balance),
+            account2: new Account(row, 'stefko_debit_2', previousRow?.stefko.debit.account2.balance),
+            get sum() {
+                return this.account1.balance + this.account2.balance;
+            }
+        };
     }
+
+    get balance() {
+        return this.credit.sum + this.debit.sum;
+    };
 }
 
 export { Vira, Common, Stefko };

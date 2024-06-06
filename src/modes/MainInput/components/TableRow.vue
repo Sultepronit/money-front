@@ -15,6 +15,9 @@ defineProps(['content']);
     <MagicInput :account="content.stefko.credit.account3" />
     <MagicInput :account="content.stefko.credit.account4" />
 
+    <MagicInput :account="content.stefko.debit.account1" />
+    <MagicInput :account="content.stefko.debit.account2" />
+
     <MagicInput :account="content.common.cash" />
 
     <div class="input">
@@ -36,7 +39,7 @@ defineProps(['content']);
 <style scoped>
 .the-row {
     display: grid;
-    grid-template-columns: auto 4fr 4fr 4fr 4fr 4fr 2fr 2fr;
+    grid-template-columns: auto 4fr 4fr 4fr 4fr 4fr 4fr 4fr 2fr 2fr;
 }
 .date {
     padding-inline: 0.2em;

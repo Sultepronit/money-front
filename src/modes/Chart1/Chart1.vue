@@ -17,6 +17,23 @@ Chart.defaults.borderColor = 'black';
 const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
+    interaction: {
+        node: 'nearest',
+        intersect: false
+    },
+    plugins: {
+        legend: {
+            display: false
+        },
+        tooltip: {
+            callbacks: {
+                title: function(items) {
+                    const date = new Date(items[0].raw[0]);
+                    return date.toDateString();
+                }
+            }
+        }
+    },
     scales: {
         x: {
             type: 'time',
@@ -25,6 +42,7 @@ const chartOptions = {
             }
         },
         y: {
+            position: 'right',
             ticks: {
                 stepSize: 1000,
                 callback: function(val) {
@@ -79,8 +97,8 @@ const chartData = computed(() => {
             },
             {
                 label: 'balance',
-                backgroundColor: 'rgba(0, 0, 0, 0.15)',
-                borderColor: 'green',
+                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                borderColor: 'white',
                 borderWidth: 0,
                 pointRadius: 0,
                 // tension: 0.1,
@@ -106,9 +124,25 @@ const chartData = computed(() => {
                 entry.date,
                 entry.stefko.credit.account4.balance
             ])),
-            new Graph('credit', 'rgba(255, 0, 0, 0.25)', 'red', 2, data.value.map(entry => [
+            new Graph('credit', 'rgba(255, 0, 0, 0.15)', 'red', 2, data.value.map(entry => [
                 entry.date,
                 entry.stefko.credit.sum
+            ])),
+            new Graph('debit', 'rgba(0, 255, 0, 0.2)', 'green', 2, data.value.map(entry => [
+                entry.date,
+                entry.debit
+            ])),
+            new Graph('pumb-deb', null, 'black', 4, data.value.map(entry => [
+                entry.date,
+                entry.stefko.debit.account1.balance
+            ])),
+            new Graph('zp', null, 'black', 2, data.value.map(entry => [
+                entry.date,
+                entry.stefko.debit.account2.balance
+            ])),
+            new Graph('ready', null, 'green', 2, data.value.map(entry => [
+                entry.date,
+                entry.stefko.debit.sum
             ])),
         ]
     }
@@ -131,6 +165,6 @@ const chartData = computed(() => {
 .container {
     width: 100%;
     height: 99vh;
-    border-right: 1px solid black;
+    /* border-right: 1px solid black; */
 }
 </style>

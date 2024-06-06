@@ -16,6 +16,8 @@ function fillNull(data) {
         'stefko_credit_2',
         'stefko_credit_3',
         'stefko_credit_4',
+        'stefko_debit_1',
+        'stefko_debit_2',
     ];
 
     // let previous = null;
@@ -41,8 +43,11 @@ function parseData(data) {
             vira: new Vira(row, previousRow),
             common: new Common(row, previousRow),
             stefko: new Stefko(row, previousRow),
+            get debit() {
+                return this.vira.balance + this.common.balance + this.stefko.debit.sum;
+            },
             get balance() {
-                return this.vira.balance + this.common.balance;
+                return this.vira.balance + this.common.balance + this.stefko.balance;
             }
         };
 
