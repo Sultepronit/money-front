@@ -146,7 +146,10 @@ class Stefko {
             account3: new Account(row, 'stefko_credit_3', previousRow?.stefko.credit.account3.balance),
             account4: new Account(row, 'stefko_credit_4', previousRow?.stefko.credit.account4.balance),
             get sum() {
-                return this.account1.balance + this.account2.balance;
+                return this.account1.balance
+                    + this.account2.balance
+                    + this.account3.balance
+                    + this.account4.balance;
             }
         }
     }

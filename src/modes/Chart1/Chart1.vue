@@ -6,12 +6,13 @@ import { Chart, LineElement, PointElement, LinearScale, Title, Tooltip, Legend, 
 import 'chartjs-adapter-date-fns';
 // import annotationPlugin from 'chartjs-plugin-annotation';
 
+import Graph from './utils/Graph.js';
 import { data } from '@/services/data.js';
 
 Chart.register(LineElement, PointElement, LinearScale, Title, Tooltip, Legend, BarElement, CategoryScale, Filler, TimeScale, /*annotationPlugin*/);
 
 Chart.defaults.borderColor = 'black';
-console.log(Chart.defaults);
+// console.log(Chart.defaults);
 
 const chartOptions = {
     responsive: true,
@@ -88,10 +89,32 @@ const chartData = computed(() => {
                     entry.date,
                     entry.balance
                 ])
-            }
+            },
+            new Graph('pumb', null, '#ff28a1', 3, data.value.map(entry => [
+                entry.date,
+                entry.stefko.credit.account1.balance
+            ])),
+            new Graph('mono', null, '#ff5500', 3, data.value.map(entry => [
+                entry.date,
+                entry.stefko.credit.account2.balance
+            ])),
+            new Graph('privat', null, 'yellow', 3, data.value.map(entry => [
+                entry.date,
+                entry.stefko.credit.account3.balance
+            ])),
+            new Graph('more', null, 'red', 3, data.value.map(entry => [
+                entry.date,
+                entry.stefko.credit.account4.balance
+            ])),
+            new Graph('credit', 'rgba(255, 0, 0, 0.25)', 'red', 2, data.value.map(entry => [
+                entry.date,
+                entry.stefko.credit.sum
+            ])),
         ]
     }
 });
+
+// console.log(chartData.value);
 
 </script>
 
@@ -102,12 +125,12 @@ const chartData = computed(() => {
             :data="chartData"
         />
     </div>
-    <!-- <pre>{{ data[1] }}</pre> -->
 </template>
 
 <style scoped>
 .container {
     width: 100%;
     height: 99vh;
+    border-right: 1px solid black;
 }
 </style>
