@@ -18,7 +18,7 @@ class Parted {
     }
 }
 
-class Card {
+class ViraCard {
     constructor(dbRow, dbBalance, dbIncome, previousBalance) {
         this.balance = ref(dbRow[dbBalance]);
         this.previousBalance = previousBalance;
@@ -43,14 +43,14 @@ class Card {
 
 class Vira {
     constructor(row, previousRow) {
-        this.black = new Card(
+        this.black = new ViraCard(
             row,
             'vira_black',
             'vira_black_income',
             previousRow?.vira.black.balance,
         );
 
-        this.white = new Card(
+        this.white = new ViraCard(
             row,
             'vira_white',
             'vira_white_income',
@@ -100,14 +100,6 @@ class Account {
 
 class Common {
     constructor(row, previousRow) {
-        // this.cash = {
-        //     balance: row.common_cash,
-        //     date: row.date,
-        //     update(newVal) {
-        //         this.balance = newVal;
-        //         patch(this.date, 'common_cash', newVal);
-        //     }
-        // };
         this.cash = new Account(row, 'common_cash', previousRow?.common.cash.balance);
 
         this.usd = {
@@ -146,4 +138,15 @@ class Common {
     }
 }
 
-export { Vira, Common };
+class Stefko {
+    constructor(row, previousRow) {
+        this.credit = {
+            account1: new Account(row, 'stefko_credit_1', previousRow?.stefko.credit.account1.balance),
+            account2: new Account(row, 'stefko_credit_2', previousRow?.stefko.credit.account2.balance),
+            account3: new Account(row, 'stefko_credit_3', previousRow?.stefko.credit.account3.balance),
+            account4: new Account(row, 'stefko_credit_4', previousRow?.stefko.credit.account4.balance),
+        }
+    }
+}
+
+export { Vira, Common, Stefko };

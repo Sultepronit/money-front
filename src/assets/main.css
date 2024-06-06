@@ -9,6 +9,7 @@ body {
 }
 
 input {
+    width: 100%;
     font: inherit;
     color: inherit;
 }
@@ -21,4 +22,7 @@ input {
 }
 .balance {
     font-weight: bold;
+}
+.gg {
+    color: rgba(0, 0, 0, 50);
 }

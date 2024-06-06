@@ -55,7 +55,7 @@ const chartData = computed(() => {
             {
                 label: 'cash',
                 backgroundColor: 'white',
-                borderColor: 'gray',
+                borderColor: 'rgba(0, 0, 0, 0.4)',
                 borderWidth: 5,
                 pointRadius: 0,
                 // tension: 0.1,
@@ -67,7 +67,7 @@ const chartData = computed(() => {
             {
                 label: 'usd',
                 backgroundColor: 'white',
-                borderColor: 'green',
+                borderColor: 'rgba(0, 128, 0, 0.7)',
                 borderWidth: 5,
                 pointRadius: 0,
                 // tension: 0.1,
@@ -78,12 +78,12 @@ const chartData = computed(() => {
             },
             {
                 label: 'balance',
-                backgroundColor: 'lightgray',
+                backgroundColor: 'rgba(0, 0, 0, 0.15)',
                 borderColor: 'green',
-                borderWidth: 1,
+                borderWidth: 0,
                 pointRadius: 0,
                 // tension: 0.1,
-                // fill: true,
+                fill: true,
                 data: data.value.map(entry => [
                     entry.date,
                     entry.balance
@@ -107,7 +107,7 @@ const chartData = computed(() => {
 
 <style scoped>
 .container {
-    width: 90%;
-    height: 90vh;
+    width: 100%;
+    height: 99vh;
 }
 </style>

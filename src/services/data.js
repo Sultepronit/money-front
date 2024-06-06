@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue';
 import { patch } from './api.js';
-import { Vira, Common } from '@/utils/dataStructures.js';
+import { Vira, Common, Stefko } from '@/utils/dataStructures.js';
 
 const data = ref([]);
 const reversed = computed(() => data.value.slice(3).reverse());
@@ -36,6 +36,7 @@ function parseData(data) {
             date: row.date,
             vira: new Vira(row, previousRow),
             common: new Common(row, previousRow),
+            stefko: new Stefko(row, previousRow),
             get balance() {
                 return this.vira.balance + this.common.balance;
             }
