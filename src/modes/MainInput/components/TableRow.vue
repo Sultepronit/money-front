@@ -2,19 +2,20 @@
 import BalanceInput from './BalanceInput.vue';
 import MagicInput from './MagicInput.vue';
 
+import { ukrainianDate } from '@/utils/formatters.js';
+
 defineProps(['content']);
 </script>
 
 <template>
 <div class="the-row">
-    <p>{{ content.date }}</p>
+    <p class="date">{{ ukrainianDate(content.date) }}</p>
     <MagicInput :account="content.stefko.credit.account1" />
-    <BalanceInput :account="content.stefko.credit.account1" />
-    <BalanceInput :account="content.stefko.credit.account2" />
-    <BalanceInput :account="content.stefko.credit.account3" />
-    <BalanceInput :account="content.stefko.credit.account4" />
+    <MagicInput :account="content.stefko.credit.account2" />
+    <MagicInput :account="content.stefko.credit.account3" />
+    <MagicInput :account="content.stefko.credit.account4" />
 
-    <BalanceInput :account="content.common.cash" />
+    <MagicInput :account="content.common.cash" />
 
     <div class="input">
         <input
@@ -35,6 +36,11 @@ defineProps(['content']);
 <style scoped>
 .the-row {
     display: grid;
-    grid-template-columns: 4fr 5fr 3fr 3fr 3fr 3fr 3fr 2fr 1fr;
+    grid-template-columns: auto 4fr 4fr 4fr 4fr 4fr 2fr 2fr;
+}
+.date {
+    padding-inline: 0.2em;
+    width: 6em;
+    border: 1px solid;
 }
 </style>

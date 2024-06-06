@@ -2,28 +2,24 @@
 import { ref } from 'vue';
 const props = defineProps(['account']);
 
-// const theValue = ref('');
-// theValue.value = props.account.balance;
 const theValue = '' + props.account.balance;
-const theResult = ref('');
+const hintedResult = ref('');
+const focused = ref(false);
 
 function parse(input) {
-    // account.update
-    // console.log(input);
-    // console.log(new Function(`return ${input}`)());
-    try {
-        const result = new Function(`return ${input}`)();
-        // console.log(result);
-        // theValue.value = input + '=' + result;
-        theResult.value = result;
-        props.account.update(result);
-    } catch (error) {
-        console.log('The heck?')
+    input = input.replaceAll(',', '.');
+    if(isNaN(input)) {
+        try {
+            const result = new Function(`return ${input}`)();
+            hintedResult.value = result;
+            props.account.update(result);
+        } catch (error) {
+            console.log('The heck?')
+        }
+    } else {
+        hintedResult.value = '';
+        props.account.update(Number(input));
     }
-}
-
-function handle(input) {
-    
 }
 </script>
 
@@ -32,14 +28,28 @@ function handle(input) {
     <input
         type="text"
         :value="theValue"
+        :class="{focused}"
         @change="parse($event.target.value)"
+        @focus="focused=true"
+        @blur="focused=false"
     >
-    <p>{{ theResult }}</p>
+    <p class="result" v-show="focused">{{ hintedResult }}</p>
 </div>
 </template>
 
 <style scoped>
 .input-result {
-    display: flex;
+    /* display: flex; */
+}
+.focused {
+    position: absolute;
+    width: 10em;
+}
+.result {
+    position: absolute;
+    margin-top: 1.25em;
+    margin-left: 0.1em;
+    background: yellowgreen;
+    padding-inline: 0.4em;
 }
 </style>
