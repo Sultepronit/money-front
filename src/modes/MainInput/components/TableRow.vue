@@ -1,6 +1,6 @@
 <script setup>
-import NormalInput from './NormalInput.vue';
 import BalanceInput from './BalanceInput.vue';
+import MagicInput from './MagicInput.vue';
 
 defineProps(['content']);
 </script>
@@ -8,13 +8,12 @@ defineProps(['content']);
 <template>
 <div class="the-row">
     <p>{{ content.date }}</p>
-    <!-- <div class="input">
-        <input
-            type="number"
-            :value="content.common.cash.balance"
-            @change="content.common.cash.update($event.target.value)"
-        >
-    </div> -->
+    <MagicInput :account="content.stefko.credit.account1" />
+    <BalanceInput :account="content.stefko.credit.account1" />
+    <BalanceInput :account="content.stefko.credit.account2" />
+    <BalanceInput :account="content.stefko.credit.account3" />
+    <BalanceInput :account="content.stefko.credit.account4" />
+
     <BalanceInput :account="content.common.cash" />
 
     <div class="input">
@@ -36,6 +35,6 @@ defineProps(['content']);
 <style scoped>
 .the-row {
     display: grid;
-    grid-template-columns: 4fr 3fr 2fr 1fr;
+    grid-template-columns: 4fr 5fr 3fr 3fr 3fr 3fr 3fr 2fr 1fr;
 }
 </style>

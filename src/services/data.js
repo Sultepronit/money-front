@@ -5,13 +5,17 @@ import { Vira, Common, Stefko } from '@/utils/dataStructures.js';
 const data = ref([]);
 const reversed = computed(() => data.value.slice(3).reverse());
 
-function parseBalances(data) {
+function fillNull(data) {
     const fillable = [
         'vira_black',
         'vira_white',
         'common_cash',
         'common_usd',
-        'common_usd_rate'
+        'common_usd_rate',
+        'stefko_credit_1',
+        'stefko_credit_2',
+        'stefko_credit_3',
+        'stefko_credit_4',
     ];
 
     // let previous = null;
@@ -55,7 +59,7 @@ async function prepareData(rawData) {
 
     localStorage.setItem('rawData', JSON.stringify(rawData));
 
-    parseBalances(rawData);
+    fillNull(rawData);
     console.log(rawData);
 
     data.value = parseData(rawData);
