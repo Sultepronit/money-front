@@ -81,24 +81,6 @@ class Vira {
     }
 }
 
-class Account {
-    constructor(dbRow, dbBalance, previousBalance) {
-        this.balance = ref(dbRow[dbBalance]);
-        this.dbBalance = dbBalance;
-        this.previousBalance = previousBalance;
-        this.date = dbRow.date;
-    }
-
-    update(newVal) {
-        this.balance = newVal;
-        patch(this.date, this.dbBalance, newVal);
-    }
-
-    get change() {
-        return this.balance - this.previousBalance;
-    }
-}
-
 class Balance {
     constructor(dbRow, dbColName, previous) {
         this.current = dbRow[dbColName];
@@ -197,24 +179,41 @@ class Stefko {
     };
 }
 
+class Others {
+    constructor(row, previousRow) {
+        this.marta = new Balance(row, 'others_marta', previousRow?.others.marta.balance);
+    }
+}
+
 class DataRow {
     constructor(rawRow, previousRow) {
         this.date = rawRow.date;
         this.vira = new Vira(rawRow, previousRow);
         this.common = new Common(rawRow, previousRow);
         this.stefko = new Stefko(rawRow, previousRow);
+        this.others = new Others(rawRow, previousRow);
+        this.income = new Parted(rawRow['total_income'], 'total_income', rawRow.date);
     };
     
     get debit() {
-        return this.vira.balance + this.common.balance + this.stefko.debit.sum;
+        return this.vira.balance
+            + this.common.balance
+            + this.stefko.debit.sum
+            - this.others.marta.balance;
     };
 
     get balance() {
-        return this.vira.balance + this.common.balance + this.stefko.balance;
+        return this.vira.balance
+            + this.common.balance
+            + this.stefko.balance
+            - this.others.marta.balance;
     };
 
     get change() {
-        return this.vira.change + this.common.change + this.stefko.change;
+        return this.vira.change
+            + this.common.change
+            + this.stefko.change
+            - this.others.marta.change;
     }
 };
 

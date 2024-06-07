@@ -1,6 +1,8 @@
 <script setup>
 // import MagicInput from './MagicInput.vue';
 import MagicInput2 from './MagicInput2.vue';
+import EditParts from './EditParts.vue';
+import PartsInput from './PartsInput.vue';
 
 import { ukrainianDate } from '@/utils/formatters.js';
 
@@ -15,6 +17,8 @@ defineProps(['content']);
     <MagicInput2 :account="content.stefko.credit.account3" />
     <MagicInput2 :account="content.stefko.credit.account4" />
 
+    <PartsInput :parted="content.income" />
+
     <MagicInput2 :account="content.stefko.debit.account1" />
     <MagicInput2 :account="content.stefko.debit.account2" />
 
@@ -22,13 +26,15 @@ defineProps(['content']);
 
     <MagicInput2 :account="content.common.usd.balance" />
     <MagicInput2 :account="content.common.usd.rate" />
+
+    <MagicInput2 :account="content.others.marta" />
 </div>
 </template>
 
 <style scoped>
 .the-row {
     display: grid;
-    grid-template-columns: auto 4fr 4fr 4fr 4fr 4fr 4fr 4fr 2fr 2fr;
+    grid-template-columns: auto 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 2fr 2fr 4fr;
 }
 .date {
     padding-inline: 0.2em;
