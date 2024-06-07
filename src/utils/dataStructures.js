@@ -150,6 +150,12 @@ class Stefko {
                     + this.account2.balance
                     + this.account3.balance
                     + this.account4.balance;
+            },
+            get change() {
+                return this.account1.change
+                    + this.account2.change
+                    + this.account3.change
+                    + this.account4.change;
             }
         };
 
@@ -158,12 +164,19 @@ class Stefko {
             account2: new Account(row, 'stefko_debit_2', previousRow?.stefko.debit.account2.balance),
             get sum() {
                 return this.account1.balance + this.account2.balance;
+            },
+            get change() {
+                return this.account1.change + this.account2.change;
             }
         };
     }
 
     get balance() {
         return this.credit.sum + this.debit.sum;
+    };
+
+    get change() {
+        return this.credit.change + this.debit.change;
     };
 }
 

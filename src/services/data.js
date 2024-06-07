@@ -48,6 +48,9 @@ function parseData(data) {
             },
             get balance() {
                 return this.vira.balance + this.common.balance + this.stefko.balance;
+            },
+            get change() {
+                return this.vira.change + this.common.change + this.stefko.change;
             }
         };
 
