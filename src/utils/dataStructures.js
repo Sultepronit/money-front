@@ -101,39 +101,39 @@ class Account {
 
 class Balance {
     constructor(dbRow, dbColName, previous) {
-        this._current = dbRow[dbColName];
+        this.current = dbRow[dbColName];
         this.previous = previous;
         this.dbColName = dbColName;
         this.date = dbRow.date;
     }
 
-    get current() {
-        return this._current || this.previous;
+    get balance() {
+        return this.current || this.previous;
     }
 
     updateValue(newVal) {
-        this._current = newVal;
+        this.current = newVal;
         update(this.date, this.dbColName, newVal);
     }
 
     get change() {
-        return this.current - this.previous;
+        return this.balance - this.previous;
     }
 }
 
 class Common {
     constructor(row, previousRow) {
         // this.cash = new Account(row, 'common_cash', previousRow?.common.cash.balance);
-        this.cash = new Balance(row, 'common_cash', previousRow?.common.cash.current);
+        this.cash = new Balance(row, 'common_cash', previousRow?.common.cash.balance);
 
         this.usd = {
             date: row.date,
-            balance: new Balance(row, 'common_usd', previousRow?.common.usd.balance.current),
-            rate: new Balance(row, 'common_usd_rate', previousRow?.common.usd.rate.current),
+            balance: new Balance(row, 'common_usd', previousRow?.common.usd.balance.balance),
+            rate: new Balance(row, 'common_usd_rate', previousRow?.common.usd.rate.balance),
 
             get uah() {
-                console.log(this.balance.current);
-                return this.balance.current * this.rate.current;
+                // console.log(this.balance.balance);
+                return this.balance.balance * this.rate.balance;
             },
             
             previousUah: previousRow?.common.usd.uah,
@@ -156,10 +156,11 @@ class Common {
 class Stefko {
     constructor(row, previousRow) {
         this.credit = {
-            account1: new Account(row, 'stefko_credit_1', previousRow?.stefko.credit.account1.balance),
-            account2: new Account(row, 'stefko_credit_2', previousRow?.stefko.credit.account2.balance),
-            account3: new Account(row, 'stefko_credit_3', previousRow?.stefko.credit.account3.balance),
-            account4: new Account(row, 'stefko_credit_4', previousRow?.stefko.credit.account4.balance),
+            // account1: new Account(row, 'stefko_credit_1', previousRow?.stefko.credit.account1.balance),
+            account1: new Balance(row, 'stefko_credit_1', previousRow?.stefko.credit.account1.balance),
+            account2: new Balance(row, 'stefko_credit_2', previousRow?.stefko.credit.account2.balance),
+            account3: new Balance(row, 'stefko_credit_3', previousRow?.stefko.credit.account3.balance),
+            account4: new Balance(row, 'stefko_credit_4', previousRow?.stefko.credit.account4.balance),
             get sum() {
                 return this.account1.balance
                     + this.account2.balance
@@ -176,10 +177,10 @@ class Stefko {
 
         this.debit = {
             // account1: new Account(row, 'stefko_debit_1', previousRow?.stefko.debit.account1.balance),
-            account1: new Balance(row, 'stefko_debit_1', previousRow?.stefko.debit.account1.current),
-            account2: new Balance(row, 'stefko_debit_2', previousRow?.stefko.debit.account2.current),
+            account1: new Balance(row, 'stefko_debit_1', previousRow?.stefko.debit.account1.balance),
+            account2: new Balance(row, 'stefko_debit_2', previousRow?.stefko.debit.account2.balance),
             get sum() {
-                return this.account1.current + this.account2.current;
+                return this.account1.balance + this.account2.balance;
             },
             get change() {
                 return this.account1.change + this.account2.change;

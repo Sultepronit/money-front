@@ -1,6 +1,5 @@
 <script setup>
-// import BalanceInput from './BalanceInput.vue';
-import MagicInput from './MagicInput.vue';
+// import MagicInput from './MagicInput.vue';
 import MagicInput2 from './MagicInput2.vue';
 
 import { ukrainianDate } from '@/utils/formatters.js';
@@ -11,10 +10,10 @@ defineProps(['content']);
 <template>
 <div class="the-row">
     <p class="date">{{ ukrainianDate(content.date) }}</p>
-    <MagicInput :account="content.stefko.credit.account1" />
-    <MagicInput :account="content.stefko.credit.account2" />
-    <MagicInput :account="content.stefko.credit.account3" />
-    <MagicInput :account="content.stefko.credit.account4" />
+    <MagicInput2 :account="content.stefko.credit.account1" />
+    <MagicInput2 :account="content.stefko.credit.account2" />
+    <MagicInput2 :account="content.stefko.credit.account3" />
+    <MagicInput2 :account="content.stefko.credit.account4" />
 
     <MagicInput2 :account="content.stefko.debit.account1" />
     <MagicInput2 :account="content.stefko.debit.account2" />
@@ -23,20 +22,6 @@ defineProps(['content']);
 
     <MagicInput2 :account="content.common.usd.balance" />
     <MagicInput2 :account="content.common.usd.rate" />
-
-    <!-- <div class="input">
-        <input
-            type="number"
-            :value="content.common.usd.balance"
-            @change="content.common.usd.updateBalance($event.target.value)"
-        >
-    </div> -->
-
-    <!-- <input
-        type="number"
-        :value="content.common.usd.rate"
-        @change="content.common.usd.updateRate($event.target.value)"
-    > -->
 </div>
 </template>
 

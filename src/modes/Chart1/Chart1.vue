@@ -71,30 +71,14 @@ const chartData = computed(() => {
                     entry.vira.balance
                 ])
             },
-            {
-                label: 'cash',
-                backgroundColor: 'white',
-                borderColor: 'rgba(0, 0, 0, 0.4)',
-                borderWidth: 5,
-                pointRadius: 0,
-                // tension: 0.1,
-                data: data.value.map(entry => [
-                    entry.date,
-                    entry.common.cash.balance
-                ])
-            },
-            {
-                label: 'usd',
-                backgroundColor: 'white',
-                borderColor: 'rgba(0, 128, 0, 0.7)',
-                borderWidth: 5,
-                pointRadius: 0,
-                // tension: 0.1,
-                data: data.value.map(entry => [
-                    entry.date,
-                    entry.common.usd.uah
-                ])
-            },
+            new Graph('usd', null, 'rgba(0, 0, 0, 0.4)', 5, data.value.map(entry => [
+                entry.date,
+                entry.common.cash.balance
+            ])),
+            new Graph('usd', null, 'rgba(0, 128, 0, 0.7)', 5, data.value.map(entry => [
+                entry.date,
+                entry.common.usd.uah
+            ])),
             {
                 label: 'balance',
                 backgroundColor: 'rgba(0, 0, 0, 0.2)',
@@ -132,14 +116,14 @@ const chartData = computed(() => {
                 entry.date,
                 entry.debit
             ])),
-            new Graph('pumb-deb', null, 'black', 4, data.value.map(entry => [
-                entry.date,
-                entry.stefko.debit.account1.balance
-            ])),
-            new Graph('zp', null, 'black', 2, data.value.map(entry => [
-                entry.date,
-                entry.stefko.debit.account2.balance
-            ])),
+            // new Graph('pumb-deb', null, 'black', 4, data.value.map(entry => [
+            //     entry.date,
+            //     entry.stefko.debit.account1.balance
+            // ])),
+            // new Graph('zp', null, 'black', 2, data.value.map(entry => [
+            //     entry.date,
+            //     entry.stefko.debit.account2.balance
+            // ])),
             new Graph('ready', null, 'green', 2, data.value.map(entry => [
                 entry.date,
                 entry.stefko.debit.sum

@@ -3,7 +3,7 @@ import { ref, computed } from 'vue';
 const props = defineProps(['account']);
 
 let expression = ref('');
-const theValue = computed(() => expression.value || props.account.current);
+const theValue = computed(() => expression.value || props.account.balance);
 
 const hintedResult = ref('');
 const focused = ref(false);
