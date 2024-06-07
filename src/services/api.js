@@ -1,18 +1,5 @@
 const apiUrl = import.meta.env.VITE_API_URL;
 
-// async function receiveData() {
-//     const url = apiUrl + 'data';
-//     try {
-//         const resp = await fetch(url);
-//         const data = await resp.json();
-
-//         return data;
-//     } catch (error) {
-//         console.error(error);
-//         alert('Data not received!');
-//     }
-// }
-
 async function dataForPassword(password) {
     const url = apiUrl + 'data';
     try {
@@ -31,7 +18,8 @@ async function dataForPassword(password) {
 
 async function patch(date, column, value) {
     console.log('saving:', date, column, value);
-
+    console.log('not saved!');
+    return;
     const url = `${apiUrl}${date}`;
     
     try {

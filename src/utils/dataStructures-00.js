@@ -1,6 +1,5 @@
 import { ref, computed } from 'vue';
 import { patch } from '@/services/api.js';
-import update from '@/services/update.js';
 
 class Parted {
     constructor(parts, dbColumn, date) {
@@ -99,41 +98,27 @@ class Account {
     }
 }
 
-class Balance {
-    constructor(dbRow, dbColName, previous) {
-        this._current = dbRow[dbColName];
-        this.previous = previous;
-        this.dbColName = dbColName;
-        this.date = dbRow.date;
-    }
-
-    get current() {
-        return this._current || this.previous;
-    }
-
-    updateValue(newVal) {
-        this._current = newVal;
-        update(this.date, this.dbColName, newVal);
-    }
-
-    get change() {
-        return this.current - this.previous;
-    }
-}
-
 class Common {
     constructor(row, previousRow) {
-        // this.cash = new Account(row, 'common_cash', previousRow?.common.cash.balance);
-        this.cash = new Balance(row, 'common_cash', previousRow?.common.cash.current);
+        this.cash = new Account(row, 'common_cash', previousRow?.common.cash.balance);
 
         this.usd = {
             date: row.date,
-            balance: new Balance(row, 'common_usd', previousRow?.common.usd.balance.current),
-            rate: new Balance(row, 'common_usd_rate', previousRow?.common.usd.rate.current),
+
+            balance: row.common_usd,
+            updateBalance(newVal) {
+                this.balance = newVal;
+                patch(this.date, 'common_usd', newVal);
+            },
+
+            rate: row.common_usd_rate,
+            updateRate(newVal) {
+                this.rate = newVal;
+                patch(this.date, 'common_usd_rate', newVal);
+            },
 
             get uah() {
-                console.log(this.balance.current);
-                return this.balance.current * this.rate.current;
+                return this.balance * this.rate;
             },
             
             previousUah: previousRow?.common.usd.uah,
@@ -175,11 +160,10 @@ class Stefko {
         };
 
         this.debit = {
-            // account1: new Account(row, 'stefko_debit_1', previousRow?.stefko.debit.account1.balance),
-            account1: new Balance(row, 'stefko_debit_1', previousRow?.stefko.debit.account1.current),
-            account2: new Balance(row, 'stefko_debit_2', previousRow?.stefko.debit.account2.current),
+            account1: new Account(row, 'stefko_debit_1', previousRow?.stefko.debit.account1.balance),
+            account2: new Account(row, 'stefko_debit_2', previousRow?.stefko.debit.account2.balance),
             get sum() {
-                return this.account1.current + this.account2.current;
+                return this.account1.balance + this.account2.balance;
             },
             get change() {
                 return this.account1.change + this.account2.change;
@@ -196,25 +180,4 @@ class Stefko {
     };
 }
 
-class DataRow {
-    constructor(rawRow, previousRow) {
-        this.date = rawRow.date;
-        this.vira = new Vira(rawRow, previousRow);
-        this.common = new Common(rawRow, previousRow);
-        this.stefko = new Stefko(rawRow, previousRow);
-    };
-    
-    get debit() {
-        return this.vira.balance + this.common.balance + this.stefko.debit.sum;
-    };
-
-    get balance() {
-        return this.vira.balance + this.common.balance + this.stefko.balance;
-    };
-
-    get change() {
-        return this.vira.change + this.common.change + this.stefko.change;
-    }
-};
-
-export { DataRow, Vira, Common, Stefko };
+export { Vira, Common, Stefko };

@@ -5,5 +5,6 @@ import { data } from '@/services/data.js';
 
 <template>
     <TableRow v-for="row in data" :key="row.date" :content="row" />
-    <!-- <pre>{{ data }}</pre>     -->
+    <!-- <p v-for="row in data" :key="row.date">{{ row.common.usd.balance.change }}</p> -->
+     <p v-for="row in data" :key="row.date">{{ row.common.usd.change }}</p>
 </template>

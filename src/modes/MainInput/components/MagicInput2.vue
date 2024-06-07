@@ -1,8 +1,10 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 const props = defineProps(['account']);
 
-const theValue = '' + props.account.balance;
+let expression = ref('');
+const theValue = computed(() => expression.value || props.account.current);
+
 const hintedResult = ref('');
 const focused = ref(false);
 
@@ -11,23 +13,25 @@ function parse(input) {
     if(isNaN(input)) {
         try {
             const result = new Function(`return ${input}`)();
+            expression.value = input;
             hintedResult.value = result;
-            props.account.update(result);
+            props.account.updateValue(result);
         } catch (error) {
             console.log('The heck?')
         }
     } else {
+        expression.value = '';
         hintedResult.value = '';
-        props.account.update(Number(input));
+        props.account.updateValue(Number(input));
     }
 }
 </script>
 
 <template>
-<div class="input-result">
+<div>
     <input
         type="text"
-        :value="account.balance"
+        :value="theValue"
         :class="{focused}"
         @change="parse($event.target.value)"
         @focus="focused=true"
@@ -38,9 +42,6 @@ function parse(input) {
 </template>
 
 <style scoped>
-.input-result {
-    /* display: flex; */
-}
 .focused {
     position: absolute;
     width: 10em;
