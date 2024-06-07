@@ -18,8 +18,8 @@ async function dataForPassword(password) {
 
 async function patch(date, column, value) {
     console.log('saving:', date, column, value);
-    console.log('not saved!');
-    return;
+    // console.log('not saved!');
+    // return;
     const url = `${apiUrl}${date}`;
     
     try {
