@@ -79,6 +79,9 @@ class Vira {
     get balance() {
         return this.black.balance + this.white.balance;
     }
+    get balanceChange() {
+        return this.black.change + this.white.change;
+    }
 }
 
 class Balance {
@@ -210,7 +213,7 @@ class DataRow {
     };
 
     get change() {
-        return this.vira.change
+        return this.vira.balanceChange
             + this.common.change
             + this.stefko.change
             - this.others.marta.change;

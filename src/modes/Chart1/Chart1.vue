@@ -116,14 +116,14 @@ const chartData = computed(() => {
                 entry.date,
                 entry.debit
             ])),
-            // new Graph('pumb-deb', null, 'black', 4, data.value.map(entry => [
-            //     entry.date,
-            //     entry.stefko.debit.account1.balance
-            // ])),
-            // new Graph('zp', null, 'black', 2, data.value.map(entry => [
-            //     entry.date,
-            //     entry.stefko.debit.account2.balance
-            // ])),
+            new Graph('pumb-deb', null, 'black', 4, data.value.map(entry => [
+                entry.date,
+                entry.stefko.debit.account1.balance
+            ])),
+            new Graph('zp', null, 'black', 2, data.value.map(entry => [
+                entry.date,
+                entry.stefko.debit.account2.balance
+            ])),
             new Graph('ready', null, 'green', 2, data.value.map(entry => [
                 entry.date,
                 entry.stefko.debit.sum

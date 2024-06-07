@@ -10,8 +10,14 @@ import { data } from '@/services/data.js';
         <p>{{ Math.round(row.stefko.credit.change) }}</p>
         <p>{{ Math.round(row.stefko.debit.sum) }}</p>
         <p>{{ Math.round(row.stefko.debit.change) }}</p>
-        <p>{{ Math.round(row.stefko.balance) }}</p>
-        <p>{{ Math.round(row.stefko.change) }}</p>
+        <!-- <p>{{ Math.round(row.stefko.balance) }}</p>
+        <p>{{ Math.round(row.stefko.change) }}</p> -->
+        <p>{{ Math.round(row.vira.balance) }}</p>
+        <p>{{ Math.round(row.vira.change) }}</p>
+        <p>{{ Math.round(row.balance) }}</p>
+        <p>{{ Math.round(row.change) }}</p>
+        <p>{{ Math.round(row.income.sum) }}</p>
+        <p>{{ Math.round(row.change - row.income.sum) }}</p>
     </div>
 </section>
     <pre>{{ data[8].change }}</pre>
@@ -27,6 +33,6 @@ import { data } from '@/services/data.js';
 <style scoped>
 .table-row {
     display: grid;
-    grid-template-columns: 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 2fr 2fr;
+    grid-template-columns: 5fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr;
 }
 </style>
