@@ -40,7 +40,7 @@ const chartOptions = {
             time: {
                 unit: 'month',
             },
-            min: '2024-06-01',
+            // min: '2024-06-01',
             // max: '2024-07-01'
         },
         y: {

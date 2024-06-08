@@ -6,8 +6,7 @@ import ViewStats from '@/modes/ViewStats/ViewStats.vue';
 
 import { ref } from 'vue';
 
-const mode = ref(MainInput);
-const mode2 = ref('input');
+const mode = ref('input');
 
 </script>
 
