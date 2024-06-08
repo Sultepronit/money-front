@@ -15,7 +15,7 @@ async function dataForPassword(password) {
     } catch (error) {
         console.error(error);
         // alert('Data not received!');
-        loginStatus.value = 'Йой, якийсь недобрий інтернет 🙄';
+        loginStatus.value = 'Ну шо за інтернет? 🙄';
         return await refetch(password);
     }
 }

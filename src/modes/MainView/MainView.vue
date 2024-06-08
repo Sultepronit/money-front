@@ -3,6 +3,7 @@ import ViraInput from '@/modes/ViraInput/ViraInput.vue';
 import Chart1 from '@/modes/Chart1/Chart1.vue';
 import MainInput from '@/modes/MainInput/MainInput.vue';
 import ViewStats from '@/modes/ViewStats/ViewStats.vue';
+import CompactStats from '@/components/CompactStats.vue';
 
 import { ref } from 'vue';
 
@@ -16,11 +17,13 @@ const mode = ref('input');
         <button @click="mode='stats'">stats</button>
         <button @click="mode='chart'">chart</button>
         <button @click="mode='vira'">vira</button>
+        <button @click="mode='compact'">compact</button>
     </p>
     <MainInput v-show="mode === 'input'" />
     <Chart1 v-show="mode === 'chart'" />
     <ViewStats v-show="mode === 'stats'" />
     <ViraInput v-show="mode === 'vira'" />
+    <CompactStats v-show="mode === 'compact'" />
 </template>
 
 <style scoped>
