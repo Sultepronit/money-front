@@ -9,7 +9,6 @@ import MainView from '@/modes/MainView/MainView.vue';
 import { ref, computed } from 'vue';
 
 import { loggedIn } from './utils/security';
-import { prepareData, } from '@/services/data.js';
 
 const currentPath = ref(window.location.hash);
 window.addEventListener('hashchange', () => currentPath.value = window.location.hash);

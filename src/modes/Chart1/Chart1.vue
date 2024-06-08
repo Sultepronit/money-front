@@ -39,7 +39,9 @@ const chartOptions = {
             type: 'time',
             time: {
                 unit: 'month',
-            }
+            },
+            min: '2024-06-01',
+            // max: '2024-07-01'
         },
         y: {
             position: 'right',
@@ -137,18 +139,18 @@ const chartData = computed(() => {
 </script>
 
 <template>
-    <div class="container">
-        <Line
-            :options="chartOptions"
-            :data="chartData"
-        />
-    </div>
+<section class="container">
+    <Line
+        :options="chartOptions"
+        :data="chartData"
+    />
+</section>
 </template>
 
 <style scoped>
 .container {
     width: 100%;
-    height: 99vh;
+    height: 95vh;
     /* border-right: 1px solid black; */
 }
 </style>
