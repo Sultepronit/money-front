@@ -1,73 +1,71 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { reversed as list } from '@/services/data.js';
+import { ukrainianDate } from '@/utils/formatters';
 
 // console.log(data);
 
 // const list = computed(() => data.value.slice().reverse());
 
-const editedIndex = ref(0);
-const edited = computed(() => list.value[editedIndex.value]);
+const selected = ref(0);
 </script>
 
 <template>
 <section class="page">
-    <div class="stats-item">
-        <p>Vira</p>
-        <p class="number">{{ list[0].vira.balance }}</p>
-        <p class="number">{{ list[0].vira.balanceChange }}</p>
-    </div>
-    <div class="stats-item">
-        <p>Батько</p>
-        <p class="number">{{ Math.round(list[0].stefko.balance) }}</p>
-        <p class="number">{{ Math.round(list[0].stefko.change) }}</p>
-    </div>
-    <div class="stats-item">
-        <p>Cash</p>
-        <p class="number">{{ list[0].common.cash.balance }}</p>
-        <p class="number">{{ list[0].common.cash.change }}</p>
-    </div>
-    <div class="stats-item">
-        <p>USD</p>
-        <p class="number">{{ list[0].common.usd.balance.balance }} / {{ list[0].common.usd.uah }}</p>
-        <p class="number">{{ list[0].common.usd.change }}</p>
-    </div>
-    <div class="stats-item">
-        <p>balance</p>
-        <p class="number">{{ list[0].balance }} </p>
-        <p class="number">{{ list[0].change }}</p>
-    </div>
-    <div class="stats-item">
-        <p>income</p>
-        <p></p>
-        <p class="number">{{ list[0].income.sum }}</p>
-    </div>
-    <div class="stats-item">
-        <p>expense</p>
-        <p></p>
-        <p class="number">{{ list[0].change - list[0].income.sum }}</p>
+    <div class="detailed-stats">
+        <p class="title-date">{{ ukrainianDate(list[selected].date) }}</p>
+        <div class="stats-item">
+            <p>Vira</p>
+            <p class="number">{{ list[selected].vira.balance }}</p>
+            <p class="number">{{ list[selected].vira.balanceChange }}</p>
+        </div>
+        <div class="stats-item">
+            <p>Батько</p>
+            <p class="number">{{ Math.round(list[selected].stefko.balance) }}</p>
+            <p class="number">{{ Math.round(list[selected].stefko.change) }}</p>
+        </div>
+        <div class="stats-item">
+            <p>Cash</p>
+            <p class="number">{{ list[selected].common.cash.balance }}</p>
+            <p class="number">{{ list[selected].common.cash.change }}</p>
+        </div>
+        <div class="stats-item">
+            <p>USD</p>
+            <p class="number">{{ list[selected].common.usd.balance.balance }} / {{ list[selected].common.usd.uah }}</p>
+            <p class="number">{{ list[selected].common.usd.change }}</p>
+        </div>
+        <div class="stats-item">
+            <p>balance</p>
+            <p class="number">{{ Math.round(list[selected].balance) }} </p>
+            <p class="number">{{ Math.round(list[selected].change) }}</p>
+        </div>
+        <div class="stats-item">
+            <p>income</p>
+            <p></p>
+            <p class="number">{{ list[selected].income.sum }}</p>
+        </div>
+        <div class="stats-item">
+            <p>expense</p>
+            <p></p>
+            <p class="number">{{ Math.round(list[selected].change - list[selected].income.sum) }}</p>
+        </div>
     </div>
     
-    <!-- <pre>{{ list[0].common.usd.balance.balance }}</pre> -->
-    
-    <!-- <pre>{{ list[0] }}</pre> -->
-    <!-- <EditedEntry
-        v-if="edited"
-        :date="edited.date"
-        :entry="edited.vira"
-        :index="editedIndex"
-    />
     <div class="list">
-        <ListElement
-            v-for="(entry, index) in list"
-            :key="entry.date"
-            :date="entry.date"
-            :entry="entry.vira"
-            class="element"
-            :class="{selected: editedIndex === index}"
-            @click="editedIndex = index"
-        />
-    </div> -->
+        <div
+            v-for="(day, index) in list"
+            :key="index"
+            class="list-item"
+            :class="{selected: selected === index}"
+            @click="selected = index"
+        >
+            <div class="stats-item">
+                <p>{{ ukrainianDate(day.date) }}</p>
+                <p class="number">{{ Math.round(day.balance) }} </p>
+                <p class="number">{{ Math.round(day.change) }}</p>
+            </div>
+        </div>
+    </div>
 </section>
 </template>
 
@@ -76,6 +74,10 @@ const edited = computed(() => list.value[editedIndex.value]);
     max-width: 20em;
     margin: 0.3rem;
 }
+.title-date {
+    text-align: center;
+    font-size: 1.2em;
+}
 .stats-item {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -83,8 +85,23 @@ const edited = computed(() => list.value[editedIndex.value]);
 .number {
     text-align: right;
 }
+.detailed-stats {
+    margin: 0.4rem 0.1rem;
+    padding: 0.3em;
+    border-radius: 0.4rem;
+    background-color: #b5ffb5;
+}
 .list {
-    height: calc(100vh - 17em);
+    height: calc(100vh - 12em);
     overflow: auto;
+}
+.list-item {
+    margin: 0.4rem 0.1rem;
+    padding: 0.3em;
+    border-radius: 0.4rem;
+    background-color: #ebeaea;
+}
+.selected {
+    background-color: #b5ffb5;
 }
 </style>

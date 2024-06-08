@@ -90,10 +90,6 @@ const current = ref('black');
 .the-entry {
     margin-bottom: 0.5em;
 }
-.header {
-    /* margin-bottom: 0.2em; */
-    /* background-color: khaki; */
-}
 .date {
     font-size: 1.1em;
     text-align: center;
