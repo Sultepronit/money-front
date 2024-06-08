@@ -1,3 +1,5 @@
+import { loginStatus } from '@/utils/security.js';
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 async function dataForPassword(password) {
@@ -13,7 +15,17 @@ async function dataForPassword(password) {
     } catch (error) {
         console.error(error);
         // alert('Data not received!');
+        loginStatus.value = 'Йой, якийсь недобрий інтернет 🙄';
+        return await refetch(password);
     }
+}
+
+async function refetch(password) {   
+    return new Promise(resolve => {
+        setTimeout(async () => {
+            resolve(await dataForPassword(password));
+        }, 5 * 1000);
+    });
 }
 
 async function patch(date, column, value) {
@@ -39,10 +51,19 @@ async function patch(date, column, value) {
     } catch (error) {
         // setStatus.failed();
         console.error(error);
-        alert(`Not updated!`);
+        alert(`Ніц не вийшло, треба ше пробувати`);
 
-        // return repatch(table, card);
+        // return repatch(date, column, value);
+        return await patch(date, column, value);
     }
+}
+
+async function repatch(date, column, value) {   
+    return new Promise(resolve => {
+        setTimeout(async () => {
+            resolve(await patch(date, column, value));
+        }, 5 * 1000);
+    });
 }
 
 export { /*receiveData,*/ dataForPassword, patch };

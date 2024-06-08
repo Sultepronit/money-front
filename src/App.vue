@@ -4,6 +4,7 @@ import ViraInput from '@/modes/ViraInput/ViraInput.vue';
 import Chart1 from '@/modes/Chart1/Chart1.vue';
 import MainInput from '@/modes/MainInput/MainInput.vue';
 import ViewStats from '@/modes/ViewStats/ViewStats.vue';
+import MainView from '@/modes/MainView/MainView.vue';
 
 import { ref, computed } from 'vue';
 
@@ -17,7 +18,8 @@ console.log(currentPath);
 const routes = {
     '#/chart1': Chart1,
     '#/input': MainInput,
-    '#/stats': ViewStats
+    '#/stats': ViewStats,
+    '#/main': MainView
 };
 
 const mode = computed(() => routes[currentPath.value] || ViraInput);
