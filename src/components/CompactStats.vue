@@ -66,7 +66,8 @@ const selected = ref(0);
         >
             <p>{{ ukrainianDate(day.date) }}</p>
             <p class="number">{{ Math.round(day.balance) }} </p>
-            <p class="number">{{ Math.round(day.change) }}</p>
+            <!-- <p class="number">{{ Math.round(day.change) }}</p> -->
+            <BalanceChange :value="day.change" />
         </div>
     </div>
 </section>
@@ -91,12 +92,6 @@ const selected = ref(0);
 }
 .number {
     text-align: right;
-}
-.detailed-stats {
-    /* margin: 0.4rem 0.1rem;
-    padding: 0.3em;
-    border-radius: 0.4rem; */
-    /* background-color: #b5ffb5; */
 }
 .list {
     height: calc(100vh - 12em);
