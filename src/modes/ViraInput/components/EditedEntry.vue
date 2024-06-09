@@ -17,7 +17,7 @@ const current = ref('black');
 <section class="the-entry">
     <div class="header">
         <p class="date">{{ ukrainianDate(date) }}</p>
-        <div class="total">
+        <div class="account">
             <StatsPattern
                 :income="entry.income"
                 :expense="entry.expense"
@@ -91,24 +91,26 @@ const current = ref('black');
     margin-bottom: 0.5em;
 }
 .date {
-    font-size: 1.1em;
+    font-size: 1.2em;
     text-align: center;
-    color: blue;
-    /* font-weight: bold; */
+    /* color: blue; */
+    font-weight: bold;
     padding-inline: 1em;
 }
+/* .total {
+    background: #abf6ff;
+} */
 .account {
-    margin-bottom: 0.2em;
-    border: 1px solid gray;
-    border-radius: 0.2em;
+    margin-block: 0.2em;
+    /* border: 1px solid gray; */
+    /* border-radius: 0.2em; */
+    background: #abf6ff;
+    /* background: #d6f4f8; */
 }
 .edited {
     /* border-color: green;
     border-width: 2px; */
-    border: 2px solid black;
-} 
-.edited .title {
-    font-weight: bold;
+    border: 1px solid black;
 }
 
 </style>

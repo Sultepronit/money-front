@@ -1,4 +1,6 @@
 <script setup>
+import BalanceChange from './BalanceChange.vue';
+
 import { ref, computed } from 'vue';
 import { reversed as list } from '@/services/data.js';
 import { ukrainianDate } from '@/utils/formatters';
@@ -13,37 +15,44 @@ const selected = ref(0);
         <div class="stats-item">
             <p>Веронічка</p>
             <p class="number">{{ list[selected].vira.balance }}</p>
-            <p class="number">{{ list[selected].vira.balanceChange }}</p>
+            <!-- <p class="number">{{ list[selected].vira.balanceChange }}</p> -->
+            <BalanceChange :value="list[selected].vira.balanceChange" />
         </div>
         <div class="stats-item">
             <p>Батько</p>
             <p class="number">{{ Math.round(list[selected].stefko.balance) }}</p>
-            <p class="number">{{ Math.round(list[selected].stefko.change) }}</p>
+            <!-- <p class="number">{{ Math.round(list[selected].stefko.change) }}</p> -->
+            <BalanceChange :value="list[selected].stefko.change" />
         </div>
         <div class="stats-item">
             <p>готівка</p>
             <p class="number">{{ list[selected].common.cash.balance }}</p>
-            <p class="number">{{ list[selected].common.cash.change }}</p>
+            <!-- <p class="number">{{ list[selected].common.cash.change }}</p> -->
+            <BalanceChange :value="list[selected].common.cash.change" />
         </div>
         <div class="stats-item">
             <p>USD</p>
             <p class="number">{{ list[selected].common.usd.balance.balance }} / {{ list[selected].common.usd.uah }}</p>
-            <p class="number">{{ list[selected].common.usd.change }}</p>
+            <!-- <p class="number">{{ list[selected].common.usd.change }}</p> -->
+            <BalanceChange :value="list[selected].common.usd.change" />
         </div>
         <div class="stats-item">
             <p>баланс</p>
             <p class="number">{{ Math.round(list[selected].balance) }} </p>
-            <p class="number">{{ Math.round(list[selected].change) }}</p>
+            <!-- <p class="number">{{ Math.round(list[selected].change) }}</p> -->
+            <BalanceChange :value="list[selected].change" />
         </div>
         <div class="stats-item">
             <p>доходи</p>
             <p></p>
-            <p class="number">{{ list[selected].income.sum }}</p>
+            <!-- <p class="number">{{ list[selected].income.sum }}</p> -->
+            <BalanceChange :value="list[selected].income.sum" />
         </div>
         <div class="stats-item">
             <p>розходи</p>
             <p></p>
-            <p class="number">{{ Math.round(list[selected].change - list[selected].income.sum) }}</p>
+            <!-- <p class="number">{{ Math.round(list[selected].change - list[selected].income.sum) }}</p> -->
+            <BalanceChange :value="list[selected].change - list[selected].income.sum" />
         </div>
     </div>
     
