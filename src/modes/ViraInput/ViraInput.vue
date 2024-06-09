@@ -13,7 +13,7 @@ const edited = computed(() => list.value[editedIndex.value]);
 </script>
 
 <template>
-<section class="page">
+<section class="the-body">
     <EditedEntry
         v-if="edited"
         :date="edited.date"
@@ -35,12 +35,12 @@ const edited = computed(() => list.value[editedIndex.value]);
 </template>
 
 <style scoped>
-.page {
+.the-body {
     max-width: 20em;
     margin: 0.3rem;
 }
 .list {
-    height: calc(100vh - 17em);
+    height: calc(100vh - 19em);
     overflow: auto;
 }
 .element {

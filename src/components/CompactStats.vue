@@ -9,7 +9,7 @@ const selected = ref(0);
 </script>
 
 <template>
-<section class="page">
+<section class="the-body">
     <div class="detailed-stats">
         <p class="title-date">{{ ukrainianDate(list[selected].date) }}</p>
         <div class="stats-item">
@@ -74,7 +74,7 @@ const selected = ref(0);
 </template>
 
 <style scoped>
-.page {
+.the-body {
     max-width: 20em;
     margin: 0.3rem;
 }
@@ -94,7 +94,8 @@ const selected = ref(0);
     text-align: right;
 }
 .list {
-    height: calc(100vh - 12em);
+    margin-top: 0.7rem;
+    height: calc(100vh - 13.8em);
     overflow: auto;
 }
 .list-item {

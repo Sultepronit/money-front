@@ -5,6 +5,7 @@ import Chart1 from '@/modes/Chart1/Chart1.vue';
 import MainInput from '@/modes/MainInput/MainInput.vue';
 import ViewStats from '@/modes/ViewStats/ViewStats.vue';
 import MainView from '@/modes/MainView/MainView.vue';
+import ViraView from '@/components/ViraView.vue';
 
 import { ref, computed } from 'vue';
 
@@ -18,10 +19,12 @@ const routes = {
     '#/chart1': Chart1,
     '#/input': MainInput,
     '#/stats': ViewStats,
-    '#/main': MainView
+    '#/main': MainView,
+    '#/vira': ViraView
 };
 
-const mode = computed(() => routes[currentPath.value] || ViraInput);
+// const mode = computed(() => routes[currentPath.value] || ViraInput);
+const mode = computed(() => routes[currentPath.value] || ViraView);
 
 </script>
 
