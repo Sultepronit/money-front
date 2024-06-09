@@ -110,7 +110,9 @@ const current = ref('black');
 .edited {
     /* border-color: green;
     border-width: 2px; */
-    /* border: 1px solid black; */
+    border: 2px solid black;
+    border-radius: 0.2em;
+    background-color: white;
 }
 
 </style>
