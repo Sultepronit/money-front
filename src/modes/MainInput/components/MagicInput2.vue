@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 const props = defineProps(['account']);
 
 let expression = ref('');
+console.log(props.account);
 const theValue = computed(() => expression.value || props.account.balance);
 
 const hintedResult = ref('');

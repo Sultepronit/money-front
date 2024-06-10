@@ -25,8 +25,8 @@ import { data } from '@/services/data.js';
         <p>{{ row.date }}</p>
         <p>{{ Math.round(row.stefko.credit.sum) }}</p>
         <p>{{ Math.round(row.stefko.credit.change) }}</p>
-        <p>{{ Math.round(row.stefko.debit.sum) }}</p>
-        <p>{{ Math.round(row.stefko.debit.change) }}</p>
+        <p>{{ Math.round(row.stefko.debit) }}</p>
+        <p>{{ Math.round(row.stefko.debitChange) }}</p>
         <p>{{ Math.round(row.stefko.balance) }}</p>
         <p>{{ Math.round(row.stefko.change) }}</p>
         <p>{{ Math.round(row.vira.balance) }}</p>

@@ -141,7 +141,6 @@ class Common {
 class Stefko {
     constructor(row, previousRow) {
         this.credit = {
-            // account1: new Account(row, 'stefko_credit_1', previousRow?.stefko.credit.account1.balance),
             account1: new Balance(row, 'stefko_credit_1', previousRow?.stefko.credit.account1.balance),
             account2: new Balance(row, 'stefko_credit_2', previousRow?.stefko.credit.account2.balance),
             account3: new Balance(row, 'stefko_credit_3', previousRow?.stefko.credit.account3.balance),
@@ -160,10 +159,9 @@ class Stefko {
             }
         };
 
-        this.debit = {
-            // account1: new Account(row, 'stefko_debit_1', previousRow?.stefko.debit.account1.balance),
-            account1: new Balance(row, 'stefko_debit_1', previousRow?.stefko.debit.account1.balance),
-            account2: new Balance(row, 'stefko_debit_2', previousRow?.stefko.debit.account2.balance),
+        this.debitAccounts = {
+            account1: new Balance(row, 'stefko_debit_1', previousRow?.stefko.debitAccounts.account1.balance),
+            account2: new Balance(row, 'stefko_debit_2', previousRow?.stefko.debitAccounts.account2.balance),
             get sum() {
                 return this.account1.balance + this.account2.balance;
             },
@@ -171,22 +169,34 @@ class Stefko {
                 return this.account1.change + this.account2.change;
             }
         };
+
+        this.others = {
+            marta: new Balance(row, 'others_marta', previousRow?.stefko.others.marta.balance)
+        }
+    }
+
+    get debit() {
+        return this.debitAccounts.sum - this.others.marta.balance;
+    };
+
+    get debitChange() {
+        return this.debitAccounts.change - this.others.marta.change;
     }
 
     get balance() {
-        return this.credit.sum + this.debit.sum;
+        return this.credit.sum + this.debit;
     };
 
     get change() {
-        return this.credit.change + this.debit.change;
+        return this.credit.change + this.debitChange;
     };
 }
 
-class Others {
-    constructor(row, previousRow) {
-        this.marta = new Balance(row, 'others_marta', previousRow?.others.marta.balance);
-    }
-}
+// class Others {
+//     constructor(row, previousRow) {
+//         this.marta = new Balance(row, 'others_marta', previousRow?.others.marta.balance);
+//     }
+// }
 
 class DataRow {
     constructor(rawRow, previousRow) {
@@ -194,29 +204,26 @@ class DataRow {
         this.vira = new Vira(rawRow, previousRow);
         this.common = new Common(rawRow, previousRow);
         this.stefko = new Stefko(rawRow, previousRow);
-        this.others = new Others(rawRow, previousRow);
+        // this.others = new Others(rawRow, previousRow);
         this.income = new Parted(rawRow['total_income'], 'total_income', rawRow.date);
     };
     
     get debit() {
         return this.vira.balance
             + this.common.balance
-            + this.stefko.debit.sum
-            - this.others.marta.balance;
+            + this.stefko.debit;
     };
 
     get balance() {
         return this.vira.balance
             + this.common.balance
-            + this.stefko.balance
-            - this.others.marta.balance;
+            + this.stefko.balance;
     };
 
     get change() {
         return this.vira.balanceChange
             + this.common.change
-            + this.stefko.change
-            - this.others.marta.change;
+            + this.stefko.change;
     }
 };
 

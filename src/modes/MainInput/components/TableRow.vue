@@ -1,7 +1,5 @@
 <script setup>
-// import MagicInput from './MagicInput.vue';
 import MagicInput2 from './MagicInput2.vue';
-import EditParts from './EditParts.vue';
 import PartsInput from './PartsInput.vue';
 
 import { ukrainianDate } from '@/utils/formatters.js';
@@ -19,15 +17,15 @@ defineProps(['content']);
 
     <PartsInput :parted="content.income" />
 
-    <MagicInput2 :account="content.stefko.debit.account1" />
-    <MagicInput2 :account="content.stefko.debit.account2" />
+    <MagicInput2 :account="content.stefko.debitAccounts.account1" />
+    <MagicInput2 :account="content.stefko.debitAccounts.account2" />
 
     <MagicInput2 :account="content.common.cash" />
 
     <MagicInput2 :account="content.common.usd.balance" />
     <MagicInput2 :account="content.common.usd.rate" />
 
-    <MagicInput2 :account="content.others.marta" />
+    <MagicInput2 :account="content.stefko.others.marta" />
 </div>
 </template>
 
