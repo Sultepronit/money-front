@@ -85,7 +85,7 @@ const selected = ref(0);
 }
 .stats-item {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 6fr 5fr 4fr;
     background: #abf6ff;
     margin: 0.2em;
     padding-inline: 0.2em;
@@ -100,7 +100,7 @@ const selected = ref(0);
 }
 .list-item {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 6fr 5fr 4fr;
     margin: 0.4rem 0.1rem;
     padding: 0.3em;
     border-radius: 0.4rem;

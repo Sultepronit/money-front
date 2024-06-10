@@ -27,7 +27,7 @@ const mode = ref('vira');
 
 <style scoped>
 .main-page {
-    height: 100vh;
+    height: 100dvh;
     display: grid;
     grid-template-rows: 1fr auto;
 }
