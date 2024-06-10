@@ -95,7 +95,7 @@ const selected = ref(0);
 }
 .list {
     margin-top: 0.7rem;
-    height: calc(100vh - 13.8em);
+    height: calc(100dvh - 13.8em);
     overflow: auto;
 }
 .list-item {

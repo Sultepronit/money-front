@@ -40,7 +40,7 @@ const edited = computed(() => list.value[editedIndex.value]);
     margin: 0.3rem;
 }
 .list {
-    height: calc(100vh - 19em);
+    height: calc(100dvh - 19em);
     overflow: auto;
 }
 .element {

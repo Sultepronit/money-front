@@ -5,14 +5,27 @@ import MainInput from '@/modes/MainInput/MainInput.vue';
 import ViewStats from '@/modes/ViewStats/ViewStats.vue';
 import CompactStats from '@/components/CompactStats.vue';
 
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
+const page = ref(null);
+console.log(page);
+console.log(page.value);
 const mode = ref('vira');
+
+onMounted(() => {
+    console.log(page.value);
+    console.log(page.value.style);
+    console.log(page.value.style.height);
+    setTimeout(() => {
+        // page.value.style.height = '500px';
+    }, 1000);   
+    
+});
 
 </script>
 
 <template>
-<section class="main-page">
+<section class="main-page" ref="page">
     <div>
         <ViraInput v-show="mode === 'vira'" />
         <CompactStats v-show="mode === 'compact'" />
@@ -27,7 +40,7 @@ const mode = ref('vira');
 
 <style scoped>
 .main-page {
-    height: 100dvh;
+    /* height: 90dvh; */
     display: grid;
     grid-template-rows: 1fr auto;
 }
