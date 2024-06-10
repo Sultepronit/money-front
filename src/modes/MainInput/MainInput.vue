@@ -15,6 +15,6 @@ import { data } from '@/services/data.js';
 
 <style scoped>
 .main-input {
-    min-width: 40em;
+    min-width: 50em;
 }
 </style>
