@@ -2,7 +2,7 @@
 import ViraInput from '@/modes/ViraInput/ViraInput.vue';
 // import Chart1 from '@/modes/Chart1/Chart1.vue';
 import MainInput from '@/modes/MainInput/MainInput.vue';
-import ViewStats from '@/modes/ViewStats/ViewStats.vue';
+import ViewStats from '@/components/ViewStats.vue';
 import CompactStats from '@/components/CompactStats.vue';
 import MainChart from '@/components/MainChart.vue';
 

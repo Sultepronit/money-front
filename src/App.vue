@@ -1,8 +1,5 @@
 <script setup>
 import SecureScreen from '@/modes/SecureScreen/SecureScreen.vue';
-// import ViraInput from '@/modes/ViraInput/ViraInput.vue';
-import MainInput from '@/modes/MainInput/MainInput.vue';
-import ViewStats from '@/modes/ViewStats/ViewStats.vue';
 import MainView from '@/modes/MainView/MainView.vue';
 import ViraView from '@/components/ViraView.vue';
 
@@ -15,8 +12,6 @@ window.addEventListener('hashchange', () => currentPath.value = window.location.
 console.log(currentPath);
 
 const routes = {
-    '#/input': MainInput,
-    '#/stats': ViewStats,
     '#/main': MainView,
     '#/vira': ViraView
 };
@@ -27,7 +22,6 @@ const mode = computed(() => routes[currentPath.value] || ViraView);
 
 <template>
     <SecureScreen v-if="!loggedIn"/>
-    <!-- <ViraInput v-if="loggedIn" /> -->
     <component
         v-if="loggedIn"
         :is="mode"
