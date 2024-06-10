@@ -12,7 +12,7 @@ onMounted(() => {
 </script>
 
 <template>
-<div class="main-page">
+<div class="page">
     <div class="panel">
         <input
             class="password"
@@ -26,7 +26,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.main-page {
+.page {
     display: flex;
     justify-content: center;
 }

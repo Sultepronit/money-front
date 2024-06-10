@@ -1,31 +1,15 @@
 <script setup>
 import ViraInput from '@/modes/ViraInput/ViraInput.vue';
-import Chart1 from '@/modes/Chart1/Chart1.vue';
-import MainInput from '@/modes/MainInput/MainInput.vue';
-import ViewStats from '@/modes/ViewStats/ViewStats.vue';
 import CompactStats from '@/components/CompactStats.vue';
 
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
-const page = ref(null);
-console.log(page);
-console.log(page.value);
 const mode = ref('vira');
-
-onMounted(() => {
-    console.log(page.value);
-    console.log(page.value.style);
-    console.log(page.value.style.height);
-    setTimeout(() => {
-        // page.value.style.height = '500px';
-    }, 1000);   
-    
-});
 
 </script>
 
 <template>
-<section class="main-page" ref="page">
+<section class="page">
     <div>
         <ViraInput v-show="mode === 'vira'" />
         <CompactStats v-show="mode === 'compact'" />
@@ -39,8 +23,10 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.main-page {
-    /* height: 90dvh; */
+.page {
+    height: 100dvh;
+    max-width: 20em;
+    margin: 0.3rem;
     display: grid;
     grid-template-rows: 1fr auto;
 }
@@ -48,6 +34,7 @@ onMounted(() => {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin-bottom: 0.5em;
+    /* margin-top: */
 }
 button {
     font-size: 1.2rem;

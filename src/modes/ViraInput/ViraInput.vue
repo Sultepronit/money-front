@@ -36,8 +36,8 @@ const edited = computed(() => list.value[editedIndex.value]);
 
 <style scoped>
 .the-body {
-    max-width: 20em;
-    margin: 0.3rem;
+    /* max-width: 20em;
+    margin: 0.3rem; */
 }
 .list {
     height: calc(100dvh - 19em);

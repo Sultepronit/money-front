@@ -75,8 +75,8 @@ const selected = ref(0);
 
 <style scoped>
 .the-body {
-    max-width: 20em;
-    margin: 0.3rem;
+    /* max-width: 20em;
+    margin: 0.3rem; */
 }
 .title-date {
     text-align: center;
