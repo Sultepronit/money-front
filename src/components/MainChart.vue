@@ -12,6 +12,9 @@ Chart.register(LineElement, PointElement, LinearScale, Title, Tooltip, Legend, B
 Chart.defaults.borderColor = 'black';
 // console.log(Chart.defaults);
 
+const major = 10000;
+const minor = 2000;
+
 const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -44,14 +47,14 @@ const chartOptions = {
         y: {
             position: 'right',
             ticks: {
-                stepSize: 1000,
+                stepSize: minor,
                 callback: function(val) {
-                    return val % 5000 === 0 ? this.getLabelForValue(val) : '';
+                    return val % major === 0 ? this.getLabelForValue(val) : '';
                 }
             },
             grid: {
                 color: function(context) {
-                    return context.tick && context.tick.value % 5000 === 0 ? 'black' : 'lightgray';
+                    return context.tick && context.tick.value % major === 0 ? 'black' : 'lightgray';
                 }
             }
         },
