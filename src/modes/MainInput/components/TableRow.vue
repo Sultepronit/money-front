@@ -35,8 +35,9 @@ defineProps(['content']);
     grid-template-columns: auto 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 2fr 2fr 4fr;
 }
 .date {
+    /* white-space: nowrap; */
     padding-inline: 0.2em;
-    width: 6em;
+    width: 7em;
     border: 1px solid;
 }
 </style>
