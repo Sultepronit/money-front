@@ -10,7 +10,7 @@ import { status } from '@/services/statusControls.js';
 .status-bar {
     /* background: green; */
     width: 100%;
-    height: 0.15rem;
+    height: 0.2rem;
 }
 
 .loading {
