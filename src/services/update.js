@@ -18,7 +18,7 @@ function update(date, column, value) {
         data.value[i] = new DataRow(rawData[i], data.value[i - 1]);
     }
 
-    console.log(rawData);
+    // console.log(rawData);
 }
 
 export default update;

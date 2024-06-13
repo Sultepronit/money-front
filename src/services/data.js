@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue';
-import { patch } from './api.js';
-import { DataRow, Vira, Common, Stefko } from '@/utils/dataStructures.js';
+import { getRate } from './api.js';
+import { DataRow } from '@/utils/dataStructures.js';
 
 const data = ref([]);
 let rawData = [];
@@ -10,18 +10,8 @@ function fillNull(data) {
     const fillable = [
         'vira_black',
         'vira_white',
-        // 'common_cash',
-        // 'common_usd',
-        // 'common_usd_rate',
-        // 'stefko_credit_1',
-        // 'stefko_credit_2',
-        // 'stefko_credit_3',
-        // 'stefko_credit_4',
-        // 'stefko_debit_1',
-        // 'stefko_debit_2',
     ];
 
-    // let previous = null;
     let previous = {};
 
     for(const row of data) {
@@ -48,6 +38,16 @@ function parseData(data) {
     return result;
 }
 
+async function handleRate() {
+    if(reversed.value[0].common.usd.rate.current === null) {
+        const newRate = await getRate();
+        reversed.value[0].common.usd.rate.updateValue(newRate.rate);
+        if(reversed.value[0].common.usd.change !== 0) {
+            reversed.value[0].income.update([reversed.value[0].common.usd.change]);
+        }
+    }
+}
+
 async function prepareData(inputRawData) {
     console.log(inputRawData);
     localStorage.setItem('rawData', JSON.stringify(inputRawData));
@@ -58,6 +58,8 @@ async function prepareData(inputRawData) {
 
     data.value = parseData(rawData);
     console.log(data.value);
+
+    handleRate();
 }
 
 export { prepareData, rawData, data, reversed };

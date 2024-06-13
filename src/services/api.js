@@ -77,4 +77,16 @@ async function repatch(date, column, value) {
     });
 }
 
-export { dataForPassword, patch };
+async function getRate() {
+    const url = apiUrl + 'usd-rate';
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        // return await refetch(password);
+    }
+}
+
+export { dataForPassword, patch, getRate };

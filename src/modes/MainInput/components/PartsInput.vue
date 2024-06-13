@@ -8,8 +8,8 @@ const plussed = computed(() => {
         ? props.parted.parts.reduce((acc, val) => `${acc}+${val}`)
         : '';
 });
-console.log(plussed);
-console.log(plussed.value);
+// console.log(plussed);
+// console.log(plussed.value);
 
 let expression = ref('');
 

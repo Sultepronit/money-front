@@ -227,4 +227,4 @@ class DataRow {
     }
 };
 
-export { DataRow, Vira, Common, Stefko };
+export { DataRow, /* Vira, Common, Stefko */ };
