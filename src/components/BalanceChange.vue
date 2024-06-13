@@ -13,11 +13,11 @@ const color = computed(() => props.value > 0 ? 'green' : 'red');
 </script>
 
 <template>
-    <p class="the-value" :class="color">{{ valueToDisplay }}</p>
+    <p class="balance-change" :class="color">{{ valueToDisplay }}</p>
 </template>
 
 <style scoped>
-.the-value {
+.balance-change {
     text-align: right;
 }
 .green {

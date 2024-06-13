@@ -24,8 +24,8 @@ const mode = ref('vira');
 
 <style scoped>
 .page {
-    height: 100dvh;
-    max-width: 20em;
+    height: calc(100dvh - 0.85rem);
+    max-width: 25em;
     margin: 0.3rem;
     display: grid;
     grid-template-rows: 1fr auto;
@@ -33,7 +33,7 @@ const mode = ref('vira');
 .buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin-bottom: 0.5em;
+    margin-block: 0.5em;
     /* margin-top: */
 }
 button {

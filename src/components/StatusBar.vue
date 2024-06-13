@@ -9,8 +9,9 @@ import { status } from '@/services/statusControls.js';
 <style scoped>
 .status-bar {
     /* background: green; */
+    /* position: sticky; */
     width: 100%;
-    height: 0.2rem;
+    height: 0.25rem;
 }
 
 .loading {
