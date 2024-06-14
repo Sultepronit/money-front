@@ -178,13 +178,17 @@ class Stefko {
     };
 }
 
+class Income {
+
+}
+
 class DataRow {
     constructor(rawRow, previousRow) {
         this.date = rawRow.date;
         this.vira = new Vira(rawRow, previousRow);
         this.common = new Common(rawRow, previousRow);
         this.stefko = new Stefko(rawRow, previousRow);
-        this.income = new Parted(rawRow['total_income'], 'total_income', rawRow.date);
+        this.income = new Parted(rawRow['stefko_income'], 'stefko_income', rawRow.date);
     };
     
     get debit() {
@@ -206,4 +210,4 @@ class DataRow {
     }
 };
 
-export { DataRow, /* Vira, Common, Stefko */ };
+export { DataRow };
