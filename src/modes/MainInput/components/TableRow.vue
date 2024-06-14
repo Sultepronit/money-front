@@ -15,7 +15,7 @@ defineProps(['content']);
     <MagicInput2 :account="content.stefko.credit.account3" />
     <MagicInput2 :account="content.stefko.credit.account4" />
 
-    <PartsInput :parted="content.income" />
+    <PartsInput :parted="content.stefko.income" />
 
     <MagicInput2 :account="content.stefko.debitAccounts.account1" />
     <MagicInput2 :account="content.stefko.debitAccounts.account2" />

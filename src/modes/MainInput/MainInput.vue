@@ -1,6 +1,4 @@
 <script setup>
-import ViewStats from '@/components/ViewStats.vue';
-
 import TableRow from './components/TableRow.vue';
 import { data } from '@/services/data.js';
 </script>
@@ -13,7 +11,7 @@ import { data } from '@/services/data.js';
         <p>mono</p>
         <p>univers</p>
         <p>more</p>
-        <p>income</p>
+        <p>s income</p>
         <p>pumb</p>
         <p>zp</p>
         <p>cash</p>

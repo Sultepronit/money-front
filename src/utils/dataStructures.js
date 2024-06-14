@@ -1,56 +1,4 @@
-import { ref, computed } from 'vue';
-import { patch } from '@/services/api.js';
-import update from '@/services/update.js';
-
-class Parted {
-    constructor(parts, dbColumn, date) {
-        this.parts = JSON.parse(parts) || [];
-        this.dbColumn = dbColumn;
-        this.date = date;
-    }
-
-    update(parts) {
-        this.parts = parts;
-        patch(this.date, this.dbColumn, JSON.stringify(parts));
-    }
-
-    get sum() {
-        return this.parts.reduce((acc, num) => acc + Number(num), 0);
-    }
-}
-
-class Balance {
-    constructor(dbRow, dbColName, previous) {
-        this.current = dbRow[dbColName];
-        this.previous = previous;
-        this.dbColName = dbColName;
-        this.date = dbRow.date;
-    }
-
-    get balance() {
-        return this.current || this.previous;
-    }
-
-    updateValue(newVal) {
-        this.current = newVal;
-        update(this.date, this.dbColName, newVal);
-    }
-
-    get change() {
-        return this.balance - this.previous;
-    }
-}
-
-class ViraCard {
-    constructor(dbRow, dbBalance, dbIncome, previousBalance) {
-        this.balance = new Balance(dbRow, dbBalance, previousBalance);
-        this.income = new Parted(dbRow[dbIncome], dbIncome, dbRow.date);
-    }
-    
-    get expense() {
-        return this.income.sum - this.balance.change;
-    }
-}
+import { Parted, Balance, ViraCard, Field } from './basicStructures.js';
 
 class Vira {
     constructor(row, previousRow) {
@@ -156,6 +104,8 @@ class Stefko {
             }
         };
 
+        this.income = new Parted(row['stefko_income'], 'stefko_income', row.date);
+
         this.others = {
             marta: new Balance(row, 'others_marta', previousRow?.stefko.others.marta.balance)
         }
@@ -178,8 +128,16 @@ class Stefko {
     };
 }
 
-class Income {
+class CommonIncome {
+    constructor(rawRow) {
+        this.cancel = new Parted(rawRow['income_cancel'], 'income_cancel', rawRow.date);
+        this.debit = new Parted(rawRow['income_debit'], 'income_debit', rawRow.date);
+        this.exchangeUsd = new Field(rawRow, 'income_exchange_usd');
+    }
 
+    get sum() {
+        return this.debit.sum + this.exchangeUsd.value - this.cancel;
+    }
 }
 
 class DataRow {
@@ -188,7 +146,8 @@ class DataRow {
         this.vira = new Vira(rawRow, previousRow);
         this.common = new Common(rawRow, previousRow);
         this.stefko = new Stefko(rawRow, previousRow);
-        this.income = new Parted(rawRow['stefko_income'], 'stefko_income', rawRow.date);
+        // this.income = new Parted(rawRow['stefko_income'], 'stefko_income', rawRow.date);
+        this.commonIncome = new CommonIncome(rawRow);
     };
     
     get debit() {
@@ -207,6 +166,12 @@ class DataRow {
         return this.vira.balanceChange
             + this.common.change
             + this.stefko.change;
+    }
+
+    get income() {
+        return this.stefko.income.sum
+            + this.vira.income
+            + this.commonIncome.sum;
     }
 };
 
