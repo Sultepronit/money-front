@@ -34,8 +34,6 @@ const selected = ref(0);
 
         <div class="stats-item columns">
             <p class="usd-title">
-                <!-- USD
-                <span class="rate">{{ list[selected].common.usd.rate.balance.toFixed(2) }}</span> -->
                 <p>USD</p>
                 <p class="rate">&nbsp;{{ list[selected].common.usd.rate.balance.toFixed(2) }}</p>
             </p>
@@ -55,13 +53,13 @@ const selected = ref(0);
         <div class="stats-item columns">
             <p>доходи</p>
             <p></p>
-            <BalanceChange :value="list[selected].income.sum" />
+            <BalanceChange :value="list[selected].income" />
         </div>
 
         <div class="stats-item columns">
             <p>розходи</p>
             <p></p>
-            <BalanceChange :value="list[selected].change - list[selected].income.sum" />
+            <BalanceChange :value="list[selected].expense" />
         </div>
     </div>
     

@@ -8,7 +8,7 @@ defineProps(['content']);
 </script>
 
 <template>
-<div class="the-row">
+<div class="main-input-row">
     <p class="date">{{ ukrainianDate(content.date) }}</p>
     <MagicInput2 :account="content.stefko.credit.account1" />
     <MagicInput2 :account="content.stefko.credit.account2" />
@@ -16,6 +16,7 @@ defineProps(['content']);
     <MagicInput2 :account="content.stefko.credit.account4" />
 
     <PartsInput :parted="content.stefko.income" />
+    <PartsInput :parted="content.additionalIncome.cancel" />
 
     <MagicInput2 :account="content.stefko.debitAccounts.account1" />
     <MagicInput2 :account="content.stefko.debitAccounts.account2" />
@@ -30,10 +31,10 @@ defineProps(['content']);
 </template>
 
 <style scoped>
-.the-row {
+/* .the-row {
     display: grid;
-    grid-template-columns: auto 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 2fr 2fr 4fr;
-}
+    grid-template-columns: auto 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 2fr 2fr 4fr;
+} */
 .date {
     /* white-space: nowrap; */
     padding-inline: 0.2em;

@@ -27,14 +27,14 @@ import { ukrainianDate } from '@/utils/formatters';
             <td>{{ Math.round(row.stefko.debitChange) }}</td>
             <td>{{ Math.round(row.stefko.balance) }}</td>
             <td>{{ Math.round(row.stefko.change) }}</td>
-            <td>{{ Math.round(row.vira.balance) }}</td>
-            <td>{{ Math.round(row.vira.balanceChange) }}</td>
+            <td>{{ row.vira.balance }}</td>
+            <td>{{ row.vira.balanceChange }}</td>
             <td>{{ Math.round(row.common.balance) }}</td>
             <td>{{ Math.round(row.common.change) }}</td>
-            <td>{{ Math.round(row.balance) }}</td>
-            <td>{{ Math.round(row.change) }}</td>
-            <td>{{ Math.round(row.income.sum) }}</td>
-            <td>{{ Math.round(row.change - row.income.sum) }}</td>
+            <td>{{ row.balance }}</td>
+            <td>{{ row.change }}</td>
+            <td>{{ row.income }}</td>
+            <td>{{ row.expense }}</td>
         </tr>
     </tbody>
 </table>

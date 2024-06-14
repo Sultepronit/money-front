@@ -59,6 +59,10 @@ class Common {
 
             get change() {
                 return this.uah - this.previousUah;
+            },
+
+            get income() {
+                return this.balance.change === 0 ? this.change : 0;
             }
         };
     }
@@ -128,15 +132,16 @@ class Stefko {
     };
 }
 
-class CommonIncome {
+class AdditionalIncome {
     constructor(rawRow) {
         this.cancel = new Parted(rawRow['income_cancel'], 'income_cancel', rawRow.date);
         this.debit = new Parted(rawRow['income_debit'], 'income_debit', rawRow.date);
-        this.exchangeUsd = new Field(rawRow, 'income_exchange_usd');
+        // this.exchangeUsd = new Field(rawRow, 'income_exchange_usd');
     }
 
     get sum() {
-        return this.debit.sum + this.exchangeUsd.value - this.cancel;
+        // return this.debit.sum + this.exchangeUsd.value - this.cancel.sum;
+        return this.debit.sum - this.cancel.sum;
     }
 }
 
@@ -147,31 +152,44 @@ class DataRow {
         this.common = new Common(rawRow, previousRow);
         this.stefko = new Stefko(rawRow, previousRow);
         // this.income = new Parted(rawRow['stefko_income'], 'stefko_income', rawRow.date);
-        this.commonIncome = new CommonIncome(rawRow);
+        this.additionalIncome = new AdditionalIncome(rawRow);
     };
     
     get debit() {
-        return this.vira.balance
+        return Math.round(
+            this.vira.balance
             + this.common.balance
-            + this.stefko.debit;
+            + this.stefko.debit
+        );
     };
 
     get balance() {
-        return this.vira.balance
+        return Math.round(
+            this.vira.balance
             + this.common.balance
-            + this.stefko.balance;
+            + this.stefko.balance
+        );
     };
 
     get change() {
-        return this.vira.balanceChange
+        return Math.round(
+            this.vira.balanceChange
             + this.common.change
-            + this.stefko.change;
+            + this.stefko.change
+        );
     }
 
     get income() {
-        return this.stefko.income.sum
+        return Math.round(
+            this.stefko.income.sum
             + this.vira.income
-            + this.commonIncome.sum;
+            + this.additionalIncome.sum
+            + this.common.usd.income
+        );
+    }
+
+    get expense() {
+        return this.change - this.income;
     }
 };
 

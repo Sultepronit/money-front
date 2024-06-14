@@ -5,13 +5,14 @@ import { data } from '@/services/data.js';
 
 <template>
 <section class="main-input">
-    <div class="thead">
+    <div class="main-input-row">
         <p class="date">date</p>
         <p>pumb</p>
         <p>mono</p>
         <p>univers</p>
         <p>more</p>
         <p>s income</p>
+        <p>transfer</p>
         <p>pumb</p>
         <p>zp</p>
         <p>cash</p>
@@ -27,10 +28,10 @@ import { data } from '@/services/data.js';
 .main-input {
     min-width: 60em;
 }
-.thead {
+/* .thead {
     display: grid;
-    grid-template-columns: auto 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 2fr 2fr 4fr;
-}
+    grid-template-columns: auto 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 2fr 2fr 4fr;
+} */
 .thead p {
     text-align: center;
     border: 1px solid;

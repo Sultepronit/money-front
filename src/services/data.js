@@ -6,24 +6,24 @@ const data = ref([]);
 let rawData = [];
 const reversed = computed(() => data.value.slice(3).reverse());
 
-function fillNull(data) {
-    const fillable = [
-        'vira_black',
-        'vira_white',
-    ];
+// function fillNull(data) {
+//     const fillable = [
+//         'vira_black',
+//         'vira_white',
+//     ];
 
-    let previous = {};
+//     let previous = {};
 
-    for(const row of data) {
-        for(const column of fillable) {
-            if(row[column] === null) {
-                row[column] = previous[column];
-            } 
-        }
+//     for(const row of data) {
+//         for(const column of fillable) {
+//             if(row[column] === null) {
+//                 row[column] = previous[column];
+//             } 
+//         }
 
-        previous = row;
-    }
-}
+//         previous = row;
+//     }
+// }
 
 function parseData(data) {
     const result = [];
@@ -42,9 +42,9 @@ async function handleRate() {
     if(reversed.value[0].common.usd.rate.current === null) {
         const newRate = await getRate();
         reversed.value[0].common.usd.rate.updateValue(newRate.rate);
-        if(reversed.value[0].common.usd.change !== 0) {
-            reversed.value[0].income.update([reversed.value[0].common.usd.change]);
-        }
+        // if(reversed.value[0].common.usd.change !== 0) {
+        //     reversed.value[0].income.update([reversed.value[0].common.usd.change]);
+        // }
     }
 }
 

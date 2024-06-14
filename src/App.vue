@@ -1,7 +1,7 @@
 <script setup>
 import StatusBar from '@/components/StatusBar.vue';
-import SecureScreen from '@/modes/SecureScreen/SecureScreen.vue';
-import MainView from '@/modes/MainView/MainView.vue';
+import SecureScreen from '@/components/SecureScreen.vue';
+import MainView from '@/components/MainView.vue';
 import ViraView from '@/components/ViraView.vue';
 
 import { ref, computed } from 'vue';

@@ -25,6 +25,8 @@ input {
 .balance {
     font-weight: bold;
 }
-.gg {
-    color: rgba(0, 0, 0, 50);
+
+.main-input-row {
+    display: grid;
+    grid-template-columns: auto 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 2fr 2fr 4fr;
 }
