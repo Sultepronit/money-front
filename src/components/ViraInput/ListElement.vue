@@ -23,11 +23,6 @@ const { entry } = defineProps(['date', 'entry']);
 .date {
     text-align: center;
     color: blue;
-    /* font-weight: bold; */
     padding-inline: 1em;
-}
-.flex {
-    display: flex;
-    gap: 1em;
 }
 </style>

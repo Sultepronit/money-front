@@ -36,14 +36,13 @@ const current = ref('black');
             title="чорна"
             :income="entry.black.income.sum"
             :expense="entry.black.expense"
-            :change="entry.black.change"
-            :balance="entry.black.balance"
+            :change="entry.black.balance.change"
+            :balance="entry.black.balance.balance"
         />
         <EditCard
             v-show="current === 'black'"
             :income="entry.black.income"
-            :index="index"
-            cardName="black"
+            :account="entry.black.balance"
         />
     </div>
     <div
@@ -55,14 +54,13 @@ const current = ref('black');
             title="біла"
             :income="entry.white.income.sum"
             :expense="entry.white.expense"
-            :change="entry.white.change"
-            :balance="entry.white.balance"
+            :change="entry.white.balance.change"
+            :balance="entry.white.balance.balance"
         />
         <EditCard
             v-show="current === 'white'"
             :income="entry.white.income"
-            :index="index"
-            cardName="white"
+            :account="entry.white.balance"
         />
     </div>
     <div
@@ -93,23 +91,14 @@ const current = ref('black');
 .date {
     font-size: 1.2em;
     text-align: center;
-    /* color: blue; */
     font-weight: bold;
     padding-inline: 1em;
 }
-/* .total {
-    background: #abf6ff;
-} */
 .account {
     margin-block: 0.2em;
-    /* border: 1px solid gray; */
-    /* border-radius: 0.2em; */
     background: #abf6ff;
-    /* background: #d6f4f8; */
 }
 .edited {
-    /* border-color: green;
-    border-width: 2px; */
     border: 1px solid black;
     border-radius: 0.2em;
     background-color: white;

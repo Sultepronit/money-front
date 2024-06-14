@@ -1,5 +1,6 @@
 <script setup>
-import ViraInput from '@/modes/ViraInput/ViraInput.vue';
+// import ViraInput from '@/modes/ViraInput/ViraInput.vue';
+import ViraInput from '@/components/ViraInput.vue';
 // import Chart1 from '@/modes/Chart1/Chart1.vue';
 import MainInput from '@/modes/MainInput/MainInput.vue';
 import ViewStats from '@/components/ViewStats.vue';

@@ -4,16 +4,13 @@ import ListElement from './ViraInput/ListElement.vue';
 import { ref, computed } from 'vue';
 import { reversed as list } from '@/services/data.js';
 
-// console.log(data);
-
-// const list = computed(() => data.value.slice().reverse());
-
 const editedIndex = ref(0);
 const edited = computed(() => list.value[editedIndex.value]);
 </script>
 
 <template>
 <section class="block">
+    <!-- <pre>{{ edited.vira }}</pre> -->
     <EditedEntry
         v-if="edited"
         :date="edited.date"

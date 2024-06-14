@@ -1,9 +1,8 @@
 <script setup>
 import EditParts from './EditParts.vue';
 import EditAccount from './EditAccount.vue';
-import { reversed as list } from '@/services/data.js';
 
-defineProps(['income', 'index', 'cardName']);
+defineProps(['income', 'account']);
 </script>
 
 <template>
@@ -20,8 +19,8 @@ defineProps(['income', 'index', 'cardName']);
         <template #right>
             <input
                 type="number"
-                v-model="list[index].vira[cardName].balance"
-                @change="list[index].vira[cardName].saveBalance()"
+                :value="account?.balance"
+                @change="account.updateValue(Number($event.target.value))"
             >
         </template>
     </EditAccount>

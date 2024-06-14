@@ -44,22 +44,9 @@ class Balance {
 class ViraCard {
     constructor(dbRow, dbBalance, dbIncome, previousBalance) {
         this.balance = new Balance(dbRow, dbBalance, previousBalance);
-        // this.balance = ref(dbRow[dbBalance]);
-        // this.previousBalance = previousBalance;
         this.income = new Parted(dbRow[dbIncome], dbIncome, dbRow.date);
-        // this.dbBalance = dbBalance;
-        // this.dbIncome = dbIncome;
-        // this.date = dbRow.date;
     }
-
-    // saveBalance() {
-    //     patch(this.date, this.dbBalance, this.balance);
-    // }
-
-    // get change() {
-    //     return this.balance - this.previousBalance;
-    // }
-
+    
     get expense() {
         return this.income.sum - this.balance.change;
     }
@@ -97,13 +84,13 @@ class Vira {
         return this.black.expense + this.white.expense + this.cash.expense.sum;
     }
     get change() {
-        return this.black.change + this.white.change + this.cash.change;
+        return this.black.balance.change + this.white.balance.change + this.cash.change;
     }
     get balance() {
-        return this.black.balance + this.white.balance;
+        return this.black.balance.balance + this.white.balance.balance;
     }
     get balanceChange() {
-        return this.black.change + this.white.change;
+        return this.black.balance.change + this.white.balance.change;
     }
 }
 

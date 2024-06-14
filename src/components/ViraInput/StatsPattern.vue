@@ -15,7 +15,6 @@ defineProps(['title', 'income', 'expense', 'change', 'balance']);
 <style scoped>
 .title {
     text-align: center;
-    /* font-weight: bold; */
     font-style: italic;
     padding-inline: 1em;
 }
@@ -25,9 +24,6 @@ defineProps(['title', 'income', 'expense', 'change', 'balance']);
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 .column {
-    /* width: 20%; */
     text-align: right;
-    /* padding-right: 1em; */
-    /* background: yellow; */
 }
 </style>
