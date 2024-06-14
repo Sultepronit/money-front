@@ -19,26 +19,49 @@ class Parted {
     }
 }
 
-class ViraCard {
-    constructor(dbRow, dbBalance, dbIncome, previousBalance) {
-        this.balance = ref(dbRow[dbBalance]);
-        this.previousBalance = previousBalance;
-        this.income = new Parted(dbRow[dbIncome], dbIncome, dbRow.date);
-        this.dbBalance = dbBalance;
-        this.dbIncome = dbIncome;
+class Balance {
+    constructor(dbRow, dbColName, previous) {
+        this.current = dbRow[dbColName];
+        this.previous = previous;
+        this.dbColName = dbColName;
         this.date = dbRow.date;
     }
 
-    saveBalance() {
-        patch(this.date, this.dbBalance, this.balance);
+    get balance() {
+        return this.current || this.previous;
+    }
+
+    updateValue(newVal) {
+        this.current = newVal;
+        update(this.date, this.dbColName, newVal);
     }
 
     get change() {
-        return this.balance - this.previousBalance;
+        return this.balance - this.previous;
+    }
+}
+
+class ViraCard {
+    constructor(dbRow, dbBalance, dbIncome, previousBalance) {
+        this.balance = new Balance(dbRow, dbBalance, previousBalance);
+        // this.balance = ref(dbRow[dbBalance]);
+        // this.previousBalance = previousBalance;
+        this.income = new Parted(dbRow[dbIncome], dbIncome, dbRow.date);
+        // this.dbBalance = dbBalance;
+        // this.dbIncome = dbIncome;
+        // this.date = dbRow.date;
     }
 
+    // saveBalance() {
+    //     patch(this.date, this.dbBalance, this.balance);
+    // }
+
+    // get change() {
+    //     return this.balance - this.previousBalance;
+    // }
+
     get expense() {
-        return this.income.sum - this.change;
+        return this.income.sum - this.balance.change;
     }
 }
 
@@ -48,14 +71,14 @@ class Vira {
             row,
             'vira_black',
             'vira_black_income',
-            previousRow?.vira.black.balance,
+            previousRow?.vira.black.balance.balance,
         );
 
         this.white = new ViraCard(
             row,
             'vira_white',
             'vira_white_income',
-            previousRow?.vira.white.balance,
+            previousRow?.vira.white.balance.balance,
         );
 
         this.cash = { 
@@ -84,31 +107,8 @@ class Vira {
     }
 }
 
-class Balance {
-    constructor(dbRow, dbColName, previous) {
-        this.current = dbRow[dbColName];
-        this.previous = previous;
-        this.dbColName = dbColName;
-        this.date = dbRow.date;
-    }
-
-    get balance() {
-        return this.current || this.previous;
-    }
-
-    updateValue(newVal) {
-        this.current = newVal;
-        update(this.date, this.dbColName, newVal);
-    }
-
-    get change() {
-        return this.balance - this.previous;
-    }
-}
-
 class Common {
     constructor(row, previousRow) {
-        // this.cash = new Account(row, 'common_cash', previousRow?.common.cash.balance);
         this.cash = new Balance(row, 'common_cash', previousRow?.common.cash.balance);
 
         this.usd = {
@@ -117,7 +117,6 @@ class Common {
             rate: new Balance(row, 'common_usd_rate', previousRow?.common.usd.rate.balance),
 
             get uah() {
-                // console.log(this.balance.balance);
                 return this.balance.balance * this.rate.balance;
             },
             
@@ -192,19 +191,12 @@ class Stefko {
     };
 }
 
-// class Others {
-//     constructor(row, previousRow) {
-//         this.marta = new Balance(row, 'others_marta', previousRow?.others.marta.balance);
-//     }
-// }
-
 class DataRow {
     constructor(rawRow, previousRow) {
         this.date = rawRow.date;
         this.vira = new Vira(rawRow, previousRow);
         this.common = new Common(rawRow, previousRow);
         this.stefko = new Stefko(rawRow, previousRow);
-        // this.others = new Others(rawRow, previousRow);
         this.income = new Parted(rawRow['total_income'], 'total_income', rawRow.date);
     };
     

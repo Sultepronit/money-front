@@ -1,5 +1,6 @@
 <script setup>
-import ViraInput from '@/modes/ViraInput/ViraInput.vue';
+// import ViraInput from '@/modes/ViraInput/ViraInput.vue';
+import ViraInput from '@/components/ViraInput.vue';
 import CompactStats from '@/components/CompactStats.vue';
 
 import { ref } from 'vue';

@@ -13,16 +13,19 @@ const selected = ref(0);
 <section class="block">
     <div class="detailed-stats">
         <p class="title-date">{{ ukrainianDate(list[selected].date) }}</p>
+
         <div class="stats-item columns">
             <p>Веронічка</p>
             <BigNumber :value="list[selected].vira.balance" />
             <BalanceChange :value="list[selected].vira.balanceChange" />
         </div>
+
         <div class="stats-item columns">
             <p>Батько</p>
             <BigNumber :value="list[selected].stefko.balance" />
             <BalanceChange :value="list[selected].stefko.change" />
         </div>
+
         <div class="stats-item columns">
             <p>готівка</p>
             <BigNumber :value="list[selected].common.cash.balance" />
@@ -30,9 +33,11 @@ const selected = ref(0);
         </div>
 
         <div class="stats-item columns">
-            <p>
-                USD
-                <span class="rate">{{ list[selected].common.usd.rate.balance.toFixed(2) }}</span>
+            <p class="usd-title">
+                <!-- USD
+                <span class="rate">{{ list[selected].common.usd.rate.balance.toFixed(2) }}</span> -->
+                <p>USD</p>
+                <p class="rate">&nbsp;{{ list[selected].common.usd.rate.balance.toFixed(2) }}</p>
             </p>
             <div class="usd">
                 <p>{{ list[selected].common.usd.balance.balance }} /&nbsp;</p>
@@ -46,11 +51,13 @@ const selected = ref(0);
             <BigNumber :value="list[selected].balance" />
             <BalanceChange :value="list[selected].change" />
         </div>
+
         <div class="stats-item columns">
             <p>доходи</p>
             <p></p>
             <BalanceChange :value="list[selected].income.sum" />
         </div>
+
         <div class="stats-item columns">
             <p>розходи</p>
             <p></p>
@@ -93,6 +100,14 @@ const selected = ref(0);
     margin: 0.2em;
     padding-inline: 0.2em;
 }
+.usd-title {
+    display: flex;
+}
+.rate {
+    color: blue;
+    font-size: 0.75em;
+    /* font-weight: bold; */
+}
 .usd {
     display: flex;
     justify-content: end;
@@ -110,8 +125,5 @@ const selected = ref(0);
 }
 .selected {
     background-color: #b5ffb5;
-}
-.rate {
-    color: green;
 }
 </style>

@@ -53,8 +53,8 @@ async function prepareData(inputRawData) {
     localStorage.setItem('rawData', JSON.stringify(inputRawData));
     rawData = inputRawData;
 
-    fillNull(rawData);
-    console.log(rawData);
+    // fillNull(rawData);
+    // console.log(rawData);
 
     data.value = parseData(rawData);
     console.log(data.value);
