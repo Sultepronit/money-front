@@ -10,8 +10,8 @@ class Parted {
     }
 
     update(parts) {
-        this.parts = parts;
-        patch(this.date, this.dbColumn, JSON.stringify(parts));
+        this.parts = parts.map(entry => Number(entry));
+        patch(this.date, this.dbColumn, JSON.stringify(this.parts));
     }
 
     get sum() {
