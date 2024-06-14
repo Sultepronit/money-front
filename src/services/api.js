@@ -3,6 +3,14 @@ import { setStatus } from './statusControls.js';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
+async function retry(callback, ...args) {   
+    return new Promise(resolve => {
+        setTimeout(async () => {
+            resolve(await callback(...args));
+        }, 5 * 1000);
+    });
+}
+
 async function dataForPassword(password) {
     setStatus.loading();
 
@@ -23,17 +31,18 @@ async function dataForPassword(password) {
         console.error(error);
         // alert('Data not received!');
         loginStatus.value = 'Ну шо за інтернет? 🙄';
-        return await refetch(password);
+        // return await refetch(password);
+        return await retry(dataForPassword, password);
     }
 }
 
-async function refetch(password) {   
-    return new Promise(resolve => {
-        setTimeout(async () => {
-            resolve(await dataForPassword(password));
-        }, 5 * 1000);
-    });
-}
+// async function refetch(password) {   
+//     return new Promise(resolve => {
+//         setTimeout(async () => {
+//             resolve(await dataForPassword(password));
+//         }, 5 * 1000);
+//     });
+// }
 
 async function patch(date, column, value) {
     setStatus.loading();
@@ -64,18 +73,18 @@ async function patch(date, column, value) {
         console.error(error);
         // alert(`Ніц не вийшло, треба ше пробувати`);
 
-        return repatch(date, column, value);
-        // return await patch(date, column, value);
+        // return repatch(date, column, value);
+        return await retry(patch, date, column, value);
     }
 }
 
-async function repatch(date, column, value) {   
-    return new Promise(resolve => {
-        setTimeout(async () => {
-            resolve(await patch(date, column, value));
-        }, 5 * 1000);
-    });
-}
+// async function repatch(date, column, value) {   
+//     return new Promise(resolve => {
+//         setTimeout(async () => {
+//             resolve(await patch(date, column, value));
+//         }, 5 * 1000);
+//     });
+// }
 
 async function getRate() {
     const url = apiUrl + 'usd-rate';
@@ -85,7 +94,7 @@ async function getRate() {
         return data;
     } catch (error) {
         console.error(error);
-        // return await refetch(password);
+        return await retry(getRate);
     }
 }
 

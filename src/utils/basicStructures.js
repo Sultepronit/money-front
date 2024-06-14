@@ -1,4 +1,3 @@
-import { ref, computed } from 'vue';
 import { patch } from '@/services/api.js';
 import update from '@/services/update.js';
 
@@ -11,7 +10,11 @@ class Parted {
 
     update(parts) {
         this.parts = parts.map(entry => Number(entry));
-        patch(this.date, this.dbColumn, JSON.stringify(this.parts));
+        let toSave = JSON.stringify(this.parts);
+        if(this.parts.length === 0 || this.parts[0] === 0) {
+            toSave = null;
+        }
+        patch(this.date, this.dbColumn, toSave);
     }
 
     get sum() {

@@ -8,10 +8,6 @@ const plussed = computed(() => {
         ? props.parted.parts.reduce((acc, val) => `${acc}+${val}`)
         : '';
 });
-// console.log(plussed);
-// console.log(plussed.value);
-
-let expression = ref('');
 
 const focused = ref(false);
 const theValue = computed(() => focused.value ? plussed.value : props.parted.sum);
@@ -23,20 +19,6 @@ function parse(input) {
     const splitted = input.split('+');
     console.log(splitted);
     props.parted.update(splitted);
-    // if(isNaN(input)) {
-    //     try {
-    //         const result = new Function(`return ${input}`)();
-    //         expression.value = input;
-    //         hintedResult.value = result;
-    //         props.account.updateValue(result);
-    //     } catch (error) {
-    //         console.log('The heck?')
-    //     }
-    // } else {
-    //     expression.value = '';
-    //     hintedResult.value = '';
-    //     props.account.updateValue(Number(input));
-    // }
 }
 </script>
 
