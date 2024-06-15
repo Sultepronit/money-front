@@ -1,6 +1,6 @@
 import { computed } from 'vue';
 
-import { data } from '@/services/data.js';
+import { wholeData as data } from '@/services/data.js';
 import Graph from './MainGraph';
 
 const chartData = computed(() => {

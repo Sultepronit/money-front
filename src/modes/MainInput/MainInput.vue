@@ -5,7 +5,7 @@ import { data } from '@/services/data.js';
 
 <template>
 <section class="main-input">
-    <div class="main-input-row">
+    <div class="thead main-input-row">
         <p class="date">date</p>
         <p>pumb</p>
         <p>mono</p>
