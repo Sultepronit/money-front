@@ -1,5 +1,6 @@
 <script setup>
 import IncomeExpenseChart from './IncomeExpenseChart.vue';
+import BalanceChart from './BalanceChart.vue';
 
 import { ref, computed } from 'vue';
 import { data } from '@/services/data.js';
@@ -30,7 +31,7 @@ class dataSet {
         // this.fill = !!background;
         this.backgroundColor = background || 'white';
         this.borderColor = color;
-        // this.borderWidth = borderWidth;
+        this.borderWidth = borderWidth;
         // this.barThickness = 10;
         // this.pointRadius = 0;
         this.data = data.value.map(entry => {
@@ -45,8 +46,8 @@ class dataSet {
 const chartData = computed(() => {
     return {
         datasets: [
-            new dataSet(`${myIncExp.value.totalIncome}`, 'green', 'blue', 3, data, 'income'),
-            new dataSet('expense', 'red', 'blue', 3, data, 'expense', -1),
+            new dataSet('доходи', 'green', 'blue', 0, data, 'income'),
+            new dataSet('розходи', 'red', 'blue', 0, data, 'expense', -1),
         ]
     }
 });
@@ -54,7 +55,10 @@ const chartData = computed(() => {
 
 <template>
 <section>
-    <pre>{{ myIncExp }}</pre>
+    <p>доходи: +{{ myIncExp.meanIncome }} / +{{ myIncExp.totalIncome }}</p>
+    <p>розходи: {{ myIncExp.meanExpense }} / {{ myIncExp.totalExpense }}</p>
     <IncomeExpenseChart :data="chartData" />
+    <hr>
+    <BalanceChart />
 </section>
 </template>

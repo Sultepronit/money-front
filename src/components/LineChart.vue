@@ -1,52 +1,51 @@
 <script setup>
-import { Bar } from 'vue-chartjs';
-import { Chart, LinearScale, Title, Tooltip, Legend, BarElement, CategoryScale, TimeScale } from 'chart.js';
+import { Line } from 'vue-chartjs';
+import { Chart, LineElement, PointElement, LinearScale, Title, Tooltip, Legend, BarElement, CategoryScale, Filler, TimeScale } from 'chart.js';
 import 'chartjs-adapter-date-fns';
-
-const props = defineProps(['data']);
+// import annotationPlugin from 'chartjs-plugin-annotation';
 
 // import { chartData } from '@/utils/mainChartData.js';
+// console.log(chartData);
+
+const props = defineProps(['data', 'displayLegend']);
 // console.log(props.data);
-// console.log(props.data.datasets[0].data[0].x);
 
-Chart.register(LinearScale, Title, Tooltip, Legend, BarElement, CategoryScale, TimeScale);
+Chart.register(LineElement, PointElement, LinearScale, Title, Tooltip, Legend, BarElement, CategoryScale, Filler, TimeScale, /*annotationPlugin*/);
 
-// Chart.defaults.borderColor = 'black';
+Chart.defaults.borderColor = 'black';
 // console.log(Chart.defaults);
+
+const major = 10000;
+const minor = 2000;
 
 const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    categoryPercentage: 0.8,
-    barPercentage: 0.99,
+    interaction: {
+        node: 'nearest',
+        intersect: false
+    },
     plugins: {
         legend: {
-            display: false
+            display: props.displayLegend
         },
-        // tooltip: {
-        //     callbacks: {
-        //         title: function(items) {
-        //             const date = new Date(items[0].raw[0]);
-        //             return date.toDateString();
-        //         }
-        //     }
-        // }
+        tooltip: {
+            callbacks: {
+                title: function(items) {
+                    const date = new Date(items[0].raw[0]);
+                    return date.toDateString();
+                }
+            }
+        }
     },
     scales: {
         x: {
             type: 'time',
             time: {
-                // unit: 'month',
-                // nuit: 'week'
-                unit: 'day'
+                unit: 'month',
             },
-            grid: {
-                display: false
-            },
-            // stacked: true
-            // beginAtZero: true,
-            // min: props.data.datasets[0].data[0].x
-            // min: '2024-06-05',
+            // min: '2024-06-01',
+            // max: '2024-07-01'
         },
         y: {
             position: 'right',
@@ -69,7 +68,7 @@ const chartOptions = {
 
 <template>
 <section class="container">
-    <Bar
+    <Line
         :options="chartOptions"
         :data="data"
     />
@@ -79,8 +78,6 @@ const chartOptions = {
 <style scoped>
 .container {
     width: 100%;
-    /* height: 95dvh; */
-    height: 500px;
-    max-height: 95dvh;
+    height: 95dvh;
 }
 </style>
