@@ -8,11 +8,11 @@ import Graph from '@/utils/MainGraph.js';
 const chartData = computed(() => {
     return {
         datasets: [
-            new Graph('Vira', null, 'blue', 4, data, ['vira', 'balance']),
-            new Graph('cash', null, 'rgba(0, 0, 0, 0.4)', 5, data, ['common', 'cash', 'balance']),
+            new Graph('Веронічка', null, 'blue', 4, data, ['vira', 'balance']),
+            new Graph('готівка', null, 'rgba(0, 0, 0, 0.4)', 5, data, ['common', 'cash', 'balance']),
             new Graph('usd', null, 'rgba(0, 128, 0, 0.7)', 5, data, ['common', 'usd', 'uah']),
-            new Graph('Stefko', null, 'green', 4, data, ['stefko', 'balance']),
-            new Graph('balance', 'rgba(0, 255, 0, 0.3)', 'green', 2, data, ['balance']),
+            new Graph('батько', null, 'green', 4, data, ['stefko', 'balance']),
+            new Graph('баланс', 'rgba(0, 255, 0, 0.3)', 'green', 2, data, ['balance']),
         ]
     }
 });

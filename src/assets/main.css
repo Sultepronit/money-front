@@ -16,6 +16,15 @@ input {
     border: 1px solid gray;
 }
 
+.flex {
+    display: flex;
+    justify-content: end;
+}
+
+.right {
+    text-align: right;
+}
+
 .income {
     color: green;
 }

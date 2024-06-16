@@ -17,8 +17,8 @@ Chart.register(LinearScale, Title, Tooltip, Legend, BarElement, CategoryScale, T
 const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    categoryPercentage: 0.8,
-    barPercentage: 0.99,
+    // categoryPercentage: 0.5,
+    // barPercentage: 1,
     plugins: {
         legend: {
             display: false
@@ -37,13 +37,12 @@ const chartOptions = {
             type: 'time',
             time: {
                 // unit: 'month',
-                // nuit: 'week'
                 unit: 'day'
             },
             grid: {
                 display: false
             },
-            // stacked: true
+            stacked: true
             // beginAtZero: true,
             // min: props.data.datasets[0].data[0].x
             // min: '2024-06-05',

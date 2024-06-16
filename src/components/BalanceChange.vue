@@ -9,7 +9,7 @@ const valueToDisplay = computed(() =>
     rounded.value > 0 ? `+${rounded.value}` : rounded.value === 0 ? '' : rounded.value
 );
 
-const color = computed(() => props.value > 0 ? 'green' : 'red');
+const color = computed(() => props.value > 0 ? 'income' : 'expense');
 </script>
 
 <template>
@@ -20,10 +20,10 @@ const color = computed(() => props.value > 0 ? 'green' : 'red');
 .balance-change {
     text-align: right;
 }
-.green {
+/* .green {
     color: green;
 }
 .red {
     color: red;
-}
+} */
 </style>
