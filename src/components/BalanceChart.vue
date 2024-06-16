@@ -3,16 +3,16 @@ import LineChart from './LineChart.vue';
 
 import { computed } from 'vue';
 import { data } from '@/services/data.js';
-import Graph from '@/utils/MainGraph.js';
+import { LineSet } from '@/utils/dataSets.js';
 
 const chartData = computed(() => {
     return {
         datasets: [
-            new Graph('Веронічка', null, 'blue', 4, data, ['vira', 'balance']),
-            new Graph('готівка', null, 'rgba(0, 0, 0, 0.4)', 5, data, ['common', 'cash', 'balance']),
-            new Graph('usd', null, 'rgba(0, 128, 0, 0.7)', 5, data, ['common', 'usd', 'uah']),
-            new Graph('батько', null, 'green', 4, data, ['stefko', 'balance']),
-            new Graph('баланс', 'rgba(0, 255, 0, 0.3)', 'green', 2, data, ['balance']),
+            new LineSet('Веронічка', null, 'blue', 4, data, ['vira', 'balance']),
+            new LineSet('готівка', null, 'rgba(0, 0, 0, 0.4)', 5, data, ['common', 'cash', 'balance']),
+            new LineSet('usd', null, 'rgba(0, 128, 0, 0.7)', 5, data, ['common', 'usd', 'uah']),
+            new LineSet('батько', null, 'green', 4, data, ['stefko', 'balance']),
+            new LineSet('баланс', 'rgba(0, 255, 0, 0.3)', 'green', 2, data, ['balance']),
         ]
     }
 });

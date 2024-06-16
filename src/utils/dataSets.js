@@ -2,7 +2,7 @@ function getTheValue(obj, path) {
     return path.reduce((step, key) => step[key], obj);
 }
 
-class Graph {
+class LineSet {
     constructor(name, background, color, borderWidth, data, valuePath) {
         this.label = name;
         this.fill = !!background;
@@ -17,4 +17,4 @@ class Graph {
     }
 };
 
-export default Graph;
+export { LineSet };

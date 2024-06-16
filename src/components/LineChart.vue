@@ -8,7 +8,7 @@ import 'chartjs-adapter-date-fns';
 // console.log(chartData);
 
 const props = defineProps(['data', 'displayLegend']);
-// console.log(props.data);
+// console.log(props);
 
 Chart.register(LineElement, PointElement, LinearScale, Title, Tooltip, Legend, BarElement, CategoryScale, Filler, TimeScale, /*annotationPlugin*/);
 
@@ -67,17 +67,21 @@ const chartOptions = {
 </script>
 
 <template>
-<section class="container">
+<!-- <section class="container">
     <Line
         :options="chartOptions"
         :data="data"
     />
-</section>
+</section> -->
+<Line
+    :options="chartOptions"
+    :data="data"
+/>
 </template>
 
 <style scoped>
-.container {
+/* .container {
     width: 100%;
     height: 95dvh;
-}
+} */
 </style>

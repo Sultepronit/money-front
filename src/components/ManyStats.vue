@@ -1,6 +1,7 @@
 <script setup>
 import IncomeExpenseChart from './IncomeExpenseChart.vue';
 import BalanceChart from './BalanceChart.vue';
+import FutureChart from '@/components/FutureChart.vue';
 import BigNumber from './BigNumber.vue';
 
 import { computed } from 'vue';
@@ -64,6 +65,9 @@ const chartData = computed(() => {
 
 <template>
 <section>
+    <FutureChart />
+    <hr>
+
     <p><b>{{ ukrainianDate(data[0].date) }} - {{ ukrainianDate(data[data.length - 1].date) }}</b></p>
     <table>
         <tbody>
