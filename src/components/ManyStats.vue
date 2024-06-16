@@ -65,9 +65,6 @@ const chartData = computed(() => {
 
 <template>
 <section>
-    <FutureChart />
-    <hr>
-
     <p><b>{{ ukrainianDate(data[0].date) }} - {{ ukrainianDate(data[data.length - 1].date) }}</b></p>
     <table>
         <tbody>
@@ -98,6 +95,8 @@ const chartData = computed(() => {
     <IncomeExpenseChart :data="chartData" />
     <hr>
     <BalanceChart />
+    <hr>
+    <FutureChart />
 </section>
 </template>
 

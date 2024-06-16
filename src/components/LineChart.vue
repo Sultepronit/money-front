@@ -50,6 +50,14 @@ const chartOptions = {
         y: {
             position: 'right',
             // ticks: {
+            //     major: {
+            //         enabled: true
+            //     },
+            //     minor: {
+            //         enabled: true
+            //     }
+            // }
+            // ticks: {
             //     stepSize: minor,
             //     callback: function(val) {
             //         return val % major === 0 ? this.getLabelForValue(val) : '';
