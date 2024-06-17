@@ -8,7 +8,7 @@ function newDate(string) {
 }
 
 function getRelativeDate(currentDate, monthShift, day) {
-    console.log(currentDate);
+    // console.log(currentDate);
     return new Date(
         currentDate.getFullYear(),
         currentDate.getMonth() + monthShift,
@@ -38,7 +38,9 @@ class TimeEntry {
         return this.debit + this.credit;
     }
 }
+
 let entries = [];
+
 function fillPast(pastData) {
     entries = pastData.value.map(
         entry => new TimeEntry(
@@ -62,16 +64,11 @@ function getLastEntry() {
     return entries[entries.length - 1];
 }
 
-function getLastDate() {
-    return getLastEntry().date;
-}
-
 function append(date, change) {
     const lastEntry = getLastEntry();
     const lastDate = lastEntry.date;
 
     if(change) { // copy last stats to the previous to changes day
-        // const nextDate = new Date(date);
         if(date.getDate() - lastDate.getDate() > 1) {
             // const previousDay = new Date(date - (24 * 60 * 60 * 1000));
             const previousDay = date - (24 * 60 * 60 * 1000);
@@ -80,10 +77,9 @@ function append(date, change) {
     } else {
         change = [0, 0, 0, 0];
     }
-    
+
     entries.push(
         new TimeEntry(
-            // date || new Date(lastDate.getFullYear(), lastDate.getMonth() + 1, 1), // next month's 1st
             date || getRelativeDate(lastDate, 1, 1), // next month's 1st
             lastEntry.debit - change.reduce((acc, val) => acc + val),
             lastEntry.credit1 + change[0],
@@ -94,87 +90,66 @@ function append(date, change) {
     );
 }
 
-const timeline = computed(() => {
-    console.log('here we go!');
-    fillPast(pastData);
+const changesSet = {
+    set: [],
+    add(date, changeIndex, change) {
+        const index = date.getDate();
+        if(!this.set[index]) {
+            this.set[index] = { date, changes: [0, 0, 0, 0] };
+        }
+        this.set[index].changes[changeIndex] = change;
 
-    // const the24 = findNearestEntry(new Date('2024-06-24'));
-    // console.log(the24);
-    // const lastDate = getLastDate();
+    }
+};
+
+function fillFuture() {
     const lastEntry = getLastEntry();
     const lastDate = lastEntry.date;
 
     const lastMonthsLastEntry = findNearestEntry(getRelativeDate(lastDate, 0, 0));
-    console.log(lastMonthsLastEntry);
-
-    // const changesToAppend = new Map();
-    // changesToAppend.set(getRelativeDate(lastDate, 0, 24), [0, 0, -universDebt, 0]);
-    // console.log(changesToAppend);
-    // changesToAppend.set(getRelativeDate(lastDate, 0, 24), [0, 0, -universDebt, 0]);
-    // console.log(changesToAppend);
-
-    const changesToAppend = {};
-    const changesToAppend3 = [];
+    // console.log(lastMonthsLastEntry);
 
     const universDebt = lastMonthsLastEntry.credit3;
-    console.log(universDebt);
     const the24 = getRelativeDate(lastDate, 0, 24)
-    append(the24, [0, 0, -universDebt, 0]);
-
-    changesToAppend3[the24.getDate()] = { date: the24, changes: [0, 0, -universDebt, 0] };
-    console.log(changesToAppend3);
-
-    // changesToAppend[getRelativeDate(lastDate, 0, 24)] = [0, 0, -universDebt, 0];
-    // console.log(changesToAppend);
-    
+    changesSet.add(the24, 2, -universDebt);
 
     const monoDebt = lastMonthsLastEntry.credit2;
-    console.log(monoDebt);
     const theSecondLast = getRelativeDate(lastDate, 1, -1)
-    append(theSecondLast, [0, -monoDebt, 0, 0]);
+    changesSet.add(theSecondLast, 1, -monoDebt);
+    
+    const last30 = findNearestEntry(getRelativeDate(lastDate, -1, 30));
+    const pumbDebt = last30.credit1;
+    const the29 = getRelativeDate(lastDate, 0, 29);
+    changesSet.add(the29, 0, -pumbDebt);
 
-    if(!changesToAppend3[theSecondLast.getDate()]) {
-        changesToAppend3[theSecondLast.getDate()] = [0, -monoDebt, 0, 0];
-        // changesToAppend[getRelativeDate(lastDate, 1, -1)][1] = -monoDebt;
-    }
-    console.log(changesToAppend3);
-
-    changesToAppend3[22] = [1111, 0, 0, 0];
-    console.log(changesToAppend3);
-    for(const entry of changesToAppend3) {
+    for(const entry of changesSet.set) {
         if(!entry) continue;
         console.log(entry);
+        append(entry.date, entry.changes);
     }
-    // for(const entry in changesToAppend.sort()) {
-    //     console.log(entry);
-    //     console.log(changesToAppend[entry]);
-    // }
-    // console.log(Array.from(changesToAppend));
 
     append(); // add the next month's 1st
 
     const universDebt2 = lastEntry.credit3 - universDebt;
-    console.log(universDebt2);
     append(getRelativeDate(lastDate, 1, 24), [0, 0, -universDebt2, 0]);
 
+    const pumbDebt2 = lastEntry.credit1 - pumbDebt;
+    append(getRelativeDate(lastDate, 1, 29), [-pumbDebt2, 0, 0, 0]);
+
     const monoDebt2 = lastEntry.credit2 - monoDebt;
-    console.log(monoDebt2);
     append(getRelativeDate(lastDate, 2, -1), [0, -monoDebt2, 0, 0]);
 
     append(); // add the next month's 1st
+}
+
+const timeline = computed(() => {
+    console.log('here we go!');
+    fillPast(pastData);
+    fillFuture();
+    
     return entries;
 });
 
-// const timeline = ref(null);
-// function generate() {
-//     fillPast();
-//     append(entries);
-//     timeline.value = entries;
-// }
-// // generate();
 
-// watch(pastData, () => {
-//     generate();
-// })
 
 export default timeline;
