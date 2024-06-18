@@ -3,7 +3,7 @@ import LineChart from './LineChart.vue';
 
 import { computed } from 'vue';
 import { LineSet } from '@/utils/dataSets.js';
-import timeline from '@/utils/timeline.js';
+import timeline, { report } from '@/utils/timeline.js';
 
 // console.log(timeline);
 // console.log(timeline.value);
@@ -33,10 +33,9 @@ console.log(chartData.value);
             :displayLegend="false"
         />
     </section>
-    <!-- <pre>{{ pastTime }}</pre> -->
-    <!-- <pre>{{ data[10].stefko.debitAccounts }}</pre>
-    <pre>{{ data[10].stefko.debit }}</pre>
-    <pre>{{ data[10].stefko.credit }}</pre> -->
+    <p>{{ report[0].credit }}</p>
+    <p>{{ report[0].debit }}</p>
+    <p>{{ report[0].balance }}</p>
 </section>
 </template>
 

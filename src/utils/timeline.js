@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { wholeData as pastData } from '@/services/data.js';
 import { newDate, getRelativeDate, shiftDate, get29OrFeb, get30OrFeb, getTheThursday, today } from '@/utils/handleDate.js';
 
@@ -106,6 +106,8 @@ const changesOrder = {
     }
 };
 
+const report = ref([]);
+
 function fillFuture() {
     const lastMoths30Entry = findNearestEntry(get30OrFeb(today, -1));
     const lastMonthsLastEntry = findNearestEntry(getRelativeDate(today, 0, 0));
@@ -130,6 +132,8 @@ function fillFuture() {
 
     // third month
     const lastEntry = findNearestEntry(getRelativeDate(today, 2, 1));
+    report.value.push(lastEntry);
+    console.log(report);
     if(lastEntry.credit4 === 0) return;
     changesOrder.reset();
     changesOrder.add(getTheThursday(today, 2), 3, 'nullify');
@@ -139,9 +143,11 @@ function fillFuture() {
 const timeline = computed(() => {
     console.log('here we go!');
     fillPast(pastData);
+    report.value = [getLastEntry()];
     fillFuture();
     
     return entries;
 });
 
 export default timeline;
+export { report };
