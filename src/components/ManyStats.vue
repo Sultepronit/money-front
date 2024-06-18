@@ -56,8 +56,9 @@ class dataSet {
 const chartData = computed(() => {
     return {
         datasets: [
-            new dataSet('розходи', 'rgba(255, 0, 0, 0.7)', 'blue', 0, data, 'expense', -1),
-            new dataSet('доходи', 'rgba(0, 128, 0, 0.8)', 'blue', 0, data, 'income'),
+            new dataSet('розходи', 'rgba(255, 0, 0, 0.5)', 'blue', 0, data, 'expense', -1),
+            new dataSet('доходи', 'rgba(0, 128, 0, 0.7)', 'blue', 0, data, 'income'),
+            // new dataSet('розходи', 'rgba(255, 0, 0, 1)', 'blue', 0, data, 'expense', -1),
         ]
     }
 });
