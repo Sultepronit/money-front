@@ -1,24 +1,6 @@
-import { ref, computed, watch } from 'vue';
+import { computed } from 'vue';
 import { wholeData as pastData } from '@/services/data.js';
-
-function newDate(string) {
-    const date = new Date(string);
-    date.setHours(0);
-    return date;
-}
-
-function getRelativeDate(currentDate, monthShift, day) {
-    // console.log(currentDate);
-    return new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth() + monthShift,
-        day
-    );
-}
-
-// const compareDates(date1, date2) {
-
-// }
+import { newDate, getRelativeDate } from '@/utils/handleDate.js';
 
 class TimeEntry {
     constructor(date, debit, credit1, credit2, credit3, credit4) {
@@ -55,39 +37,53 @@ function fillPast(pastData) {
     console.log(entries);
 }
 
-function findNearestEntry(date) {
-    console.log('find', date);
-    return entries.slice().reverse().find(entry => entry.date.setHours(0) <= date.setHours(0));
-}
-
 function getLastEntry() {
     return entries[entries.length - 1];
 }
 
-function append(date, change) {
+function append(date, changes) {
     const lastEntry = getLastEntry();
     const lastDate = lastEntry.date;
 
-    if(change) { // copy last stats to the previous to changes day
-        if(date.getDate() - lastDate.getDate() > 1) {
-            // const previousDay = new Date(date - (24 * 60 * 60 * 1000));
+    let newDebit = lastEntry.debit;
+    const newCredits = [
+        lastEntry.credit1,
+        lastEntry.credit2,
+        lastEntry.credit3,
+        lastEntry.credit4
+    ];
+
+    if(changes) { 
+        if(date.getDate() - lastDate.getDate() > 1) { // copy last stats to the previous to changes day
             const previousDay = date - (24 * 60 * 60 * 1000);
             append(previousDay);
         }
-    } else {
-        change = [0, 0, 0, 0];
+
+        for(let i = 0; i < changes.length; i++) {
+            if(changes[i] === 'nullify') {
+                newDebit += newCredits[i];
+                newCredits[i] = 0;
+            } else if(changes[i] > 0) {
+                newDebit -= changes[i];
+                newCredits[i] += changes[i];
+            }
+        }
+        console.log(newCredits);
+        console.log(newDebit);
     }
 
     entries.push(
         new TimeEntry(
             date || getRelativeDate(lastDate, 1, 1), // next month's 1st
-            lastEntry.debit - change.reduce((acc, val) => acc + val),
-            lastEntry.credit1 + change[0],
-            lastEntry.credit2 + change[1],
-            lastEntry.credit3 + change[2],
-            lastEntry.credit4 + change[3],
+            newDebit,
+            ...newCredits
         )
     );
+}
+
+function findNearestEntry(date) {
+    console.log('find', date);
+    return entries.slice().reverse().find(entry => entry.date <= date);
 }
 
 const changesSet = {
@@ -130,14 +126,17 @@ function fillFuture() {
 
     append(); // add the next month's 1st
 
+    append(getRelativeDate(lastDate, 1, 20), [0, 0, 0, 'nullify']);
+    
     const universDebt2 = lastEntry.credit3 - universDebt;
-    append(getRelativeDate(lastDate, 1, 24), [0, 0, -universDebt2, 0]);
+    append(getRelativeDate(lastDate, 1, 24), [0, 0, 'nullify', 0]);
 
     const pumbDebt2 = lastEntry.credit1 - pumbDebt;
-    append(getRelativeDate(lastDate, 1, 29), [-pumbDebt2, 0, 0, 0]);
+    append(getRelativeDate(lastDate, 1, 29), ['nullify', 0, 0, 0]);
 
     const monoDebt2 = lastEntry.credit2 - monoDebt;
-    append(getRelativeDate(lastDate, 2, -1), [0, -monoDebt2, 0, 0]);
+    // append(getRelativeDate(lastDate, 2, -1), [0, -monoDebt2, 0, 0]);
+    append(getRelativeDate(lastDate, 2, -1), [0, 'nullify', 0, 0]);
 
     append(); // add the next month's 1st
 }
