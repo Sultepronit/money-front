@@ -1,7 +1,7 @@
 import { computed } from 'vue';
 
 import { wholeData as data } from '@/services/data.js';
-import { LineSet } from '@/utils/dataSets.js';
+import { LineSet } from '@/utils/chartDataSets.js';
 
 const chartData = computed(() => {
     return {

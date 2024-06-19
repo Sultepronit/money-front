@@ -12,4 +12,13 @@ function ukrainianDate(date, hideDay) {
     return (new Date(date)).toLocaleDateString('uk-ua', options);
 };
 
-export { ukrainianDate };
+function monthYear(date) {
+    const options = {
+        month: 'long',
+        year: 'numeric'
+    };
+    
+    return (new Date(date)).toLocaleDateString('uk-ua', options);
+}
+
+export { ukrainianDate, monthYear };

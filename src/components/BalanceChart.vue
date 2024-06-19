@@ -3,7 +3,7 @@ import LineChart from './LineChart.vue';
 
 import { computed } from 'vue';
 import { data } from '@/services/data.js';
-import { LineSet } from '@/utils/dataSets.js';
+import { LineSet } from '@/utils/chartDataSets.js';
 
 const chartData = computed(() => {
     return {

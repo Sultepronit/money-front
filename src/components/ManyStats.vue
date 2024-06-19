@@ -2,108 +2,34 @@
 import IncomeExpenseChart from './IncomeExpenseChart.vue';
 import BalanceChart from './BalanceChart.vue';
 import FutureChart from '@/components/FutureChart.vue';
-import BigNumber from './BigNumber.vue';
 
-import { computed } from 'vue';
 import { data } from '@/services/data.js';
-import { ukrainianDate } from '@/utils/formatters';
 
-function periodIncomeExpenses(data) {
-    // data.reduce();
-    const result = {
-        totalIncome: 0,
-        totalExpense: 0
-    };
-
-    for(const row of data.value) {
-        result.totalIncome += row.income;
-        result.totalExpense += row.expense;
-    }
-
-    result.meanIncome = Math.round(result.totalIncome / data.value.length);
-    result.meanExpense = Math.round(result.totalExpense / data.value.length);
-    result.totalChange = result.totalIncome + result.totalExpense;
-    // result.totalChange = 0;
-    result.meanChange = result.meanIncome + result.meanExpense;
-
-    return result;
-}
-
-const myIncExp = computed(() => periodIncomeExpenses(data));
-const plusOrMinus = computed(() =>
-    myIncExp.value.totalChange > 0 ? { class: 'income', sign: '+' } 
-        : myIncExp.value.totalChange < 0 ? { class: 'expense', sign: '' } : null
-);
-
-class dataSet {
-    constructor(name, background, color, borderWidth, data, category, reverse) {
-        this.label = name;
-        // this.fill = !!background;
-        this.backgroundColor = background || 'white';
-        this.borderColor = color;
-        this.borderWidth = borderWidth;
-        // this.barThickness = 10;
-        // this.pointRadius = 0;
-        this.data = data.value.map(entry => {
-            return {
-                x: entry.date,
-                y: reverse ? reverse * entry[category] : entry[category]
-            }
-        });
-    }
-};
-
-const chartData = computed(() => {
-    return {
-        datasets: [
-            new dataSet('розходи', 'rgba(255, 0, 0, 0.5)', 'blue', 0, data, 'expense', -1),
-            new dataSet('доходи', 'rgba(0, 128, 0, 0.8)', 'blue', 0, data, 'income'),
-            // new dataSet('розходи', 'rgba(255, 0, 0, 1)', 'blue', 0, data, 'expense', -1),
-        ]
-    }
-});
-
-
+const pastMonths = [
+    { date: '2024-01-01', income: 39400, expense: -37308 },
+    { date: '2024-02-01', income: 27950, expense: -36289 },
+    { date: '2024-03-01', income: 50560, expense: -36602 },
+    { date: '2024-04-01', income: 36220, expense: -39916 },
+    { date: '2024-05-01', income: 46140, expense: -45085 },
+];
 </script>
 
 <template>
 <section>
-    <!-- <FutureChart /> -->
-    <p><b>{{ ukrainianDate(data[0].date, true) }} - {{ ukrainianDate(data[data.length - 1].date, true) }}</b></p>
-    <table>
-        <tbody>
-            <tr class="income">
-                <td>доходи:</td>
-                <td class="right">+{{ myIncExp.meanIncome }}</td>
-                <td>
-                    <div class=flex>+<BigNumber :value="myIncExp.totalIncome" /></div>
-                </td>
-            </tr>
-            <tr class="expense">
-                <td>розходи:</td>
-                <td class="right">{{ myIncExp.meanExpense }}</td>
-                <td><BigNumber :value="myIncExp.totalExpense" /></td>
-            </tr>
-            <tr :class="plusOrMinus?.class">
-                <td>баланс:</td>
-                <td class="right">{{ plusOrMinus?.sign }}{{ myIncExp.meanChange }}</td>
-                <td>
-                    <div class=flex>
-                        {{ plusOrMinus?.sign }}
-                        <BigNumber :value="myIncExp.totalChange" />
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <IncomeExpenseChart :data="chartData" />
+    <IncomeExpenseChart :data="data" />
     <hr>
+    <IncomeExpenseChart :data="pastMonths" unit="month" />
+    <hr>
+    <p class="center"><b>Баланси</b></p>
     <BalanceChart />
     <hr>
+    <p class="center"><b>Зобов'язання</b></p>
     <FutureChart />
 </section>
 </template>
 
 <style scoped>
-
+hr {
+    margin: 1rem;
+}
 </style>
