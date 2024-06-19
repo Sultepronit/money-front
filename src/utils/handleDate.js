@@ -5,11 +5,19 @@ function newDate(string) {
 }
 
 function getRelativeDate(currentDate, monthShift, day) {
-    return new Date(
+    // console.log(currentDate, monthShift, day);
+    const result = new Date(
         currentDate.getFullYear(),
         currentDate.getMonth() + monthShift,
         day
     );
+    // console.log(result);
+    return result;
+    // return new Date(
+    //     currentDate.getFullYear(),
+    //     currentDate.getMonth() + monthShift,
+    //     day
+    // );
 }
 
 function shiftDate(currentDate, dayShift) {

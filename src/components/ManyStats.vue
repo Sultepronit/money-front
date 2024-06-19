@@ -66,7 +66,7 @@ const chartData = computed(() => {
 
 <template>
 <section>
-    <!-- <FutureChart /> -->
+    <FutureChart />
     <p><b>{{ ukrainianDate(data[0].date) }} - {{ ukrainianDate(data[data.length - 1].date) }}</b></p>
     <table>
         <tbody>

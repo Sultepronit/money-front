@@ -34,7 +34,7 @@ function fillPast(pastData) {
             entry.stefko.credit.account4.balance
         )
     );
-    console.log(entries);
+    // console.log(entries);
 }
 
 function getLastEntry() {
@@ -85,9 +85,6 @@ function findNearestEntry(date) {
 
 const changesOrder = {
     set: [],
-    reset() {
-        this.set = [];
-    },
     add(date, changeIndex, change) {
         const index = date.getDate();
         if(!this.set[index]) {
@@ -101,7 +98,8 @@ const changesOrder = {
             if(entry.date <= today) continue;
             console.log(entry);
             append(entry.date, entry.changes);
-        } 
+        }
+        this.set = [];
         append(); // add the next month's 1st
     }
 };
@@ -109,13 +107,16 @@ const changesOrder = {
 const report = ref([]);
 
 function fillFuture() {
+    // this month
     const lastMoths30Entry = findNearestEntry(get30OrFeb(today, -1));
     const lastMonthsLastEntry = findNearestEntry(getRelativeDate(today, 0, 0));
     const thisMonthThursday = getTheThursday(today, 0);
 
-    // this month
     changesOrder.add(thisMonthThursday, 3, 2366);
-    changesOrder.add(getRelativeDate(today, 0, 24), 2, -lastMonthsLastEntry.credit3);
+    const the24 = getRelativeDate(today, 0, 24);
+    console.log(the24);
+    // changesOrder.add(getRelativeDate(today, 0, 24), 2, -lastMonthsLastEntry.credit3);
+    changesOrder.add(the24, 2, -lastMonthsLastEntry.credit3);
     changesOrder.add(get29OrFeb(today), 0, -lastMoths30Entry.credit1);
     changesOrder.add(getRelativeDate(today, 1, -1), 1, -lastMonthsLastEntry.credit2);
     changesOrder.implement();
@@ -123,7 +124,6 @@ function fillFuture() {
     // second month
     const thisMonthThursdayEntry = findNearestEntry(thisMonthThursday);
 
-    changesOrder.reset();
     changesOrder.add(getTheThursday(today, 1), 3, -thisMonthThursdayEntry.credit4);
     changesOrder.add(getRelativeDate(today, 1, 24), 2, 'nullify');
     changesOrder.add(get29OrFeb(today, 1), 0, 'nullify');
@@ -133,9 +133,9 @@ function fillFuture() {
     // third month
     const lastEntry = findNearestEntry(getRelativeDate(today, 2, 1));
     report.value.push(lastEntry);
-    console.log(report);
+    // console.log(report);
     if(lastEntry.credit4 === 0) return;
-    changesOrder.reset();
+
     changesOrder.add(getTheThursday(today, 2), 3, 'nullify');
     changesOrder.implement();
 }
@@ -145,6 +145,8 @@ const timeline = computed(() => {
     fillPast(pastData);
     report.value = [getLastEntry()];
     fillFuture();
+    console.log(entries);
+    console.log(report.value);
     
     return entries;
 });

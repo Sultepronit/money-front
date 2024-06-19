@@ -22,7 +22,7 @@ const chartData = computed(() => {
     }
 });
 // console.log(chartData);
-console.log(chartData.value);
+// console.log(chartData.value);
 </script>
 
 <template>
