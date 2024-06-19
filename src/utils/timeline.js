@@ -104,8 +104,6 @@ const changesOrder = {
     }
 };
 
-const report = ref([]);
-
 function fillFuture() {
     // this month
     const lastMonthThursdayEntry = findNearestEntry(getTheThursday(today, -1));
@@ -139,23 +137,10 @@ function fillFuture() {
 const timeline = computed(() => {
     console.log('here we go!');
     fillPast(pastData);
-
-    report.value = [getLastEntry()];
-
     fillFuture();
 
-    for(let monthShift = 1; monthShift < 9; monthShift++) {
-        const date = getRelativeDate(today, monthShift, 1);
-        const entry = findNearestEntry(date);
-        if(date > entry.date) break;
-        report.value.push(entry);
-    }
-
     // console.log(entries);
-    console.log(report.value);
-    
     return entries;
 });
 
 export default timeline;
-export { report };

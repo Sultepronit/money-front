@@ -1,4 +1,6 @@
 <script setup>
+import FutureChart from '@/components/FutureChart.vue';
+
 import { Line } from 'vue-chartjs';
 import { Chart, LineElement, PointElement, LinearScale, Title, Tooltip, Legend, BarElement, CategoryScale, Filler, TimeScale } from 'chart.js';
 import 'chartjs-adapter-date-fns';
@@ -64,11 +66,15 @@ const chartOptions = {
 </script>
 
 <template>
-<section class="container">
-    <Line
-        :options="chartOptions"
-        :data="chartData"
-    />
+<section>
+    <section class="container">
+        <Line
+            :options="chartOptions"
+            :data="chartData"
+        />
+    </section>
+    <hr>
+    <FutureChart :details="true"  />
 </section>
 </template>
 

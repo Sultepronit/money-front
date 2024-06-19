@@ -62,12 +62,14 @@ const chartData = computed(() => {
         ]
     }
 });
+
+
 </script>
 
 <template>
 <section>
     <!-- <FutureChart /> -->
-    <p><b>{{ ukrainianDate(data[0].date) }} - {{ ukrainianDate(data[data.length - 1].date) }}</b></p>
+    <p><b>{{ ukrainianDate(data[0].date, true) }} - {{ ukrainianDate(data[data.length - 1].date, true) }}</b></p>
     <table>
         <tbody>
             <tr class="income">
