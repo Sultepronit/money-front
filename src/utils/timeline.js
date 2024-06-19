@@ -79,7 +79,7 @@ function append(date, changes) {
 }
 
 function findNearestEntry(date) {
-    console.log('find', date);
+    // console.log('find', date);
     return entries.slice().reverse().find(entry => entry.date <= date);
 }
 
@@ -108,15 +108,13 @@ const report = ref([]);
 
 function fillFuture() {
     // this month
+    const lastMonthThursdayEntry = findNearestEntry(getTheThursday(today, -1));
     const lastMoths30Entry = findNearestEntry(get30OrFeb(today, -1));
     const lastMonthsLastEntry = findNearestEntry(getRelativeDate(today, 0, 0));
     const thisMonthThursday = getTheThursday(today, 0);
 
-    changesOrder.add(thisMonthThursday, 3, 2366);
-    const the24 = getRelativeDate(today, 0, 24);
-    console.log(the24);
-    // changesOrder.add(getRelativeDate(today, 0, 24), 2, -lastMonthsLastEntry.credit3);
-    changesOrder.add(the24, 2, -lastMonthsLastEntry.credit3);
+    changesOrder.add(thisMonthThursday, 3, -lastMonthThursdayEntry?.credit4);
+    changesOrder.add(getRelativeDate(today, 0, 24), 2, -lastMonthsLastEntry.credit3);
     changesOrder.add(get29OrFeb(today), 0, -lastMoths30Entry.credit1);
     changesOrder.add(getRelativeDate(today, 1, -1), 1, -lastMonthsLastEntry.credit2);
     changesOrder.implement();
@@ -132,8 +130,6 @@ function fillFuture() {
 
     // third month
     const lastEntry = findNearestEntry(getRelativeDate(today, 2, 1));
-    report.value.push(lastEntry);
-    // console.log(report);
     if(lastEntry.credit4 === 0) return;
 
     changesOrder.add(getTheThursday(today, 2), 3, 'nullify');
@@ -143,9 +139,19 @@ function fillFuture() {
 const timeline = computed(() => {
     console.log('here we go!');
     fillPast(pastData);
+
     report.value = [getLastEntry()];
+
     fillFuture();
-    console.log(entries);
+
+    for(let monthShift = 1; monthShift < 9; monthShift++) {
+        const date = getRelativeDate(today, monthShift, 1);
+        const entry = findNearestEntry(date);
+        if(date > entry.date) break;
+        report.value.push(entry);
+    }
+
+    // console.log(entries);
     console.log(report.value);
     
     return entries;

@@ -66,7 +66,7 @@ const chartData = computed(() => {
 
 <template>
 <section>
-    <FutureChart />
+    <!-- <FutureChart /> -->
     <p><b>{{ ukrainianDate(data[0].date) }} - {{ ukrainianDate(data[data.length - 1].date) }}</b></p>
     <table>
         <tbody>
@@ -103,9 +103,5 @@ const chartData = computed(() => {
 </template>
 
 <style scoped>
-td {
-    /* display: inline-flex; */
-    /* display: flex; */
-    padding-inline: 0.1em;
-}
+
 </style>

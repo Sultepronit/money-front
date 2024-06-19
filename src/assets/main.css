@@ -16,6 +16,10 @@ input {
     border: 1px solid gray;
 }
 
+td {
+    padding-inline: 0.2em;
+}
+
 .flex {
     display: flex;
     justify-content: end;

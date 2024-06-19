@@ -1,9 +1,11 @@
 <script setup>
 import LineChart from './LineChart.vue';
+import BigNumber from './BigNumber.vue';
 
 import { computed } from 'vue';
 import { LineSet } from '@/utils/dataSets.js';
 import timeline, { report } from '@/utils/timeline.js';
+import { ukrainianDate } from '@/utils/formatters.js';
 
 // console.log(timeline);
 // console.log(timeline.value);
@@ -33,9 +35,16 @@ const chartData = computed(() => {
             :displayLegend="false"
         />
     </section>
-    <p>{{ report[0].credit }}</p>
-    <p>{{ report[0].debit }}</p>
-    <p>{{ report[0].balance }}</p>
+
+    <table>
+        <tbody>
+            <tr v-for="entry in report" :key="entry.date">
+                <td>{{ ukrainianDate(entry.date) }}</td>
+                <td class="income"><BigNumber :value="entry.debit" /></td>
+                <td class="expense"><BigNumber :value="entry.credit" /></td>
+            </tr>
+        </tbody>
+    </table>
 </section>
 </template>
 
