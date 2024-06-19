@@ -1,5 +1,5 @@
 import { patch } from './api.js';
-import { rawData, data } from './data.js';
+import { rawData, wholeData as data } from './data.js';
 import { DataRow } from '@/utils/dataStructures.js';
 
 function update(date, column, value) {
