@@ -5,7 +5,7 @@ import BigNumber from './BigNumber.vue';
 import { computed } from 'vue';
 import { BarSet } from '@/utils/chartDataSets.js';
 // import { data } from '@/services/data.js';
-import { ukrainianDate, monthYear } from '@/utils/formatters';
+import { ukrainianDate, monthYear, dayMonth } from '@/utils/formatters';
 
 // const props = defineProps(['data']);
 const props = defineProps({
@@ -58,8 +58,8 @@ const toDate = new Date(props.data[props.data.length - 1].date);
 // const range = toDate - fromDate;
 const days = (toDate - fromDate) < 10_000_000_000;
 
-const fromDateFormatted = days ? ukrainianDate(fromDate, true) : monthYear(fromDate);
-const toDateFormatted = days ? ukrainianDate(toDate, true) : monthYear(toDate);
+const fromDateFormatted = days ? dayMonth(fromDate) : monthYear(fromDate);
+const toDateFormatted = days ? dayMonth(toDate) : monthYear(toDate);
 
 </script>
 

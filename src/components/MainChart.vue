@@ -48,17 +48,17 @@ const chartOptions = {
         },
         y: {
             position: 'right',
-            ticks: {
-                stepSize: minor,
-                callback: function(val) {
-                    return val % major === 0 ? this.getLabelForValue(val) : '';
-                }
-            },
-            grid: {
-                color: function(context) {
-                    return context.tick && context.tick.value % major === 0 ? 'black' : 'lightgray';
-                }
-            }
+            // ticks: {
+            //     stepSize: minor,
+            //     callback: function(val) {
+            //         return val % major === 0 ? this.getLabelForValue(val) : '';
+            //     }
+            // },
+            // grid: {
+            //     color: function(context) {
+            //         return context.tick && context.tick.value % major === 0 ? 'black' : 'lightgray';
+            //     }
+            // }
         },
     }
 };
