@@ -13,8 +13,7 @@ window.addEventListener('hashchange', () => currentPath.value = window.location.
 console.log(currentPath);
 
 const routes = {
-    '#/main': MainView,
-    '#/vira': ViraView
+    '#/main': MainView
 };
 
 const mode = computed(() => routes[currentPath.value] || ViraView);

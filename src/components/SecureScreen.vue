@@ -1,19 +1,21 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { handleLogin, loginStatus } from '@/utils/security.js';
+import { handleLogin, redirectUser, loginStatus } from '@/utils/security.js';
 
 const password = ref(null);
 onMounted(() => {
-    console.log(password);
     password.value.focus();
 });
-
-
 </script>
 
 <template>
 <div class="page">
     <div class="panel">
+        <input
+            type="text"
+            id="username"
+            @change="redirectUser($event.target.value)"
+        >
         <input
             class="password"
             type="password"
@@ -34,8 +36,10 @@ onMounted(() => {
     margin-top: 20vh;
     /* max-width: 90%; */
 }
-.password {
-    /* width: 100%; */
+/*.password {*/
+input {
+    display: block;
+    margin: 0.4rem;
     width: 8em;
     font-size: 2rem;
     text-align: center;
