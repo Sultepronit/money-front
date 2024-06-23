@@ -16,6 +16,7 @@ defineProps(['content']);
     <MagicInput2 :account="content.stefko.credit.account4" />
 
     <PartsInput :parted="content.stefko.income" />
+    <PartsInput :parted="content.additionalIncome.debit" />
     <PartsInput :parted="content.additionalIncome.cancel" />
 
     <MagicInput2 :account="content.stefko.debitAccounts.account1" />
@@ -31,10 +32,6 @@ defineProps(['content']);
 </template>
 
 <style scoped>
-/* .the-row {
-    display: grid;
-    grid-template-columns: auto 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 2fr 2fr 4fr;
-} */
 .date {
     /* white-space: nowrap; */
     padding-inline: 0.2em;

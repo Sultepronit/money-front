@@ -45,5 +45,5 @@ td {
 
 .main-input-row {
     display: grid;
-    grid-template-columns: auto 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 2fr 2fr 4fr;
+    grid-template-columns: auto 4fr 4fr 4fr 4fr 4fr 3fr 4fr 4fr 4fr 3fr 2fr 2fr 3fr;
 }

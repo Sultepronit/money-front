@@ -3,7 +3,6 @@ import { ref, computed } from 'vue';
 const props = defineProps(['parted']);
 
 const plussed = computed(() => {
-    // console.log(props.parted.sum);
     return props.parted.parts.length > 0
         ? props.parted.parts.reduce((acc, val) => `${acc}+${val}`)
         : '';

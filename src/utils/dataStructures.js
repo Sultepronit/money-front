@@ -136,11 +136,9 @@ class AdditionalIncome {
     constructor(rawRow) {
         this.cancel = new Parted(rawRow['income_cancel'], 'income_cancel', rawRow.date);
         this.debit = new Parted(rawRow['income_debit'], 'income_debit', rawRow.date);
-        // this.exchangeUsd = new Field(rawRow, 'income_exchange_usd');
     }
 
     get sum() {
-        // return this.debit.sum + this.exchangeUsd.value - this.cancel.sum;
         return this.debit.sum - this.cancel.sum;
     }
 }
@@ -151,7 +149,6 @@ class DataRow {
         this.vira = new Vira(rawRow, previousRow);
         this.common = new Common(rawRow, previousRow);
         this.stefko = new Stefko(rawRow, previousRow);
-        // this.income = new Parted(rawRow['stefko_income'], 'stefko_income', rawRow.date);
         this.additionalIncome = new AdditionalIncome(rawRow);
     };
     

@@ -12,6 +12,7 @@ import { data } from '@/services/data.js';
         <p>univers</p>
         <p>more</p>
         <p>s income</p>
+        <p>deibt %</p>
         <p>transfer</p>
         <p>pumb</p>
         <p>zp</p>
@@ -28,10 +29,6 @@ import { data } from '@/services/data.js';
 .main-input {
     min-width: 60em;
 }
-/* .thead {
-    display: grid;
-    grid-template-columns: auto 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 4fr 2fr 2fr 4fr;
-} */
 .thead p {
     text-align: center;
     border: 1px solid;
