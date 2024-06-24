@@ -30,6 +30,6 @@ defineProps(['title', 'balances', 'parts']);
 .account {
     /* display: flex; */
     display: grid;
-    grid-template-columns: 3.5em 1fr;
+    grid-template-columns: 4em 1fr;
 }
 </style>

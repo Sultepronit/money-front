@@ -2,10 +2,10 @@
 import FlexibleInput from '@/components/FlexibleViewInput/FlexibleInput.vue';
 import FlexibleList from '@/components/FlexibleViewInput/FlexibleList.vue';
 
-import { data } from '@/services/data.js';
+import { reversed as data } from '@/services/data.js';
 import { ukrainianDate } from '@/utils/formatters';
 
-const selected = data.value[data.value.length - 1];
+const selected = data.value[0];
 </script>
 
 <template>

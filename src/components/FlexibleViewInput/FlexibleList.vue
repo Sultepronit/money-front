@@ -44,19 +44,20 @@ defineProps(['data']);
     display: flex;
     gap: 1em;
     flex-wrap: wrap;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: space-around;
     align-items: center;
     height: 2.5em;
     overflow: hidden;
     margin: 0.4rem;
-    background: rgb(172, 255, 154);
+    /* background: rgb(172, 255, 154); */
     /* display: grid;
     grid-template
     gap: 1em; */
 }
 
 .plate {
-    /* background: rgb(172, 255, 154); */
+    background: rgb(172, 255, 154);
     width: 5em;
 }
 </style>
