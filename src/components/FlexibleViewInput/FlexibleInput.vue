@@ -1,11 +1,7 @@
 <script setup>
-import MagicInput from '@/components/FlexibleViewInput/MagicInput.vue';
 import AccountsGroup from '@/components/FlexibleViewInput/AccountsGroup.vue';
 
 defineProps(['edited']);
-// import { data } from '@/services/data.js';
-
-// const edited = data.value[data.value.length - 1];
 </script>
 
 <template>

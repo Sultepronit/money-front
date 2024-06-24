@@ -1,9 +1,10 @@
 <script setup>
-import MagicInput from '@/components/FlexibleViewInput/MagicInput.vue';
+import BalanceChange from '@/components/BalanceChange.vue';
+import BigNumber from '@/components/BigNumber.vue';
 
 import { ukrainianDate } from '@/utils/formatters';
 
-defineProps(['data']);
+defineProps(['data', 'selected', 'select']);
 </script>
 
 <template>
@@ -11,30 +12,41 @@ defineProps(['data']);
     <div
         v-for="(row, index) in data"
         :key="index"
+        @click="select(index)"
         class="list-item"
+        :class="{selected: selected === index}"
     >
-        <p class="plate">{{ row.date }}</p>
+        <p class="date">{{ ukrainianDate(row.date) }}</p>
 
         <div class="plate">
-            <p>{{ row.balance }}</p>
-            <p>{{ row.change }}</p>
+            <BigNumber :value="row.balance" />
+            <BalanceChange :value="row.change" />
         </div>
 
         <div class="plate">
-            <p>{{ row.income }}</p>
-            <p>{{ row.expense }}</p>
+            <BalanceChange :value="row.income" />
+            <BalanceChange :value="row.expense" />
         </div>
 
         <div class="plate">
-            <p>{{ Math.round(row.stefko.credit.sum) }}</p>
-            <p>{{ Math.round(row.stefko.credit.change) }}</p>
+            <BigNumber :value="row.stefko.credit.sum" />
+            <BalanceChange :value="row.stefko.credit.change" />
         </div>
 
         <div class="plate">
-            <p>{{ Math.round(row.stefko.debit) }}</p>
-            <p>{{ Math.round(row.stefko.debitChange) }}</p>
+            <BigNumber :value="row.stefko.debit" />
+            <BalanceChange :value="row.stefko.debitChange" />
         </div>
 
+        <div class="plate">
+            <BigNumber :value="row.vira.balance" />
+            <BalanceChange :value="row.vira.balanceChange" />
+        </div>
+
+        <div class="plate">
+            <BigNumber :value="row.common.balance" />
+            <BalanceChange :value="row.common.change" />
+        </div>
     </div>
 </section>
 </template>
@@ -47,8 +59,9 @@ defineProps(['data']);
     /* justify-content: space-between; */
     justify-content: space-around;
     align-items: center;
-    height: 2.5em;
+    height: 2.7em;
     overflow: hidden;
+    width: fit-content;
     margin: 0.4rem;
     /* background: rgb(172, 255, 154); */
     /* display: grid;
@@ -56,8 +69,18 @@ defineProps(['data']);
     gap: 1em; */
 }
 
-.plate {
+.selected {
     background: rgb(172, 255, 154);
-    width: 5em;
+}
+
+.date {
+    width: 6em;
+    background: rgb(172, 255, 154);
+}
+
+.plate {
+    height: 2.7em;
+    background: rgb(172, 255, 154);
+    width: 4em;
 }
 </style>

@@ -2,17 +2,30 @@
 import FlexibleInput from '@/components/FlexibleViewInput/FlexibleInput.vue';
 import FlexibleList from '@/components/FlexibleViewInput/FlexibleList.vue';
 
+import { ref } from 'vue';
 import { reversed as data } from '@/services/data.js';
-import { ukrainianDate } from '@/utils/formatters';
+// import { ukrainianDate } from '@/utils/formatters';
 
-const selected = data.value[0];
+// const selected = data.value[0];
+const selected = ref(0);
+function select(index) {
+    selected.value = index;
+}
 </script>
 
 <template>
 <section class="main-area">
-    <FlexibleInput :edited="selected" class="half" />
+    <FlexibleInput
+        :edited="data[selected]"
+        class="half"
+    />
     <hr>
-    <FlexibleList :data="data" class="half" />
+    <FlexibleList
+        :data="data"
+        :selected="selected"
+        :select="select"
+        class="half"
+    />
 </section>
 </template>
 
