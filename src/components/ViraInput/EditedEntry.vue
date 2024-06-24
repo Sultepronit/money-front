@@ -98,7 +98,7 @@ const current = ref('black');
     margin-block: 0.2em;
     background: #abf6ff;
 }
-.balances {
+.edited {
     border: 1px solid black;
     border-radius: 0.2em;
     background-color: white;

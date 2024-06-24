@@ -62,9 +62,10 @@ defineProps(['data', 'selected', 'select']);
     height: 2.7em;
     overflow: hidden;
     width: fit-content;
-    margin: 0.4rem;
-    background: #e6e6e6;
-    padding-inline: 0.4em;
+    margin: 0.4rem auto;
+    /* margin-inline: auto; */
+    background: #f1f1f1;
+    padding-inline: 0.2em;
     /* display: grid;
     grid-template
     gap: 1em; */
