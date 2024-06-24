@@ -5,15 +5,17 @@ import MainStats from '@/components/MainStats.vue';
 import CompactStats from '@/components/CompactStats.vue';
 import MainChart from '@/components/MainChart.vue';
 import ManyStats from '@/components/ManyStats.vue';
+import FlexibleViewInput from '@/components/FlexibleViewInput.vue';
 
 import { ref } from 'vue';
 
-const mode = ref('input');
+const mode = ref('flex');
 
 </script>
 
 <template>
    <p class="buttons">
+        <button @click="mode='flex'">flex</button>
         <button @click="mode='input'">input</button>
         <button @click="mode='stats'">stats</button>
         <button @click="mode='chart'">chart</button>
@@ -21,13 +23,14 @@ const mode = ref('input');
         <button @click="mode='compact'">compact</button>
         <button @click="mode='beauty'">beauty</button>
     </p>
+
+    <FlexibleViewInput v-show="mode === 'flex'" />
     <MainInput v-show="mode === 'input'" />
     <MainChart v-show="mode === 'chart'" />
     <MainStats v-show="mode === 'stats'" />
     <ViraInput v-show="mode === 'vira'" />
     <CompactStats v-show="mode === 'compact'" />
     <ManyStats v-show="mode === 'beauty'" />
-    
 </template>
 
 <style scoped>
