@@ -63,7 +63,8 @@ defineProps(['data', 'selected', 'select']);
     overflow: hidden;
     width: fit-content;
     margin: 0.4rem;
-    /* background: rgb(172, 255, 154); */
+    background: #e6e6e6;
+    padding-inline: 0.4em;
     /* display: grid;
     grid-template
     gap: 1em; */
@@ -75,12 +76,12 @@ defineProps(['data', 'selected', 'select']);
 
 .date {
     width: 6em;
-    background: rgb(172, 255, 154);
+    /* background: rgb(172, 255, 154); */
 }
 
 .plate {
     height: 2.7em;
-    background: rgb(172, 255, 154);
+    /* background: rgb(172, 255, 154); */
     width: 4em;
 }
 </style>

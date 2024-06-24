@@ -37,8 +37,8 @@ function parse(input) {
 
 <style scoped>
 .focused {
-    position: absolute;
-    width: 15em;
+    /* position: absolute;
+    width: 15em; */
 }
 .result {
     position: absolute;
