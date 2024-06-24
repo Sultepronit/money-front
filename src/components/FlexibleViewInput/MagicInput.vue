@@ -3,7 +3,6 @@ import { ref, computed } from 'vue';
 const props = defineProps(['account']);
 
 let expression = ref('');
-// console.log(props.account);
 const theValue = computed(() => expression.value || props.account.balance);
 
 const hintedResult = ref('');
@@ -48,10 +47,11 @@ function parse(input) {
     width: 10em; */
 }
 .result {
-    position: absolute;
-    margin-top: 1.25em;
-    margin-left: 0.1em;
-    background: yellowgreen;
+    /* position: sticky; */
+    /* margin-top: 1.25em; */
+    /* margin-left: 0.1em; */
+    background: #4fff4f;
     padding-inline: 0.4em;
+    border-radius: 0.3em;
 }
 </style>
