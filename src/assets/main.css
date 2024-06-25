@@ -15,6 +15,7 @@ input {
     color: inherit;
     background: white;
     border: 1px solid gray;
+    text-align: right;
 }
 
 td {

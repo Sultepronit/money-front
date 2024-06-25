@@ -8,6 +8,7 @@ defineProps(['edited']);
 <section class="edit-entry">
     <AccountsGroup
         title="credits"
+        :date="edited.date"
         :balances="[
             { name: 'pumb', account: edited.stefko.credit.account1 },
             { name: 'mono', account: edited.stefko.credit.account2 },
