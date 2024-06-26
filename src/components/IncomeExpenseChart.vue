@@ -4,7 +4,6 @@ import BigNumber from './BigNumber.vue';
 
 import { computed } from 'vue';
 import { BarSet } from '@/utils/chartDataSets.js';
-// import { data } from '@/services/data.js';
 import { ukrainianDate, monthYear, dayMonth } from '@/utils/formatters';
 
 // const props = defineProps(['data']);

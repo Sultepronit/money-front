@@ -26,7 +26,7 @@ const chartOptions = {
     // barPercentage: 1,
     plugins: {
         legend: {
-            display: false
+            // display: false
         },
         // tooltip: {
         //     callbacks: {
