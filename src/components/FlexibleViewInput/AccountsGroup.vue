@@ -2,7 +2,7 @@
 import MagicInput from '@/components/FlexibleViewInput/MagicInput.vue';
 import PartsInput from '@/components/FlexibleViewInput/PartsInput.vue';
 
-defineProps(['title', 'date', 'balances', 'parts']);
+defineProps(['date', 'balances', 'parts', 'additional']);
 </script>
 
 <template>
@@ -16,6 +16,11 @@ defineProps(['title', 'date', 'balances', 'parts']);
     <div class="account" v-for="item in parts">
         <p class="item">{{ item.name }}</p>
         <PartsInput :parted="item.account" />
+    </div>
+
+    <div class="account" v-for="item in additional">
+        <p class="item">{{ item.name }}</p>
+        <p class="">{{ item.account }}</p>
     </div>
 </div>
 </template>
