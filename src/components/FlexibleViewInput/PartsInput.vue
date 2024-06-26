@@ -11,7 +11,7 @@ const plussed = computed(() => {
 const focused = ref(false);
 const theValue = computed(() => focused.value ? plussed.value : props.parted.sum);
 
-const hintedResult = ref('');
+// const hintedResult = ref('');
 
 function parse(input) {
     input = input.replaceAll(',', '.');
@@ -27,24 +27,28 @@ function parse(input) {
         type="text"
         :value="theValue"
         :class="{focused}"
+        class="parts-input"
         @change="parse($event.target.value)"
         @focus="focused=true"
         @blur="focused=false"
     >
-    <p class="result" v-show="focused">{{ hintedResult }}</p>
+    <!-- <p class="result" v-show="focused">{{ hintedResult }}</p> -->
 </div>
 </template>
 
 <style scoped>
+.parts-input {
+    border-width: 0;
+}
 .focused {
     /* position: absolute;
     width: 15em; */
 }
-.result {
+/* .result {
     position: absolute;
     margin-top: 1.25em;
     margin-left: 0.1em;
     background: yellowgreen;
     padding-inline: 0.4em;
-}
+} */
 </style>

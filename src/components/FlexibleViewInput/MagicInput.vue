@@ -51,7 +51,7 @@ function parse(input) {
     >
     <!-- <p class="result" v-show="focused">{{ hintedResult }}</p> -->
     <!-- <p class="result">{{ hintedResult }}</p> -->
-    <p class="result" v-show="verbose[date]?.result">{{ verbose[date]?.result }}</p>
+    <p class="result" v-show="verbose[date]?.result">= {{ verbose[date]?.result }}</p>
 </div>
 </template>
 
@@ -60,14 +60,16 @@ function parse(input) {
     display: flex;
 }
 .magic-input {
-    /* text-align: right; */
+    border-width: 0;
 }
 .focused {
     /* position: absolute;
     width: 10em; */
 }
 .result {
-    padding-left: 0.2em;
+    padding-left: 0.3em;
+    /* color: blue; */
+    font-style: italic;
     /* position: absolute; */
     /* margin-top: 1.25em; */
     /* margin-left: 0.1em; */

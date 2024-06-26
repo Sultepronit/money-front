@@ -40,6 +40,8 @@ defineProps(['edited']);
         ]"
         :additional="[
             { name: 'Vira', account: edited.vira.income },
+            { name: 'usd', account: edited.common.usd.income },
+            { name: 'total', account: edited.income },
         ]"
     />
 

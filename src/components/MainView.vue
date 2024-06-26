@@ -14,15 +14,15 @@ const mode = ref('flex');
 </script>
 
 <template>
-   <p class="buttons">
+   <div class="buttons">
         <button @click="mode='flex'">flex</button>
-        <button @click="mode='input'">input</button>
-        <button @click="mode='stats'">stats</button>
         <button @click="mode='chart'">chart</button>
         <button @click="mode='vira'">vira</button>
         <button @click="mode='compact'">compact</button>
         <button @click="mode='beauty'">beauty</button>
-    </p>
+        <button @click="mode='input'">input</button>
+        <button @click="mode='stats'">stats</button>
+    </div>
 
     <FlexibleViewInput v-show="mode === 'flex'" />
     <MainInput v-show="mode === 'input'" />
@@ -36,6 +36,10 @@ const mode = ref('flex');
 <style scoped>
 .buttons {
     margin-bottom: 0.2em;
+    width: 100%;
+    /* height: 1.5em; */
+    text-wrap: nowrap;
+    overflow: auto;
 }
 button {
     margin-inline: 0.5em;
