@@ -18,7 +18,7 @@ const chartData = computed(() => {
             new LineSet('ready', null, 'green', 2, data, ['stefko', 'debit']),
             new LineSet('balance', 'rgba(0, 0, 0, 0.2)', 'white', 0, data, ['balance']),
             new LineSet('credit', 'rgba(255, 0, 0, 0.15)', 'red', 2, data, ['stefko', 'credit', 'sum']),
-            new LineSet('debit', 'rgba(0, 255, 0, 0.2)', 'green', 2, data, ['debit']),
+            new LineSet('debit', 'rgba(0, 255, 0, 0.3)', 'green', 2, data, ['debit']),
         ]
     }
 });

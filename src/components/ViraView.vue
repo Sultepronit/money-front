@@ -40,7 +40,7 @@ const mode = ref('vira');
 .buttons {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    margin-bottom: 0.5em;
+    margin-block: 0.5rem;
 }
 button {
     font-size: 1.2rem;

@@ -112,7 +112,7 @@ const selected = ref(0);
 }
 .list {
     margin-top: 0.7rem;
-    height: calc(100dvh - 14.4em);
+    height: calc(100dvh - 15.9em);
     overflow: auto;
 }
 .list-item {
