@@ -28,7 +28,8 @@ class BarSet {
         this.data = data.map(entry => {
             return {
                 x: entry.date,
-                y: reverse ? reverse * entry[category] : entry[category]
+                y: reverse ? reverse * entry[category]
+                    : entry[category] > 0 ? entry[category] : 0
             }
         });
     }

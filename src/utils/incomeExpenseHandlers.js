@@ -15,19 +15,23 @@ function splitMonths(limit) {
         // console.log((new Date(entry.date)).getDate());
         months[monthIndex].push(entry);
         if((new Date(entry.date)).getDate() === 1) {
-            monthIndex++;
+            months[++monthIndex] = [];
+            // monthIndex++;
         }
+
         if(limit && monthIndex > limit) break;
     }
+    months.pop();
 
     if(months[0].length < 25) {
-        delete months[0];
+        months.shift();
     }
     months.reverse();
     return months;
 }
 
 function sumIncomeExpense(period) {
+    console.log(period);
     const result = {
         income: 0,
         expense: 0,

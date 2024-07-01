@@ -94,12 +94,23 @@ const toDateFormatted = days ? dayMonth(toDate) : monthYear(toDate);
             </tr>
         </tbody>
     </table>
-    <BarChart :data="chartData" :unit="unit" />
+    <section class="chart-outer">
+        <div class="chart-inner">
+            <BarChart :data="chartData" :unit="unit" />
+        </div>
+    </section>
 </section>
 </template>
 
 <style scoped>
+
 .margin-auto {
     margin: auto;
 }
+/* .chart-outer {
+    overflow: auto;
+}
+.chart-inner {
+    width: 1000px;
+} */
 </style>
