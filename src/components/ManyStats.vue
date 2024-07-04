@@ -3,8 +3,23 @@ import IncomeExpenseChart from './IncomeExpenseChart.vue';
 import BalanceChart from './BalanceChart.vue';
 import FutureChart from '@/components/FutureChart.vue';
 
-import { data } from '@/services/data.js';
+import { data, reversed } from '@/services/data.js';
 import { prepareMonths } from '@/utils/incomeExpenseHandlers.js';
+
+console.log(reversed);
+// const lastMonth = reversed
+const today = (new Date()).getDate();
+let counter = 0;
+const lastMonth = [];
+for(const day of reversed.value) {
+    lastMonth.push(day);
+    if((new Date(day.date)).getDate() === today) {
+        counter++;
+        if(counter > 1) break;
+    }
+    // console.log((new Date(day.date)).getDate());
+}
+console.log(lastMonth);
 
 const allMonths = prepareMonths();
 console.log(allMonths);
@@ -12,7 +27,7 @@ console.log(allMonths);
 
 <template>
 <section>
-    <IncomeExpenseChart :data="data" />
+    <IncomeExpenseChart :data="lastMonth" />
     <hr>
     <IncomeExpenseChart :data="allMonths" unit="month" />
     <hr>
