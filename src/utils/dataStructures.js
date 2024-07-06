@@ -100,11 +100,19 @@ class Stefko {
         this.debitAccounts = {
             account1: new Balance(row, 'stefko_debit_1', previousRow?.stefko.debitAccounts.account1.balance),
             account2: new Balance(row, 'stefko_debit_2', previousRow?.stefko.debitAccounts.account2.balance),
+            account3: new Balance(row, 'stefko_debit_3', previousRow?.stefko.debitAccounts.account3.balance),
+            account4: new Balance(row, 'stefko_debit_4', previousRow?.stefko.debitAccounts.account4.balance),
             get sum() {
-                return this.account1.balance + this.account2.balance;
+                return this.account1.balance
+                    + this.account2.balance
+                    + this.account3.balance
+                    + this.account4.balance;
             },
             get change() {
-                return this.account1.change + this.account2.change;
+                return this.account1.change
+                    + this.account2.change
+                    + this.account3.change
+                    + this.account4.change;
             }
         };
 
@@ -117,6 +125,13 @@ class Stefko {
 
     get debit() {
         return this.debitAccounts.sum - this.others.marta.balance;
+    };
+
+    get debitReady() {
+        return this.debitAccounts.account1.balance
+            + this.debitAccounts.account2.balance
+            + this.debitAccounts.account3.balance
+            - this.others.marta.balance;
     };
 
     get debitChange() {

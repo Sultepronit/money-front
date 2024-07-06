@@ -25,7 +25,7 @@ class Parted {
 class Balance {
     constructor(dbRow, dbColName, previous) {
         this.current = dbRow[dbColName];
-        this.previous = previous;
+        this.previous = previous || null;
         this.dbColName = dbColName;
         this.date = dbRow.date;
     }
