@@ -45,7 +45,7 @@ function getTheThursday(currentDate, shiftMonth) { // the thursday of second las
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);
-console.log(today);
+// console.log(today);
 
 for(let i = -12; i < 0; i++) {
     getTheThursday(today, -5 + i);

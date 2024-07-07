@@ -31,7 +31,7 @@ function splitMonths(limit) {
 }
 
 function sumIncomeExpense(period) {
-    console.log(period);
+    // console.log(period);
     const result = {
         income: 0,
         expense: 0,
@@ -48,9 +48,9 @@ function sumIncomeExpense(period) {
 
 function prepareMonths() {
     const months = splitMonths();
-    console.log(months);
+    // console.log(months);
     const totals = months.map(month => sumIncomeExpense(month));
-    console.log(totals);
+    // console.log(totals);
     return [
         ...pastMonths,
         ...totals

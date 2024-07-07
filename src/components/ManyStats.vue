@@ -6,23 +6,21 @@ import FutureChart from '@/components/FutureChart.vue';
 import { data, reversed } from '@/services/data.js';
 import { prepareMonths } from '@/utils/incomeExpenseHandlers.js';
 
-console.log(reversed);
-// const lastMonth = reversed
 const today = (new Date()).getDate();
 let counter = 0;
 const lastMonth = [];
 for(const day of reversed.value) {
     lastMonth.push(day);
     if((new Date(day.date)).getDate() === today) {
-        counter++;
+        counter++; // first time today, second - month ago
         if(counter > 1) break;
     }
-    // console.log((new Date(day.date)).getDate());
 }
-console.log(lastMonth);
+lastMonth.reverse();
+// console.log(lastMonth);
 
 const allMonths = prepareMonths();
-console.log(allMonths);
+// console.log(allMonths);
 </script>
 
 <template>

@@ -10,7 +10,6 @@ import { loggedIn } from './utils/security';
 
 const currentPath = ref(window.location.hash);
 window.addEventListener('hashchange', () => currentPath.value = window.location.hash);
-console.log(currentPath);
 
 const routes = {
     '#/main': MainView

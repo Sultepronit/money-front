@@ -135,11 +135,9 @@ function fillFuture() {
 }
 
 const timeline = computed(() => {
-    console.log('here we go!');
     fillPast(pastData);
     fillFuture();
 
-    // console.log(entries);
     return entries;
 });
 
