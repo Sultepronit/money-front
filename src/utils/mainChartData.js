@@ -6,8 +6,8 @@ import { LineSet } from '@/utils/chartDataSets.js';
 const chartData = computed(() => {
     return {
         datasets: [
-            new LineSet('Vira', null, 'blue', 3, data, ['vira', 'balance']),
             new LineSet('Stefko', null, 'green', 4, data, ['stefko', 'balance']),
+            new LineSet('Vira', null, 'blue', 3, data, ['vira', 'balance']),
             new LineSet('cash', null, 'rgba(0, 0, 0, 0.4)', 5, data, ['common', 'cash', 'balance']),
             new LineSet('usd', null, 'rgba(0, 255, 0, 1)', 5, data, ['common', 'usd', 'uah']),
             new LineSet('pumb', null, '#ff28a1', 3, data, ['stefko', 'credit', 'account1', 'balance']),
