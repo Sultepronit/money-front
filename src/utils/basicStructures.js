@@ -31,7 +31,8 @@ class Balance {
     }
 
     get balance() {
-        return this.current || this.previous;
+        // return this.current || this.previous;
+        return this.current !== null ? this.current : this.previous;
     }
 
     updateValue(newVal) {
