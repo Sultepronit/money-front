@@ -1,11 +1,10 @@
 <script setup>
+import { ref, onMounted } from 'vue';
 import { Line } from 'vue-chartjs';
 import { Chart, LineElement, PointElement, LinearScale, Title, Tooltip, Legend, BarElement, CategoryScale, Filler, TimeScale } from 'chart.js';
 import 'chartjs-adapter-date-fns';
+import { computed } from 'vue';
 // import annotationPlugin from 'chartjs-plugin-annotation';
-
-// import { chartData } from '@/utils/mainChartData.js';
-// console.log(chartData);
 
 const props = defineProps(['data', 'displayLegend']);
 // console.log(props);
@@ -15,12 +14,13 @@ Chart.register(LineElement, PointElement, LinearScale, Title, Tooltip, Legend, B
 Chart.defaults.borderColor = 'black';
 // console.log(Chart.defaults);
 
-const major = 10000;
-const minor = 2000;
+// const major = 10000;
+// const minor = 2000;
 
 const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
+    // height: 1600,
     interaction: {
         node: 'nearest',
         intersect: false
@@ -72,24 +72,44 @@ const chartOptions = {
     }
 };
 
+const dataLine = props.data.datasets[0].data;
+const range = new Date(dataLine[dataLine.length - 1][0]) - new Date(dataLine[0][0]);
+console.log(range / 10_000_000);
+
+const minWidth = computed(() => {
+    return { 'min-width': (range / 10_000_000) + 'px' };
+});
+
 </script>
 
 <template>
-<!-- <section class="container">
-    <Line
-        :options="chartOptions"
-        :data="data"
-    />
-</section> -->
-<Line
+<section class="outer-container" ref="outer">
+    <div class="inner-container" :style="minWidth" >
+        <Line
+            :options="chartOptions"
+            :data="data"
+        />
+    </div>
+</section>
+<!-- <Line
     :options="chartOptions"
     :data="data"
-/>
+/> -->
 </template>
 
 <style scoped>
-/* .container {
+.outer-container {
+    overflow-x: auto;
+}
+
+.inner-container {
     width: 100%;
+    /* height: 500px;
+    max-height: 95dvh; */
     height: 95dvh;
-} */
+}
+.container {
+    /* width: 90%; */
+    height: 95dvh;
+}
 </style>

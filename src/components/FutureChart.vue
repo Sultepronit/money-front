@@ -5,12 +5,8 @@ import BigNumber from './BigNumber.vue';
 import { computed } from 'vue';
 import { LineSet } from '@/utils/chartDataSets.js';
 import timeline from '@/utils/timeline.js';
-import { ukrainianDate } from '@/utils/formatters.js';
 
 const props = defineProps(['details']);
-
-// console.log(timeline);
-// console.log(timeline.value);
 
 const chartData = computed(() => {
     let datasets = [
@@ -38,13 +34,11 @@ const chartData = computed(() => {
 </script>
 
 <template>
-<section>
-    <section class="chart">
-        <LineChart
-            :data="chartData"
-            :displayLegend="false"
-        />
-    </section>
+<section class="chart">
+    <LineChart
+        :data="chartData"
+        :displayLegend="false"
+    />
 </section>
 </template>
 

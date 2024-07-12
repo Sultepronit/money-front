@@ -84,24 +84,25 @@ const minWidth = computed(() => {
     return { 'min-width': props.data.datasets[0].data.length * 25 + 'px' };
 });
 
-const inner = ref(null);
-function toTheRight() {
-    inner.value.scroll({ left: 10000 });
-}
+const outer = ref(null);
+// function toTheRight() {
+//     inner.value.scroll({ left: 10000 });
+// }
 
 onMounted(() => {
     const observer = new IntersectionObserver((entries) => {
         if(entries[0].isIntersecting) {
-            toTheRight();
+            // toTheRight();
+            outer.value.scroll({ left: 10000 });
             observer.disconnect();
         }
     });
-    observer.observe(inner.value);
+    observer.observe(outer.value);
 });
 </script>
 
 <template>
-<section class="outer-container" ref="inner">
+<section class="outer-container" ref="outer">
     <div class="inner-container" :style="minWidth" >
         <Bar
             :options="chartOptions"
@@ -112,18 +113,11 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.container {
-    width: 100%;
-    /* height: 95dvh; */
-    height: 500px;
-    max-height: 95dvh;
-}
-
 .outer-container {
     overflow-x: auto;
 }
+
 .inner-container {
-    /* width: 1000px; */
     width: 100%;
     height: 500px;
     max-height: 95dvh;
