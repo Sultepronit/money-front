@@ -44,6 +44,6 @@ const chartData = computed(() => {
 
 <style scoped>
 .chart {
-    height: 600px;
+    /* height: 600px; */
 }
 </style>

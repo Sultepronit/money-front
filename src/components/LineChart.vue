@@ -104,9 +104,9 @@ const minWidth = computed(() => {
 
 .inner-container {
     width: 100%;
-    /* height: 500px;
-    max-height: 95dvh; */
-    height: 95dvh;
+    height: 500px;
+    /* max-height: 95dvh; */
+    /* height: 95dvh; */
 }
 .container {
     /* width: 90%; */
