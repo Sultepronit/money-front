@@ -39,6 +39,7 @@ const chartData = computed(() => {
         :data="chartData"
         :displayLegend="false"
         :widthFactor="0.5"
+        height="95dvh"
     />
 </section>
 </template>

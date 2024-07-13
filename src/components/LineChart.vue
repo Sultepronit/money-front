@@ -17,6 +17,10 @@ const props = defineProps({
     widthFactor: {
         type: Number,
         default: 1
+    },
+    height: {
+        type: String,
+        default: '500px'
     }
 });
 // console.log(props);
@@ -86,25 +90,24 @@ const dataLine = props.data.datasets[0].data;
 const range = new Date(dataLine[dataLine.length - 1][0]) - new Date(dataLine[0][0]);
 console.log(range / 10_000_000);
 
-const minWidth = computed(() => {
-    return { 'min-width': (range / 10_000_000 * props.widthFactor) + 'px' };
-});
+// const minWidth = computed(() => {
+//     return { 'min-width': (range / 10_000_000 * props.widthFactor) + 'px' };
+// });
+
+const minWidth = { 'min-width': (range / 10_000_000 * props.widthFactor) + 'px' };
+const height = { height: props.height };
 
 </script>
 
 <template>
 <section class="outer-container" ref="outer">
-    <div class="inner-container" :style="minWidth" >
+    <div class="inner-container" :style="[minWidth, height]" >
         <Line
             :options="chartOptions"
             :data="data"
         />
     </div>
 </section>
-<!-- <Line
-    :options="chartOptions"
-    :data="data"
-/> -->
 </template>
 
 <style scoped>
@@ -114,12 +117,8 @@ const minWidth = computed(() => {
 
 .inner-container {
     width: 100%;
-    height: 500px;
+    /* height: 500px; */
     /* max-height: 95dvh; */
     /* height: 95dvh; */
-}
-.container {
-    /* width: 90%; */
-    height: 95dvh;
 }
 </style>
