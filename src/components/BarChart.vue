@@ -85,14 +85,10 @@ const minWidth = computed(() => {
 });
 
 const outer = ref(null);
-// function toTheRight() {
-//     inner.value.scroll({ left: 10000 });
-// }
 
 onMounted(() => {
     const observer = new IntersectionObserver((entries) => {
         if(entries[0].isIntersecting) {
-            // toTheRight();
             outer.value.scroll({ left: 10000 });
             observer.disconnect();
         }

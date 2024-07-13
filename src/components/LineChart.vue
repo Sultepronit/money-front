@@ -88,15 +88,20 @@ const chartOptions = {
 
 const dataLine = props.data.datasets[0].data;
 const range = new Date(dataLine[dataLine.length - 1][0]) - new Date(dataLine[0][0]);
-console.log(range / 10_000_000);
-
-// const minWidth = computed(() => {
-//     return { 'min-width': (range / 10_000_000 * props.widthFactor) + 'px' };
-// });
 
 const minWidth = { 'min-width': (range / 10_000_000 * props.widthFactor) + 'px' };
 const height = { height: props.height };
 
+const outer = ref(null);
+onMounted(() => {
+    const observer = new IntersectionObserver((entries) => {
+        if(entries[0].isIntersecting) {
+            outer.value.scroll({ left: 10000 });
+            observer.disconnect();
+        }
+    });
+    observer.observe(outer.value);
+});
 </script>
 
 <template>
