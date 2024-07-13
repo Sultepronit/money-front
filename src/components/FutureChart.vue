@@ -38,6 +38,7 @@ const chartData = computed(() => {
     <LineChart
         :data="chartData"
         :displayLegend="false"
+        :widthFactor="0.5"
     />
 </section>
 </template>

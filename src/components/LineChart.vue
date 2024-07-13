@@ -6,7 +6,19 @@ import 'chartjs-adapter-date-fns';
 import { computed } from 'vue';
 // import annotationPlugin from 'chartjs-plugin-annotation';
 
-const props = defineProps(['data', 'displayLegend']);
+// const props = defineProps(['data', 'displayLegend']);
+const props = defineProps({
+    data: {
+        type: Object
+    },
+    displayLegend: {
+        type: Boolean
+    },
+    widthFactor: {
+        type: Number,
+        default: 1
+    }
+});
 // console.log(props);
 
 Chart.register(LineElement, PointElement, LinearScale, Title, Tooltip, Legend, BarElement, CategoryScale, Filler, TimeScale, /*annotationPlugin*/);
@@ -44,8 +56,6 @@ const chartOptions = {
             time: {
                 unit: 'month',
             },
-            // min: '2024-06-01',
-            // max: '2024-07-01'
         },
         y: {
             position: 'right',
@@ -77,7 +87,7 @@ const range = new Date(dataLine[dataLine.length - 1][0]) - new Date(dataLine[0][
 console.log(range / 10_000_000);
 
 const minWidth = computed(() => {
-    return { 'min-width': (range / 10_000_000) + 'px' };
+    return { 'min-width': (range / 10_000_000 * props.widthFactor) + 'px' };
 });
 
 </script>

@@ -23,7 +23,7 @@ const chartData = computed(() => {
 <section class="container">
     <LineChart
         :data="chartData"
-        displayLegend="true"
+        :displayLegend="true"
     />
 </section>
 </template>
