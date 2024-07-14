@@ -31,9 +31,9 @@ const allMonths = prepareMonths();
     <hr>
     <p class="center"><b>Баланси</b></p>
     <BalanceChart />
-    <hr>
+    <!-- <hr>
     <p class="center"><b>Зобов'язання</b></p>
-    <FutureChart />
+    <FutureChart /> -->
 </section>
 </template>
 

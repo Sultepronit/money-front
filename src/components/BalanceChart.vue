@@ -20,19 +20,13 @@ const chartData = computed(() => {
 </script>
 
 <template>
-<section class="container">
     <LineChart
         :data="chartData"
         :displayLegend="true"
+        height="90dvh"
     />
-</section>
 </template>
 
 <style scoped>
-.container {
-    width: 100%;
-    /* height: 95dvh; */
-    height: 500px;
-    max-height: 95dvh;
-}
+
 </style>
