@@ -1,26 +1,13 @@
 <script setup>
 import MagicInput from '@/components/FlexibleViewInput/MagicInput.vue';
 import PartsInput from '@/components/FlexibleViewInput/PartsInput.vue';
+import BigNumber from '@/components/BigNumber.vue';
 
 defineProps(['date', 'balances', 'parts', 'additional']);
 </script>
 
 <template>
 <div class="accounts">
-    <!-- <div class="account" v-for="item in balances">
-        <p class="item">{{ item.name }}</p>
-        <MagicInput :account="item.account" :date="date" />
-    </div> -->
-
-    <!-- <div class="account" v-for="item in parts">
-        <p class="item">{{ item.name }}</p>
-        <PartsInput :parted="item.account" />
-    </div> -->
-
-    <!-- <div class="account" v-for="item in additional">
-        <p class="item">{{ item.name }}</p>
-        <p class="">{{ item.account }}</p>
-    </div> -->
     <table>
         <tbody>
             <tr class="" v-for="item in balances">
@@ -37,7 +24,10 @@ defineProps(['date', 'balances', 'parts', 'additional']);
             </tr>
             <tr class="" v-for="item in additional">
                 <td class="title">{{ item.name }}</td>
-                <td class="">{{ item.account }}</td>
+                <!-- <td class="">{{ item.account }}</td> -->
+                <td>
+                    <BigNumber :value="item.account" />
+                </td>
             </tr>
         </tbody>
     </table>
