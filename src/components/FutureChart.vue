@@ -21,11 +21,14 @@ const chartData = computed(() => {
             new LineSet('mono', null, '#ff5500', 3, timeline, ['credit2']),
             new LineSet('privat', null, 'yellow', 3, timeline, ['credit3']),
             new LineSet('more', null, 'red', 3, timeline, ['credit4']),
+            new LineSet('wait', null, 'black', 3, timeline, ['wait']),
             datasets[1],
             datasets[2],
         ];
     }
     
+    // console.log(datasets);
+
     return { datasets };
 });
 // console.log(chartData);
