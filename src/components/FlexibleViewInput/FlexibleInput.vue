@@ -25,12 +25,25 @@ defineProps(['edited']);
             { name: 'zp', account: edited.stefko.debitAccounts.account2 },
             { name: 'bvr', account: edited.stefko.debitAccounts.account3 },
             { name: 'wait', account: edited.stefko.debitAccounts.account4 },
+        ]"
+        :additional="[
+            { name: 'ready', account: edited.stefko.debitReady },
+            { name: 'total', account: edited.stefko.debit },
+        ]"
+    />
+
+    <AccountsGroup
+        :balances="[
+            { name: 'm', account: edited.stefko.others.marta },
+            { name: 'USD rate', account: edited.common.usd.rate },
+            { name: 'USD', account: edited.common.usd.balance },
             { name: 'cash', account: edited.common.cash },
         ]"
         :additional="[
-            { name: 'Vira', account: edited.vira.balance },
             { name: 'USD', account: edited.common.usd.uah },
-            { name: 'total', account: edited.debit },
+            { name: 'Vira', account: edited.vira.balance },
+            { name: 'Stefko', account: edited.stefko.balance },
+            { name: 'total', account: edited.balance },
         ]"
     />
 
@@ -44,17 +57,6 @@ defineProps(['edited']);
             { name: 'Vira', account: edited.vira.income },
             { name: 'usd', account: edited.common.usd.income },
             { name: 'total', account: edited.income },
-        ]"
-    />
-
-    <AccountsGroup
-        :balances="[
-            { name: 'usd', account: edited.common.usd.balance },
-            { name: 'usd rate', account: edited.common.usd.rate },
-            { name: 'm', account: edited.stefko.others.marta },
-        ]"
-        :additional="[
-            // { name: 'uah', account: edited.common.usd.uah },
         ]"
     />
 </section>
