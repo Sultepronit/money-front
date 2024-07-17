@@ -16,10 +16,10 @@ const mode = ref('flex');
    <header class="buttons">
         <button @click="mode='flex'">flex</button>
         <button @click="mode='charts'">charts</button>
-        <button @click="mode='chart'">chart</button>
         <button @click="mode='vira'">vira</button>
         <button @click="mode='compact'">compact</button>
         <button @click="mode='beauty'">beauty</button>
+        <button @click="mode='chart'">chart</button>
     </header>
 
     <main>

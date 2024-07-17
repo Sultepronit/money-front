@@ -23,7 +23,7 @@ const chartData = computed(() => {
     <LineChart
         :data="chartData"
         :displayLegend="true"
-        height="90dvh"
+        height="95dvh"
     />
 </template>
 

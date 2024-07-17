@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import { wholeData as pastData } from '@/services/data.js';
 import { newDate, getRelativeDate, shiftDate, get29OrFeb, get30OrFeb, getTheThursday, today } from '@/utils/handleDate.js';
 
