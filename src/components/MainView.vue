@@ -4,6 +4,7 @@ import CompactStats from '@/components/CompactStats.vue';
 import MainChart from '@/components/MainChart.vue';
 import ManyStats from '@/components/ManyStats.vue';
 import FlexibleViewInput from '@/components/FlexibleViewInput.vue';
+import MainCharts from '@/components/MainCharts.vue';
 
 import { ref } from 'vue';
 
@@ -14,6 +15,7 @@ const mode = ref('flex');
 <template>
    <header class="buttons">
         <button @click="mode='flex'">flex</button>
+        <button @click="mode='charts'">charts</button>
         <button @click="mode='chart'">chart</button>
         <button @click="mode='vira'">vira</button>
         <button @click="mode='compact'">compact</button>
@@ -22,6 +24,7 @@ const mode = ref('flex');
 
     <main>
         <FlexibleViewInput v-show="mode === 'flex'" />
+        <MainCharts v-show="mode === 'charts'" />
         <MainChart v-show="mode === 'chart'" />
         <ViraInput v-show="mode === 'vira'" />
         <CompactStats v-show="mode === 'compact'" />

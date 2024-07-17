@@ -1,6 +1,5 @@
 <script setup>
 import LineChart from './LineChart.vue';
-import BigNumber from './BigNumber.vue';
 
 import { computed } from 'vue';
 import { LineSet } from '@/utils/chartDataSets.js';
@@ -38,14 +37,12 @@ const chartData = computed(() => {
     <LineChart
         :data="chartData"
         :displayLegend="false"
-        :widthFactor="0.5"
+        :widthConstraint="820"
         height="95dvh"
     />
 </section>
 </template>
 
 <style scoped>
-.chart {
-    /* height: 600px; */
-}
+
 </style>

@@ -14,9 +14,9 @@ const props = defineProps({
     displayLegend: {
         type: Boolean
     },
-    widthFactor: {
+    widthConstraint: {
         type: Number,
-        default: 1
+        // default: 0
     },
     height: {
         type: String,
@@ -29,9 +29,6 @@ Chart.register(LineElement, PointElement, LinearScale, Title, Tooltip, Legend, B
 
 Chart.defaults.borderColor = 'black';
 // console.log(Chart.defaults);
-
-// const major = 10000;
-// const minor = 2000;
 
 const chartOptions = {
     responsive: true,
@@ -63,25 +60,6 @@ const chartOptions = {
         },
         y: {
             position: 'right',
-            // ticks: {
-            //     major: {
-            //         enabled: true
-            //     },
-            //     minor: {
-            //         enabled: true
-            //     }
-            // }
-            // ticks: {
-            //     stepSize: minor,
-            //     callback: function(val) {
-            //         return val % major === 0 ? this.getLabelForValue(val) : '';
-            //     }
-            // },
-            // grid: {
-            //     color: function(context) {
-            //         return context.tick && context.tick.value % major === 0 ? 'black' : 'lightgray';
-            //     }
-            // }
         },
     }
 };
@@ -89,7 +67,14 @@ const chartOptions = {
 const dataLine = props.data.datasets[0].data;
 const range = new Date(dataLine[dataLine.length - 1][0]) - new Date(dataLine[0][0]);
 
-const minWidth = { 'min-width': (range / 10_000_000 * props.widthFactor) + 'px' };
+const minWidthConst = 820;
+
+// const widthFactor = innerWidth < minWidthConst ? innerWidth / minWidthConst : 1;
+
+const widthFactor = (props.widthConstraint && innerWidth < props.widthConstraint) ?
+    (innerWidth / minWidthConst) : 1;
+
+const width = { 'width': (range / 9_000_000 * widthFactor) + 'px' };
 const height = { height: props.height };
 
 const outer = ref(null);
@@ -106,7 +91,7 @@ onMounted(() => {
 
 <template>
 <section class="outer-container" ref="outer">
-    <div class="inner-container" :style="[minWidth, height]" >
+    <div class="inner-container" :style="[width, height]" >
         <Line
             :options="chartOptions"
             :data="data"
@@ -122,8 +107,5 @@ onMounted(() => {
 
 .inner-container {
     width: 100%;
-    /* height: 500px; */
-    /* max-height: 95dvh; */
-    /* height: 95dvh; */
 }
 </style>
