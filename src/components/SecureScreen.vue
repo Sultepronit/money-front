@@ -14,6 +14,7 @@ onMounted(() => {
         <input
             type="text"
             id="username"
+            name="username"
             @change="redirectUser($event.target.value)"
         >
         <input
