@@ -54,12 +54,10 @@ const chartData = computed(() => {
 
 const fromDate = new Date(props.data[0].date);
 const toDate = new Date(props.data[props.data.length - 1].date);
-// const range = toDate - fromDate;
 const days = (toDate - fromDate) < 10_000_000_000;
 
 const fromDateFormatted = days ? dayMonth(fromDate) : monthYear(fromDate);
 const toDateFormatted = days ? dayMonth(toDate) : monthYear(toDate);
-
 </script>
 
 <template>
@@ -77,7 +75,7 @@ const toDateFormatted = days ? dayMonth(toDate) : monthYear(toDate);
                 <td><BigNumber :value="totals.meanExpense" /></td>
                 <td><BigNumber :value="totals.totalExpense" /></td>
             </tr>
-            <tr :class="plusOrMinus?.class">
+            <tr class="balance" :class="plusOrMinus?.class">
                 <td>баланс:</td>
                 <td>
                     <div class=flex>

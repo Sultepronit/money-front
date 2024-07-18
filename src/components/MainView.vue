@@ -19,13 +19,13 @@ const mode = ref('flex');
         <button @click="mode='vira'">vira</button>
         <button @click="mode='compact'">compact</button>
         <button @click="mode='beauty'">beauty</button>
-        <button @click="mode='chart'">chart</button>
+        <!-- <button @click="mode='chart'">chart</button> -->
     </header>
 
     <main>
         <FlexibleViewInput v-show="mode === 'flex'" />
         <MainCharts v-show="mode === 'charts'" />
-        <MainChart v-show="mode === 'chart'" />
+        <!-- <MainChart v-show="mode === 'chart'" /> -->
         <ViraInput v-show="mode === 'vira'" />
         <CompactStats v-show="mode === 'compact'" />
         <ManyStats v-show="mode === 'beauty'" />
