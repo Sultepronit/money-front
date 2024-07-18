@@ -18,32 +18,32 @@ defineProps(['data', 'selected', 'select']);
     >
         <p class="date">{{ ukrainianDate(row.date) }}</p>
 
-        <div class="plate">
+        <div class="plate" title="balance">
             <BigNumber :value="row.balance" />
             <BalanceChange :value="row.change" />
         </div>
 
-        <div class="plate">
+        <div class="plate" title="income/expense">
             <BalanceChange :value="row.income" />
             <BalanceChange :value="row.expense" />
         </div>
 
-        <div class="plate">
+        <div class="plate" title="my credit">
             <BigNumber :value="row.stefko.credit.sum" />
             <BalanceChange :value="row.stefko.credit.change" />
         </div>
 
-        <div class="plate">
+        <div class="plate" title="my deibt">
             <BigNumber :value="row.stefko.debit" />
             <BalanceChange :value="row.stefko.debitChange" />
         </div>
 
-        <div class="plate">
+        <div class="plate" title="Vira balance">
             <BigNumber :value="row.vira.balance" />
             <BalanceChange :value="row.vira.balanceChange" />
         </div>
 
-        <div class="plate">
+        <div class="plate" title="common balance">
             <BigNumber :value="row.common.balance" />
             <BalanceChange :value="row.common.change" />
         </div>
