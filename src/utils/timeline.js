@@ -63,13 +63,8 @@ function addNextEntry(date, creditChanges, waitChange = 0) {
         }
 
         for(let i = 0; i < creditChanges.length; i++) {
-            if(creditChanges[i] === 'nullify') {
-                newDebit += newCredits[i];
-                newCredits[i] = 0;
-            } else if(creditChanges[i] > 0) {
-                newDebit -= creditChanges[i];
-                newCredits[i] += creditChanges[i];
-            }
+            newDebit -= creditChanges[i];
+            newCredits[i] += creditChanges[i];
         }
     }
 
@@ -92,7 +87,6 @@ const changesOrder = {
     set: [],
     add(date, changeIndex, change) {
         const index = date.getDate();
-        // const index = (date - today) / (24 * 60 * 60 * 1000);
         if(!this.set[index]) {
             this.set[index] = { date, changes: [0, 0, 0, 0], waitChange: 0 };
         }
@@ -116,20 +110,9 @@ const changesOrder = {
 };
 
 const waitDebitChanges = [
-    ['2024-07-21', 5000],
-    ['2024-07-22', 5500],
     ['2024-08-05', 5000],
     ['2024-08-12', 5000],
 ];
-
-function addWaitChanges(index, monthCounter) {
-    while(index < waitDebitChanges.length) {
-        const date = newDate(waitDebitChanges[index][0]);
-        if(date.getMonth() > (today.getMonth() + monthCounter)) break;
-        changesOrder.add(date, -10, waitDebitChanges[index][1]);
-        index++;
-    }
-}
 
 function fillFuture() {
     let waitChangeIndex = 0;
@@ -156,51 +139,6 @@ function fillFuture() {
         const lastEntry = findNearestEntry(getRelativeDate(today, month+1, 1));
         if(!lastEntry.credit4) break;
     }
-
-    // // this month
-    // const lastMonthThursdayEntry = findNearestEntry(getTheThursday(today, -1));
-    // const lastMoths30Entry = findNearestEntry(get30OrFeb(today, -1));
-    // const lastMonthsLastEntry = findNearestEntry(getRelativeDate(today, 0, 0));
-    // const thisMonthThursday = getTheThursday(today, 0);
-
-    // changesOrder.add(thisMonthThursday, 3, -lastMonthThursdayEntry?.credit4);
-    // changesOrder.add(getRelativeDate(today, 0, 24), 2, -lastMonthsLastEntry.credit3);
-    // changesOrder.add(get29OrFeb(today), 0, -lastMoths30Entry.credit1);
-    // changesOrder.add(getRelativeDate(today, 1, -1), 1, -lastMonthsLastEntry.credit2);
-
-    // addWaitChanges(waitChangeIndex, 0);
-    // while(waitChangeIndex < waitDebitChanges.length) {
-    //     const date = newDate(waitDebitChanges[waitChangeIndex][0]);
-    //     if(date.getMonth() > today.getMonth()) break;
-    //     changesOrder.add(date, -10, waitDebitChanges[waitChangeIndex][1]);
-    //     waitChangeIndex++;
-    // }
-
-    // changesOrder.implement();
-
-    // // second month
-    // const thisMonthThursdayEntry = findNearestEntry(thisMonthThursday);
-
-    // changesOrder.add(getTheThursday(today, 1), 3, -thisMonthThursdayEntry.credit4);
-    // changesOrder.add(getRelativeDate(today, 1, 24), 2, 'nullify');
-    // changesOrder.add(get29OrFeb(today, 1), 0, 'nullify');
-    // changesOrder.add(getRelativeDate(today, 2, -1), 1, 'nullify');
-
-    // while(waitChangeIndex < waitDebitChanges.length) {
-    //     const date = newDate(waitDebitChanges[waitChangeIndex][0]);
-    //     if(date.getMonth() > today.getMonth() + 1) break;
-    //     changesOrder.add(date, -10, waitDebitChanges[waitChangeIndex][1]);
-    //     waitChangeIndex++;
-    // }
-
-    // changesOrder.implement();
-
-    // // third month
-    // const lastEntry = findNearestEntry(getRelativeDate(today, 2, 1));
-    // if(!lastEntry.credit4) return;
-
-    // changesOrder.add(getTheThursday(today, 2), 3, 'nullify');
-    // changesOrder.implement();
 }
 
 const timeline = computed(() => {
