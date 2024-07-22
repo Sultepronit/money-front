@@ -97,7 +97,7 @@ const changesOrder = {
         }
     },
     implement() {
-        console.log(this.set);
+        // console.log(this.set);
         for(const entry of this.set) {
             if(!entry) continue;
             if(entry.date <= today) continue;

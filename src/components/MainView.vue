@@ -1,7 +1,7 @@
 <script setup>
 import ViraInput from '@/components/ViraInput.vue';
 import CompactStats from '@/components/CompactStats.vue';
-import MainChart from '@/components/MainChart.vue';
+// import MainChart from '@/components/MainChart.vue';
 import ManyStats from '@/components/ManyStats.vue';
 import FlexibleViewInput from '@/components/FlexibleViewInput.vue';
 import MainCharts from '@/components/MainCharts.vue';

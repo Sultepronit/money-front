@@ -23,7 +23,7 @@ function splitMonths(limit) {
     }
     months.pop();
 
-    if(months[0].length < 25) {
+    if(months[0].length < 20) {
         months.shift();
     }
     months.reverse();
@@ -48,7 +48,7 @@ function sumIncomeExpense(period) {
 
 function prepareMonths() {
     const months = splitMonths();
-    // console.log(months);
+    console.log(months);
     const totals = months.map(month => sumIncomeExpense(month));
     // console.log(totals);
     return [
