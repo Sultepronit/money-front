@@ -8,15 +8,21 @@ const plussed = computed(() => {
         : '';
 });
 
-const focused = ref(false);
-const theValue = computed(() => focused.value ? plussed.value : props.parted.sum);
+const sum = computed(() => {
+    const fractional = String(props.parted.sum).split('.')[1];
+    if(fractional && fractional.length > 2) {
+        return props.parted.sum.toFixed(2);
+    }
+    return props.parted.sum;
+});
 
-// const hintedResult = ref('');
+const focused = ref(false);
+const theValue = computed(() => focused.value ? plussed.value : sum.value);
 
 function parse(input) {
     input = input.replaceAll(',', '.');
     const splitted = input.split('+');
-    console.log(splitted);
+    // console.log(splitted);
     props.parted.update(splitted);
 }
 </script>
@@ -26,13 +32,11 @@ function parse(input) {
     <input
         type="text"
         :value="theValue"
-        :class="{focused}"
         class="parts-input"
         @change="parse($event.target.value)"
         @focus="focused=true"
         @blur="focused=false"
     >
-    <!-- <p class="result" v-show="focused">{{ hintedResult }}</p> -->
 </div>
 </template>
 
@@ -40,15 +44,4 @@ function parse(input) {
 .parts-input {
     border-width: 0;
 }
-.focused {
-    /* position: absolute;
-    width: 15em; */
-}
-/* .result {
-    position: absolute;
-    margin-top: 1.25em;
-    margin-left: 0.1em;
-    background: yellowgreen;
-    padding-inline: 0.4em;
-} */
 </style>

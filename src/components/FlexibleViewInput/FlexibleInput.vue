@@ -20,6 +20,7 @@ defineProps(['edited']);
     />
 
     <AccountsGroup
+        :date="edited.date"
         :balances="[
             { name: 'pumb', account: edited.stefko.debitAccounts.account1 },
             { name: 'zp', account: edited.stefko.debitAccounts.account2 },
@@ -33,6 +34,7 @@ defineProps(['edited']);
     />
 
     <AccountsGroup
+        :date="edited.date"
         :balances="[
             { name: 'm', account: edited.stefko.others.marta },
             { name: 'USD rate', account: edited.common.usd.rate },
