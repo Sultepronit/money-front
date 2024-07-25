@@ -9,12 +9,15 @@ class Parted {
     }
 
     update(parts) {
-        this.parts = parts.map(entry => Number(entry));
-        let toSave = JSON.stringify(this.parts);
-        if(this.parts.length === 0 || this.parts[0] === 0) {
+        // this.parts = parts.map(entry => Number(entry));
+        // let toSave = JSON.stringify(this.parts);
+        parts = parts.map(entry => Number(entry));
+        let toSave = JSON.stringify(parts);
+        if(parts.length === 0 || parts[0] === 0) {
             toSave = null;
         }
-        patch(this.date, this.dbColumn, toSave);
+        // patch(this.date, this.dbColumn, toSave);
+        update(this.date, this.dbColumn, toSave);
     }
 
     get sum() {
@@ -36,7 +39,7 @@ class Balance {
     }
 
     updateValue(newVal) {
-        this.current = newVal;
+        // this.current = newVal;
         update(this.date, this.dbColName, newVal);
     }
 

@@ -2,10 +2,12 @@ import { ref, computed } from 'vue';
 import { getRate } from './api.js';
 import { DataRow } from '@/utils/dataStructures.js';
 
-let rawData = [];
-const wholeData = ref([]);
-const data = computed(() => wholeData.value.slice(3));
-const reversed = computed(() => data.value.slice().reverse());
+// let rawData = [];
+// const wholeData = ref([]);
+// const data = computed(() => wholeData.value.slice(3));
+// const reversed = computed(() => data.value.slice().reverse());
+
+const rawData = ref([]);
 
 function parseData(data) {
     const result = [];
@@ -17,8 +19,14 @@ function parseData(data) {
         previousRow = parsedRow;
     };
 
+    console.log(result);
+
     return result;
 }
+
+const wholeData = computed(() => parseData(rawData.value));
+const data = computed(() => wholeData.value.slice(3));
+const reversed = computed(() => data.value.slice().reverse());
 
 async function handleRate() {
     if(reversed.value[0].common.usd.rate.current === null) {
@@ -27,13 +35,13 @@ async function handleRate() {
     }
 }
 
-async function prepareData(inputRawData) {
+function prepareData(inputRawData) {
     console.log(inputRawData);
     localStorage.setItem('rawData', JSON.stringify(inputRawData));
-    rawData = inputRawData;
+    rawData.value = inputRawData;
 
-    wholeData.value = parseData(rawData);
-    console.log(data.value);
+    // wholeData.value = parseData(rawData);
+    // console.log(data.value);
 
     handleRate();
 }

@@ -53,7 +53,7 @@ async function patch(date, column, value) {
         if(results !== '{"success":true}') {
             throw new Error('Wrong response: ' + results);
         }
-        console.log('saved!');
+        // console.log('saved!');
         setStatus.clear();
 
         return true;
