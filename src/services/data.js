@@ -11,8 +11,8 @@ import { DataRow } from '@/utils/dataStructures.js';
 const dbVersion = ref(-1);
 function setDbVersion(newVal) {
     dbVersion.value = newVal;
-    console.log('update!');
-    console.log(dbVersion);
+    // console.log('update!');
+    // console.log(dbVersion);
 };
 
 const rawData = ref(null);
@@ -98,7 +98,7 @@ async function refreshData() {
     passdata.version = dbVersion.value;
     const result = await dataForPassword(JSON.stringify(passdata));
     
-    if(Array.isArray(result)) {
+    if(Array.isArray(result.data)) {
         prepareData(result);
     } else {
         console.log(result);
@@ -106,10 +106,16 @@ async function refreshData() {
 }
 
 // setInterval(() => refreshData(), 10 * 60 * 1000);
-setInterval(() => refreshData(), 60 * 1000);
+// setInterval(() => refreshData(), 60 * 1000);
 
+let lastRefresh = Date.now();
 setInterval(() => {
-    console.log(Date.now());
+    const now = Date.now();
+    console.log(now - lastRefresh);
+    if(now - lastRefresh > 50 * 1000) {
+        lastRefresh = now;
+        refreshData();
+    }
 }, 10 * 1000);
 
 export { dbVersion, setDbVersion, prepareData, rawData, wholeData, data, reversed };
