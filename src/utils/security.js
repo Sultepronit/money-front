@@ -23,7 +23,7 @@ async function handleLogin(password) {
         data = await dataForPassword(password);
     }
 
-    if(Array.isArray(data)) {
+    if(Array.isArray(data.data)) {
         prepareData(data);
         loggedIn.value = true;
     } else {

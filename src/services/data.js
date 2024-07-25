@@ -46,7 +46,8 @@ async function handleRate() {
 function prepareData(inputRawData) {
     console.log(inputRawData);
     localStorage.setItem('rawData', JSON.stringify(inputRawData));
-    rawData.value = inputRawData;
+    rawData.value = inputRawData.data;
+    setDbVersion(inputRawData.version);
 
     // wholeData.value = parseData(rawData);
     // console.log(data.value);
@@ -104,10 +105,11 @@ async function refreshData() {
     }
 }
 
-setInterval(() => refreshData(), 10 * 1000);
+// setInterval(() => refreshData(), 10 * 60 * 1000);
+setInterval(() => refreshData(), 60 * 1000);
 
 setInterval(() => {
-    // console.log(Date.now());
-}, 10 * 60 * 1000);
+    console.log(Date.now());
+}, 10 * 1000);
 
 export { dbVersion, setDbVersion, prepareData, rawData, wholeData, data, reversed };
