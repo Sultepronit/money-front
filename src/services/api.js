@@ -30,7 +30,7 @@ async function dataForPassword(password) {
         console.error(error);
         loginStatus.value = 'Ну шо за інтернет? 🙄';
 
-        // return await retry(dataForPassword, password);
+        return await retry(dataForPassword, password);
     }
 }
 
