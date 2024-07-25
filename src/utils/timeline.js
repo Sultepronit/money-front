@@ -101,7 +101,7 @@ const changesOrder = {
         for(const entry of this.set) {
             if(!entry) continue;
             if(entry.date <= today) continue;
-            console.log(entry);
+            // console.log(entry);
             addNextEntry(entry.date, entry.changes, entry.waitChange);
         }
         this.set = [];

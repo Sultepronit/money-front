@@ -30,7 +30,7 @@ async function dataForPassword(password) {
         console.error(error);
         loginStatus.value = 'Ну шо за інтернет? 🙄';
 
-        return await retry(dataForPassword, password);
+        // return await retry(dataForPassword, password);
     }
 }
 
@@ -48,15 +48,17 @@ async function patch(date, column, value) {
             body: JSON.stringify([column, value])
         });
         
-        const results = await response.text();
+        // const results = await response.text();
+        const results = await response.json();
 
-        if(results !== '{"success":true}') {
+        // if(results !== '{"success":true}') {
+        if(!results.version) {
             throw new Error('Wrong response: ' + results);
         }
         // console.log('saved!');
         setStatus.clear();
 
-        return true;
+        return results.version;
     } catch (error) {
         setStatus.failed();
         console.error(error);

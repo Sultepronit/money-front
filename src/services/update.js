@@ -1,17 +1,19 @@
 import { patch } from './api.js';
-import { rawData, wholeData as data } from './data.js';
-import { DataRow } from '@/utils/dataStructures.js';
+import { rawData, dbVersion, setDbVersion, wholeData as data } from './data.js';
+// import { DataRow } from '@/utils/dataStructures.js';
 
-function update(date, column, value) {
-    patch(date, column, value);
-
-    console.log('Here I am!');
+async function update(date, column, value) {
+    // console.log('Here I am!');
 
     for(let i = rawData.value.length - 1; i >= 0; i--) {
         if(rawData.value[i].date === date) {
             rawData.value[i][column] = value;
         }
     }
+
+    const version = await patch(date, column, value);
+    setDbVersion(version);
+    console.log('new version:', version);
 
     // let notYet = true;
     // for(let i = 0; i < rawData.length; i++) {

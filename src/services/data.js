@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue';
-import { getRate } from './api.js';
+import { getRate, dataForPassword } from '@/services/api.js';
+// import { getRate } from './api.js';
 import { DataRow } from '@/utils/dataStructures.js';
 
 // let rawData = [];
@@ -7,7 +8,14 @@ import { DataRow } from '@/utils/dataStructures.js';
 // const data = computed(() => wholeData.value.slice(3));
 // const reversed = computed(() => data.value.slice().reverse());
 
-const rawData = ref([]);
+const dbVersion = ref(-1);
+function setDbVersion(newVal) {
+    dbVersion.value = newVal;
+    console.log('update!');
+    console.log(dbVersion);
+};
+
+const rawData = ref(null);
 
 function parseData(data) {
     const result = [];
@@ -46,4 +54,60 @@ function prepareData(inputRawData) {
     handleRate();
 }
 
-export { prepareData, rawData, wholeData, data, reversed };
+let goPast = 50;
+let passdata = {
+    date: '',
+    column: '',
+    value: null,
+};
+
+function chosePassdata() {
+    const theEntry = rawData.value[rawData.value.length - goPast];
+    console.log(theEntry.date);
+
+    for(const colName in theEntry) {
+        if(colName === 'date') continue;
+        if(String(theEntry[colName]).length > 6) {
+            passdata.date = theEntry.date;
+            passdata.column = colName;
+            passdata.value = theEntry[colName];
+            break;
+        }
+    }
+
+    console.log(passdata);
+    if(!passdata.date) {
+        goPast++;
+        chosePassdata();
+    }
+    
+    refreshData();
+}
+
+async function refreshData() {
+    if(!rawData.value) return;
+    if(!passdata.date) {
+        chosePassdata();
+        return;
+    }
+
+    console.log(passdata);
+    console.log(new Date());
+
+    passdata.version = dbVersion.value;
+    const result = await dataForPassword(JSON.stringify(passdata));
+    
+    if(Array.isArray(result)) {
+        prepareData(result);
+    } else {
+        console.log(result);
+    }
+}
+
+setInterval(() => refreshData(), 10 * 1000);
+
+setInterval(() => {
+    // console.log(Date.now());
+}, 10 * 60 * 1000);
+
+export { dbVersion, setDbVersion, prepareData, rawData, wholeData, data, reversed };
