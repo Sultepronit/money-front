@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue';
-import { getRate, dataForPassword } from '@/services/api.js';
+import { getRate, fetchRefresh } from '@/services/api.js';
 // import { getRate } from './api.js';
 import { DataRow } from '@/utils/dataStructures.js';
 
@@ -64,7 +64,7 @@ let passdata = {
 
 function chosePassdata() {
     const theEntry = rawData.value[rawData.value.length - goPast];
-    console.log(theEntry.date);
+    // console.log(theEntry.date);
 
     for(const colName in theEntry) {
         if(colName === 'date') continue;
@@ -76,7 +76,7 @@ function chosePassdata() {
         }
     }
 
-    console.log(passdata);
+    // console.log(passdata);
     if(!passdata.date) {
         goPast++;
         chosePassdata();
@@ -92,21 +92,18 @@ async function refreshData() {
         return;
     }
 
-    console.log(passdata);
     console.log(new Date());
-
     passdata.version = dbVersion.value;
-    const result = await dataForPassword(JSON.stringify(passdata));
+    console.log(passdata);
+
+    const result = await fetchRefresh(JSON.stringify(passdata));
     
-    if(Array.isArray(result.data)) {
+    if(Array.isArray(result?.data)) {
         prepareData(result);
     } else {
         console.log(result);
     }
 }
-
-// setInterval(() => refreshData(), 10 * 60 * 1000);
-// setInterval(() => refreshData(), 60 * 1000);
 
 let lastRefresh = Date.now();
 setInterval(() => {
