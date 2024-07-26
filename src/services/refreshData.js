@@ -36,7 +36,7 @@ async function refreshData() {
 
     console.log(new Date());
     passdata.version = dbVersion;
-    console.log(passdata);
+    // console.log(passdata);
 
     const result = await fetchRefresh(JSON.stringify(passdata));
     

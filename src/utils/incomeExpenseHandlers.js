@@ -1,4 +1,4 @@
-import { reversed } from '@/services/data.js';
+// import { reversed } from '@/services/data.js';
 
 const pastMonths = [
     { date: '2024-01-01', income: 39400, expense: -37308 },
@@ -8,25 +8,26 @@ const pastMonths = [
     { date: '2024-05-01', income: 46140, expense: -45085 },
 ];
 
-function splitMonths(limit) {
+function splitMonths(reversed, limit) {
     const months = [[]];
     let monthIndex = 0;
-    for(const entry of reversed.value) {
-        // console.log((new Date(entry.date)).getDate());
-        months[monthIndex].push(entry);
-        if((new Date(entry.date)).getDate() === 1) {
+    for(const entry of reversed) {
+        months[monthIndex].push(entry); // add day to month
+        if((new Date(entry.date)).getDate() === 1) { // start new month with the 1st day
             months[++monthIndex] = [];
-            // monthIndex++;
         }
 
         if(limit && monthIndex > limit) break;
     }
-    months.pop();
+    // console.log(months);
+    months.pop(); // 1st day wich the reversed data ends with creates empty month
 
     if(months[0].length < 20) {
-        months.shift();
+        months.shift(); // remove the last month if it's too short
     }
+
     months.reverse();
+
     return months;
 }
 
@@ -46,8 +47,8 @@ function sumIncomeExpense(period) {
     return result;
 }
 
-function prepareMonths() {
-    const months = splitMonths();
+function prepareMonths(reversed) {
+    const months = splitMonths(reversed);
     console.log(months);
     const totals = months.map(month => sumIncomeExpense(month));
     // console.log(totals);
