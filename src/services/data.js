@@ -1,18 +1,12 @@
 import { ref, computed } from 'vue';
 import { getRate, fetchRefresh } from '@/services/api.js';
-// import { getRate } from './api.js';
 import { DataRow } from '@/utils/dataStructures.js';
+import setImprovedInterval from '@/utils/improvedInterval.js';
+import refreshData from '@/services/refreshData';
 
-// let rawData = [];
-// const wholeData = ref([]);
-// const data = computed(() => wholeData.value.slice(3));
-// const reversed = computed(() => data.value.slice().reverse());
-
-const dbVersion = ref(-1);
+let dbVersion = 0;
 function setDbVersion(newVal) {
-    dbVersion.value = newVal;
-    // console.log('update!');
-    // console.log(dbVersion);
+    dbVersion = newVal;
 };
 
 const rawData = ref(null);
@@ -49,70 +43,10 @@ function prepareData(inputRawData) {
     rawData.value = inputRawData.data;
     setDbVersion(inputRawData.version);
 
-    // wholeData.value = parseData(rawData);
-    // console.log(data.value);
-
     handleRate();
 }
 
-let goPast = 50;
-let passdata = {
-    date: '',
-    column: '',
-    value: null,
-};
+setImprovedInterval(10, 55, refreshData);
+// setImprovedInterval(5, 5, refreshData);
 
-function chosePassdata() {
-    const theEntry = rawData.value[rawData.value.length - goPast];
-    // console.log(theEntry.date);
-
-    for(const colName in theEntry) {
-        if(colName === 'date') continue;
-        if(String(theEntry[colName]).length > 6) {
-            passdata.date = theEntry.date;
-            passdata.column = colName;
-            passdata.value = theEntry[colName];
-            break;
-        }
-    }
-
-    // console.log(passdata);
-    if(!passdata.date) {
-        goPast++;
-        chosePassdata();
-    }
-    
-    refreshData();
-}
-
-async function refreshData() {
-    if(!rawData.value) return;
-    if(!passdata.date) {
-        chosePassdata();
-        return;
-    }
-
-    console.log(new Date());
-    passdata.version = dbVersion.value;
-    console.log(passdata);
-
-    const result = await fetchRefresh(JSON.stringify(passdata));
-    
-    if(Array.isArray(result?.data)) {
-        prepareData(result);
-    } else {
-        console.log(result);
-    }
-}
-
-let lastRefresh = Date.now();
-setInterval(() => {
-    const now = Date.now();
-    console.log(now - lastRefresh);
-    if(now - lastRefresh > 50 * 1000) {
-        lastRefresh = now;
-        refreshData();
-    }
-}, 10 * 1000);
-
-export { dbVersion, setDbVersion, prepareData, rawData, wholeData, data, reversed };
+export { prepareData, rawData, wholeData, data, reversed, dbVersion, setDbVersion };

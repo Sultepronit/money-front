@@ -11,16 +11,6 @@ async function retry(callback, ...args) {
     });
 }
 
-async function handleError(error, callback, ...args) {
-    setStatus.failed();
-    if(error.message.includes('Failed to fetch')) {
-        // console.log('Bingo!');
-        return await retry(callback, ...args);
-    } else {
-        console.error(error);
-    }
-}
-
 async function fetchWithFeatures(path, options, refetch = true) {
     setStatus.loading();
 
