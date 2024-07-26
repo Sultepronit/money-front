@@ -11,7 +11,9 @@ async function update(date, column, value) {
         }
     }
 
+    console.log('saving:', date, column, value);
     const version = await patch(date, column, value);
+    
     setDbVersion(version);
     console.log('new version:', version);
 
