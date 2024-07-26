@@ -34,7 +34,9 @@ async function refreshData() {
         return;
     }
 
-    console.log(new Date());
+    // console.log(new Date().toString());
+    const timeRegex = /\d{2}:\d{2}:\d{2}/;
+    console.log(new Date().toString().match(timeRegex)[0]);
     passdata.version = dbVersion;
     // console.log(passdata);
 
