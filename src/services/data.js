@@ -2,7 +2,8 @@ import { ref, computed } from 'vue';
 import { getRate, fetchRefresh } from '@/services/api.js';
 import { DataRow } from '@/utils/dataStructures.js';
 import setImprovedInterval from '@/utils/improvedInterval.js';
-import refreshData from '@/services/refreshData';
+// import refreshData from '@/services/refreshData';
+import { passdata, chosePassdata } from '@/services/passdata';
 
 let dbVersion = 0;
 function setDbVersion(newVal) {
@@ -30,7 +31,7 @@ const wholeData = computed(() => parseData(rawData.value));
 const data = computed(() => wholeData.value.slice(3));
 const reversed = computed(() => data.value.slice().reverse());
 
-async function handleRate() {
+async function refreshRate() {
     if(reversed.value[0].common.usd.rate.current === null) {
         const newRate = await getRate();
         reversed.value[0].common.usd.rate.updateValue(newRate.rate);
@@ -40,13 +41,39 @@ async function handleRate() {
 function prepareData(inputRawData) {
     console.log(inputRawData);
     localStorage.setItem('rawData', JSON.stringify(inputRawData));
+
     rawData.value = inputRawData.data;
+
     setDbVersion(inputRawData.version);
 
-    handleRate();
+    refreshRate();
 }
 
-setImprovedInterval(10, 55, refreshData);
-// setImprovedInterval(5, 5, refreshData);
+function startSession(inputRawData) {
+    chosePassdata(inputRawData.data);
+    prepareData(inputRawData);
+}
 
-export { prepareData, rawData, wholeData, data, reversed, dbVersion, setDbVersion };
+// refresh data
+setImprovedInterval(10, 55, async () => {
+    if(!rawData.value) return;
+
+    console.log(new Date().toString().match(/\d{2}:\d{2}:\d{2}/)[0]);
+    passdata.version = dbVersion;
+    console.log(passdata);
+
+    const result = await fetchRefresh(JSON.stringify(passdata));
+    
+    if(Array.isArray(result?.data)) {
+        prepareData(result);
+    } else {
+        console.log(result);
+    }
+});
+// setImprovedInterval(10, 55, refreshData);
+// setImprovedInterval(5, 10, async () => {
+//     console.log(await getRate());
+//     console.log(document.cookie.split(';'));
+// });
+
+export { startSession, rawData, wholeData, data, reversed, /*dbVersion,*/ setDbVersion };

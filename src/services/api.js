@@ -40,65 +40,22 @@ async function dataForPassword(password) {
         method: 'POST',
         body: password
     });
-    // setStatus.loading();
-
-    // const url = apiUrl + 'data';
-    // try {
-    //     const response = await fetch(url, {
-    //         method: 'POST',
-    //         body: password
-    //     });
-    //     const data = await response.json();
-
-    //     setStatus.clear();
-
-    //     return data;
-    // } catch (error) {
-    //     setStatus.failed();
-    //     console.error(error);
-    //     loginStatus.value = 'Ну шо за інтернет? 🙄';
-
-    //     return await retry(dataForPassword, password);
-    // }
 }
 
 async function fetchRefresh(passdata) {
     return await fetchWithFeatures('data', {
         method: 'POST',
-        body: passdata
-    }, false)
-
-    // setStatus.loading();
-
-    // const url = apiUrl + 'data';
-    // try {
-    //     const response = await fetch(url, {
-    //         method: 'POST',
-    //         body: passdata
-    //     });
-    //     const data = await response.json();
-
-    //     setStatus.clear();
-
-    //     return data;
-    // } catch (error) {
-    //     setStatus.failed();
-    //     console.error(error);
-    //     console.log(error.name);
-    //     console.log(error.message);
-    //     if(error.message.includes('Failed to fetch')) {
-    //         console.log('Bingo!');
-    //     }
-    // }
+        body: passdata,
+    }, false);
 }
 
-async function patch(date, column, value) {
+async function patch(date, data) {
     // console.log('not saved!');
     // return;
 
     const results = await fetchWithFeatures(date, {
         method: 'PATCH',
-        body: JSON.stringify([column, value])
+        body: data
     });
 
     if(!results?.version) {
@@ -107,52 +64,10 @@ async function patch(date, column, value) {
     } else {
         return results.version;
     }
-
-
-    // setStatus.loading();
-
-    // // console.log('saving:', date, column, value);
-    
-    // const url = `${apiUrl}${date}`;
-    
-    // try {
-    //     const response = await fetch(url, {
-    //         method: 'PATCH',
-    //         body: JSON.stringify([column, value])
-    //     });
-        
-    //     // const results = await response.text();
-    //     const results = await response.json();
-
-    //     // if(results !== '{"success":true}') {
-    //     if(!results?.version) {
-    //         // throw new Error('Wrong response: ' + results);
-    //         setStatus.failed();
-    //         console.error('Wrong response:', results);
-    //     }
-    //     // console.log('saved!');
-    //     setStatus.clear();
-
-    //     return results.version;
-    // } catch (error) {
-    //     setStatus.failed();
-    //     console.error(error);
-
-    //     return await retry(patch, date, column, value);
-    // }
 }
 
 async function getRate() {
     return await fetchWithFeatures('usd-rate');
-    // const url = apiUrl + 'usd-rate';
-    // try {
-    //     const response = await fetch(url);
-    //     const data = await response.json();
-    //     return data;
-    // } catch (error) {
-    //     console.error(error);
-    //     return await retry(getRate);
-    // }
 }
 
 export { dataForPassword, fetchRefresh, patch, getRate };

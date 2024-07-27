@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { dataForPassword } from '@/services/api.js';
-import { prepareData, } from '@/services/data.js';
+import { startSession } from '@/services/data.js';
 
 const loggedIn = ref(false);
 const loginStatus = ref('Давай 😉');
@@ -24,7 +24,7 @@ async function handleLogin(password) {
     }
 
     if(Array.isArray(data?.data)) {
-        prepareData(data);
+        startSession(data);
         loggedIn.value = true;
     } else {
         console.log(data);
