@@ -1,13 +1,19 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 const props = defineProps(['account', 'date']);
 
 const verbose = ref({});
 
+// to remove the expression with result if the value was changed elsewhere
+watch(props, () => {
+    if(verbose.value[props.date] && verbose.value[props.date].result !== props.account.balance) {
+        verbose.value[props.date] = null;
+    }
+});
+
 const theValue = computed(() =>
     verbose.value[props.date] && verbose.value[props.date].expression
-        ? verbose.value[props.date].expression
-        :  props.account.balance
+        ? verbose.value[props.date].expression : props.account.balance
 );
 
 function parse(input) {

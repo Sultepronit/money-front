@@ -54,7 +54,7 @@ function startSession(inputRawData) {
 }
 
 // refresh data
-// setImprovedInterval(10, 10, async () => {
+// setImprovedInterval(5, 10, async () => {
 setImprovedInterval(10, 55, async () => {
     if(!rawData.value) return;
 
