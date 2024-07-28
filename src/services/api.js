@@ -43,7 +43,7 @@ async function dataForPassword(password) {
 }
 
 async function fetchRefresh(passdata) {
-    return await fetchWithFeatures('data', {
+    return await fetchWithFeatures('refresh', {
         method: 'POST',
         body: passdata,
     }, false);

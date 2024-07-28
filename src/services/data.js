@@ -2,7 +2,6 @@ import { ref, computed } from 'vue';
 import { getRate, fetchRefresh } from '@/services/api.js';
 import { DataRow } from '@/utils/dataStructures.js';
 import setImprovedInterval from '@/utils/improvedInterval.js';
-// import refreshData from '@/services/refreshData';
 import { passdata, chosePassdata } from '@/services/passdata';
 
 let dbVersion = 0;
@@ -55,6 +54,7 @@ function startSession(inputRawData) {
 }
 
 // refresh data
+// setImprovedInterval(10, 10, async () => {
 setImprovedInterval(10, 55, async () => {
     if(!rawData.value) return;
 
@@ -70,10 +70,5 @@ setImprovedInterval(10, 55, async () => {
         console.log(result);
     }
 });
-// setImprovedInterval(10, 55, refreshData);
-// setImprovedInterval(5, 10, async () => {
-//     console.log(await getRate());
-//     console.log(document.cookie.split(';'));
-// });
 
 export { startSession, rawData, wholeData, data, reversed, /*dbVersion,*/ setDbVersion };
