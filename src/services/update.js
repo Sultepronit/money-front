@@ -10,7 +10,7 @@ async function update(date, column, value) {
     }
 
     console.log('saving:', date, column, value);
-    const version = await patch(date, JSON.stringify([column, value, passdata]));
+    const version = await patch(date, JSON.stringify([column, value, JSON.stringify(passdata)]));
 
     setDbVersion(version);
     console.log('new version:', version);

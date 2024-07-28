@@ -60,7 +60,7 @@ setImprovedInterval(10, 55, async () => {
 
     console.log(new Date().toString().match(/\d{2}:\d{2}:\d{2}/)[0]);
     passdata.version = dbVersion;
-    console.log(passdata);
+    // console.log(passdata);
 
     const result = await fetchRefresh(JSON.stringify(passdata));
     
@@ -71,4 +71,4 @@ setImprovedInterval(10, 55, async () => {
     }
 });
 
-export { startSession, rawData, wholeData, data, reversed, /*dbVersion,*/ setDbVersion };
+export { startSession, rawData, wholeData, data, reversed, setDbVersion };
