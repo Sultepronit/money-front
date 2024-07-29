@@ -24,7 +24,7 @@ defineProps(['edited']);
         :balances="[
             { name: 'pumb', account: edited.stefko.debitAccounts.account1 },
             { name: 'zp', account: edited.stefko.debitAccounts.account2 },
-            { name: 'bvr', account: edited.stefko.debitAccounts.account3 },
+            { name: 'privat', account: edited.stefko.debitAccounts.account3 },
             { name: 'wait', account: edited.stefko.debitAccounts.account4 },
         ]"
         :additional="[
