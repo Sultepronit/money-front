@@ -22,14 +22,16 @@ async function fetchWithFeatures(path, options, refetch = true) {
 
         return result;
     } catch (error) {
-        setStatus.failed();
-
         if(error.message.includes('Failed to fetch')) {
-            loginStatus.value = 'Ну шо за інтернет? 🙄';
             if(refetch) {
+                setStatus.failed();
+                loginStatus.value = 'Ну шо за інтернет? 🙄';
                 return await retry(fetchWithFeatures, path, options, refetch);
+            } else {
+                setStatus.clear();
             }
         } else {
+            setStatus.failed();
             console.error(error);
         }
     }
