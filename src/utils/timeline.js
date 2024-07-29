@@ -112,6 +112,7 @@ const changesOrder = {
 const waitDebitChanges = [
     ['2024-08-05', 5000],
     ['2024-08-12', 5000],
+    ['2024-08-29', 5000],
 ];
 
 function fillFuture() {
