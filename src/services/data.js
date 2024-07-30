@@ -4,12 +4,13 @@ import { DataRow } from '@/utils/dataStructures.js';
 import setImprovedInterval from '@/utils/improvedInterval.js';
 import { passdata, chosePassdata } from '@/services/passdata';
 
+
+const rawData = ref(null);
+const waitDebitChanges = ref(null);
 let dbVersion = 0;
 function setDbVersion(newVal) {
     dbVersion = newVal;
 };
-
-const rawData = ref(null);
 
 function parseData(data) {
     const result = [];
@@ -43,6 +44,9 @@ function prepareData(inputRawData) {
 
     rawData.value = inputRawData.data;
 
+    waitDebitChanges.value = JSON.parse(inputRawData.wait_debit) || [];
+    console.log(waitDebitChanges.value);
+
     setDbVersion(inputRawData.version);
 
     refreshRate();
@@ -71,4 +75,4 @@ setImprovedInterval(10, 55, async () => {
     }
 });
 
-export { startSession, rawData, wholeData, data, reversed, setDbVersion };
+export { startSession, rawData, wholeData, data, reversed, waitDebitChanges, setDbVersion };

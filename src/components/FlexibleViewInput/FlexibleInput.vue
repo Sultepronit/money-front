@@ -1,7 +1,12 @@
 <script setup>
 import AccountsGroup from '@/components/FlexibleViewInput/AccountsGroup.vue';
+import EditWaitChanges from './EditWaitChanges.vue';
+
+import { ref } from 'vue';
 
 defineProps(['edited']);
+
+const eidtWait = ref(false);
 </script>
 
 <template>
@@ -19,19 +24,22 @@ defineProps(['edited']);
         ]"
     />
 
-    <AccountsGroup
-        :date="edited.date"
-        :balances="[
-            { name: 'pumb', account: edited.stefko.debitAccounts.account1 },
-            { name: 'zp', account: edited.stefko.debitAccounts.account2 },
-            { name: 'privat', account: edited.stefko.debitAccounts.account3 },
-            { name: 'wait', account: edited.stefko.debitAccounts.account4 },
-        ]"
-        :additional="[
-            { name: 'ready', account: edited.stefko.debitReady },
-            { name: 'total', account: edited.stefko.debit },
-        ]"
-    />
+    <div>
+        <AccountsGroup
+            :date="edited.date"
+            :balances="[
+                { name: 'pumb', account: edited.stefko.debitAccounts.account1 },
+                { name: 'zp', account: edited.stefko.debitAccounts.account2 },
+                { name: 'privat', account: edited.stefko.debitAccounts.account3 },
+                { name: 'wait', account: edited.stefko.debitAccounts.account4 },
+            ]"
+            :additional="[
+                { name: 'ready', account: edited.stefko.debitReady },
+                { name: 'total', account: edited.stefko.debit },
+            ]"
+        />
+        <button class="wait-button" @click="eidtWait=true">edit wait future</button>
+    </div>
 
     <AccountsGroup
         :date="edited.date"
@@ -61,6 +69,11 @@ defineProps(['edited']);
             { name: 'total', account: edited.income },
         ]"
     />
+
+    <section v-show="eidtWait" class="floating">
+        <EditWaitChanges />
+        <button class="wait-button" @click="eidtWait=false">hide</button>
+    </section>
 </section>
 </template>
 
@@ -72,5 +85,22 @@ defineProps(['edited']);
     width: fit-content;
     justify-self: center;
     /* margin: auto; */
+}
+
+.wait-button {
+    width: 50%;
+    margin-inline: 25%;
+}
+
+.floating {
+    /* width: 200px; */
+    /* height: 200px; */
+    position: absolute;
+    margin-top: 0.5rem;
+    background: white;
+    border: solid 1px;
+    border-radius: 5px;
+    outline: solid white 5px;
+    padding: 0.5rem;
 }
 </style>

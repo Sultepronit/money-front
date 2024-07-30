@@ -68,8 +68,25 @@ async function patch(date, data) {
     }
 }
 
+async function put(path, data) {
+    // console.log('not saved!');
+    // return;
+
+    const results = await fetchWithFeatures(path, {
+        method: 'PUT',
+        body: data
+    });
+
+    if(!results?.version) {
+        setStatus.failed();
+        console.error('Wrong response:', results);
+    } else {
+        return results.version;
+    }
+}
+
 async function getRate() {
     return await fetchWithFeatures('usd-rate');
 }
 
-export { dataForPassword, fetchRefresh, patch, getRate };
+export { dataForPassword, fetchRefresh, patch, put, getRate };

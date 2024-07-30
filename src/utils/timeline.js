@@ -1,5 +1,5 @@
 import { computed } from 'vue';
-import { wholeData as pastData } from '@/services/data.js';
+import { wholeData as pastData, waitDebitChanges } from '@/services/data.js';
 import { newDate, getRelativeDate, shiftDate, get29OrFeb, get30OrFeb, getTheThursday, today } from '@/utils/handleDate.js';
 
 class TimeEntry {
@@ -86,6 +86,8 @@ function findNearestEntry(date) {
 const changesOrder = {
     set: [],
     add(date, changeIndex, change) {
+        if(date <= today || !change) return;
+        
         const index = date.getDate();
         if(!this.set[index]) {
             this.set[index] = { date, changes: [0, 0, 0, 0], waitChange: 0 };
@@ -100,7 +102,6 @@ const changesOrder = {
         // console.log(this.set);
         for(const entry of this.set) {
             if(!entry) continue;
-            if(entry.date <= today) continue;
             // console.log(entry);
             addNextEntry(entry.date, entry.changes, entry.waitChange);
         }
@@ -109,11 +110,11 @@ const changesOrder = {
     }
 };
 
-const waitDebitChanges = [
-    ['2024-08-05', 5000],
-    ['2024-08-12', 5000],
-    ['2024-08-29', 5000],
-];
+// const waitDebitChanges = [
+//     ['2024-08-05', 5000],
+//     ['2024-08-12', 5000],
+//     ['2024-08-29', 5000],
+// ];
 
 function fillFuture() {
     let waitChangeIndex = 0;
@@ -128,10 +129,10 @@ function fillFuture() {
         changesOrder.add(get29OrFeb(today, month), 0, -lastMoths30Entry.credit1);
         changesOrder.add(getRelativeDate(today, month+1, -1), 1, -lastMonthsLastEntry.credit2);
 
-        while(waitChangeIndex < waitDebitChanges.length) {
-            const date = newDate(waitDebitChanges[waitChangeIndex][0]);
+        while(waitChangeIndex < waitDebitChanges.value.length) {
+            const date = newDate(waitDebitChanges.value[waitChangeIndex][0]);
             if(date.getMonth() > (today.getMonth() + month)) break;
-            changesOrder.add(date, -10, waitDebitChanges[waitChangeIndex][1]);
+            changesOrder.add(date, -10, waitDebitChanges.value[waitChangeIndex][1]);
             waitChangeIndex++;
         }
 

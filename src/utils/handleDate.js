@@ -47,11 +47,11 @@ const today = new Date();
 today.setHours(0, 0, 0, 0);
 // console.log(today);
 
-for(let i = -12; i < 0; i++) {
-    getTheThursday(today, -5 + i);
-}
+// for(let i = -12; i < 0; i++) {
+//     getTheThursday(today, -5 + i);
+// }
 
-getTheThursday(today, 0);
-getTheThursday(today, 1);
+// getTheThursday(today, 0);
+// getTheThursday(today, 1);
 
 export { newDate, getRelativeDate, shiftDate, get29OrFeb, get30OrFeb, getTheThursday, today };
