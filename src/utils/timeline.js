@@ -64,6 +64,7 @@ function addNextEntry(date, creditChanges, waitChange = 0) {
 
         for(let i = 0; i < creditChanges.length; i++) {
             newDebit -= creditChanges[i];
+            if(!creditChanges[i]) continue;
             newCredits[i] += creditChanges[i];
         }
     }
@@ -79,7 +80,6 @@ function addNextEntry(date, creditChanges, waitChange = 0) {
 }
 
 function findNearestEntry(date) {
-    // console.log('find', date);
     return entries.slice().reverse().find(entry => entry.date <= date);
 }
 

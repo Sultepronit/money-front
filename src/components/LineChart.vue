@@ -40,7 +40,8 @@ const chartOptions = {
     },
     plugins: {
         legend: {
-            display: props.displayLegend
+            display: props.displayLegend,
+            align: 'end'
         },
         tooltip: {
             callbacks: {
