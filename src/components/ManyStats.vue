@@ -20,7 +20,7 @@ const lastMonth = computed(() => {
             counter++; 
             if(counter > 1) break; // 1 - today, 2 - month ago
         }
-        if((today === 30 || today === 31) && dayNumber(day.date) === 1) {
+        if((today > 27) && dayNumber(day.date) === 1) {
             break;
         }
     }

@@ -2,6 +2,7 @@ import { loginStatus } from '@/utils/security.js';
 import { setStatus } from './statusControls.js';
 
 const apiUrl = import.meta.env.VITE_API_URL;
+const passphrase = import.meta.env.VITE_PASSPHRASE;
 
 async function retry(callback, ...args) {   
     return new Promise(resolve => {
@@ -37,10 +38,10 @@ async function fetchWithFeatures(path, options, refetch = true) {
     }
 }
 
-async function dataForPassword(password) {
+async function dataForPassword(password, username) {
     return await fetchWithFeatures('data', {
         method: 'POST',
-        body: password
+        body: JSON.stringify({ password, username, passphrase })
     });
 }
 

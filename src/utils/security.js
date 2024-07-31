@@ -13,14 +13,15 @@ function redirectUser(username) {
     }
 }
 
-async function handleLogin(password) {
+async function handleLogin(password, username) {
     loginStatus.value = 'Шось ся робе 😊';
 
     let data = null;
     if(password == 0) {
         data = JSON.parse(localStorage.getItem('rawData'));
     } else {
-        data = await dataForPassword(password);
+        console.log(username);
+        data = await dataForPassword(password, username);
     }
 
     if(Array.isArray(data?.data)) {

@@ -2,9 +2,12 @@
 import { ref, onMounted } from 'vue';
 import { handleLogin, redirectUser, loginStatus } from '@/utils/security.js';
 
-const password = ref(null);
+const passwordRef = ref(null);
+
+const username = ref('');
+
 onMounted(() => {
-    password.value.focus();
+    passwordRef.value.focus();
 });
 </script>
 
@@ -16,12 +19,13 @@ onMounted(() => {
             id="username"
             name="username"
             @change="redirectUser($event.target.value)"
+            v-model="username"
         >
         <input
             class="password"
             type="password"
-            ref="password"
-            @change="handleLogin($event.target.value)"
+            ref="passwordRef"
+            @change="handleLogin($event.target.value, username)"
         >
         <p class="status">{{ loginStatus }}</p>
     </div>

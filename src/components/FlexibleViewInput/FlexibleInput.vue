@@ -24,22 +24,19 @@ const eidtWait = ref(false);
         ]"
     />
 
-    <div>
-        <AccountsGroup
-            :date="edited.date"
-            :balances="[
-                { name: 'pumb', account: edited.stefko.debitAccounts.account1 },
-                { name: 'zp', account: edited.stefko.debitAccounts.account2 },
-                { name: 'privat', account: edited.stefko.debitAccounts.account3 },
-                { name: 'wait', account: edited.stefko.debitAccounts.account4 },
-            ]"
-            :additional="[
-                { name: 'ready', account: edited.stefko.debitReady },
-                { name: 'total', account: edited.stefko.debit },
-            ]"
-        />
-        <button class="wait-button" @click="eidtWait=true">edit wait future</button>
-    </div>
+    <AccountsGroup
+        :date="edited.date"
+        :balances="[
+            { name: 'pumb', account: edited.stefko.debitAccounts.account1 },
+            { name: 'zp', account: edited.stefko.debitAccounts.account2 },
+            { name: 'privat', account: edited.stefko.debitAccounts.account3 },
+            { name: 'wait', account: edited.stefko.debitAccounts.account4 },
+        ]"
+        :additional="[
+            { name: 'ready', account: edited.stefko.debitReady },
+            { name: 'total', account: edited.stefko.debit },
+        ]"
+    />
 
     <AccountsGroup
         :date="edited.date"
@@ -57,18 +54,21 @@ const eidtWait = ref(false);
         ]"
     />
 
-    <AccountsGroup
-        :parts="[
-            { name: 'stefko', account: edited.stefko.income },
-            { name: 'debit %', account: edited.additionalIncome.debit },
-            { name: 'transfer', account: edited.additionalIncome.cancel },
-        ]"
-        :additional="[
-            { name: 'Vira', account: edited.vira.income },
-            { name: 'usd', account: edited.common.usd.income },
-            { name: 'total', account: edited.income },
-        ]"
-    />
+    <div>
+        <AccountsGroup
+            :parts="[
+                { name: 'stefko', account: edited.stefko.income },
+                { name: 'debit %', account: edited.additionalIncome.debit },
+                { name: 'transfer', account: edited.additionalIncome.cancel },
+            ]"
+            :additional="[
+                { name: 'Vira', account: edited.vira.income },
+                { name: 'usd', account: edited.common.usd.income },
+                { name: 'total', account: edited.income },
+            ]"
+        />
+        <button class="wait-button" @click="eidtWait=true">edit wait future</button>
+    </div>
 
     <section v-show="eidtWait" class="floating">
         <EditWaitChanges />
