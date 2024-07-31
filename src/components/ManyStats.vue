@@ -7,15 +7,21 @@ import { computed } from 'vue';
 import { reversed } from '@/services/data.js';
 import { prepareMonths } from '@/utils/incomeExpenseHandlers.js';
 
+const dayNumber = date => ((new Date(date)).getDate());
+
 const lastMonth = computed(() => {
-    const today = (new Date()).getDate();
+    const today = dayNumber(new Date());
+    console.log(today);
     let counter = 0;
     const result = [];
     for(const day of reversed.value) {
         result.push(day);
-        if((new Date(day.date)).getDate() === today) {
+        if(dayNumber(day.date) === today) {
             counter++; 
             if(counter > 1) break; // 1 - today, 2 - month ago
+        }
+        if((today === 30 || today === 31) && dayNumber(day.date) === 1) {
+            break;
         }
     }
     return result.reverse();
