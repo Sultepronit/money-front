@@ -1,5 +1,5 @@
-function newDate(string) {
-    const date = new Date(string);
+function newDate(input) {
+    const date = new Date(input);
     date.setHours(0);
     return date;
 }
@@ -33,7 +33,10 @@ function get30OrFeb(currentDate, shiftMonth) {
     return shiftDate(get29OrFeb(currentDate, shiftMonth), 1);
 }
 
-function getTheThursday(currentDate, shiftMonth) { // the thursday of second last working week
+/**
+ * the thursday of second last working week
+ */
+function getTheThursday(currentDate, shiftMonth) { 
     const monthEnd = getRelativeDate(currentDate, shiftMonth + 1, 0);
     const monthEndDay = monthEnd.getDay();
     if(monthEndDay === 0) {
@@ -43,15 +46,29 @@ function getTheThursday(currentDate, shiftMonth) { // the thursday of second las
     }
 }
 
-const today = new Date();
-today.setHours(0, 0, 0, 0);
-// console.log(today);
+const today = {
+    value: null,
+    update() {
+        // console.log('update today!');
+        const actual = new Date();
+        if(
+            actual.getDate() !== this.value?.getDate()
+            || actual.getMonth() !== this.value.getMonth()
+        ) {
+            console.log('It\'s a new day!');
+            actual.setHours(0, 0, 0, 0);
+            this.value = actual;
+        }
+    }
+};
+today.update();
 
-// for(let i = -12; i < 0; i++) {
-//     getTheThursday(today, -5 + i);
-// }
-
-// getTheThursday(today, 0);
-// getTheThursday(today, 1);
-
-export { newDate, getRelativeDate, shiftDate, get29OrFeb, get30OrFeb, getTheThursday, today };
+export {
+    newDate,
+    getRelativeDate,
+    shiftDate,
+    get29OrFeb,
+    get30OrFeb,
+    getTheThursday,
+    today
+};

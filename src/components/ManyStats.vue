@@ -11,7 +11,7 @@ const dayNumber = date => ((new Date(date)).getDate());
 
 const lastMonth = computed(() => {
     const today = dayNumber(new Date());
-    console.log(today);
+    // console.log(today);
     let counter = 0;
     const result = [];
     for(const day of reversed.value) {

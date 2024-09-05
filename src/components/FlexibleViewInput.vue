@@ -4,9 +4,7 @@ import FlexibleList from '@/components/FlexibleViewInput/FlexibleList.vue';
 
 import { ref } from 'vue';
 import { reversed as data } from '@/services/data.js';
-// import { ukrainianDate } from '@/utils/formatters';
 
-// const selected = data.value[0];
 const selected = ref(0);
 function select(index) {
     selected.value = index;
