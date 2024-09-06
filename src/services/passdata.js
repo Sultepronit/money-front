@@ -3,7 +3,7 @@ const passdata = {};
 
 function chosePassdata(dbContent) {
     const theEntry = dbContent[dbContent.length - goPast];
-    console.log(theEntry.date);
+    // console.log(theEntry.date);
 
     for(const colName in theEntry) {
         if(colName === 'date') continue;
@@ -15,7 +15,7 @@ function chosePassdata(dbContent) {
         }
     }
 
-    console.log(passdata);
+    // console.log(passdata);
     if(!passdata.date) {
         goPast++;
         chosePassdata(dbContent);

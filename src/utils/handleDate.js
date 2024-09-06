@@ -46,22 +46,17 @@ function getTheThursday(currentDate, shiftMonth) {
     }
 }
 
-const today = {
-    value: null,
-    update() {
-        // console.log('update today!');
-        const actual = new Date();
-        if(
-            actual.getDate() !== this.value?.getDate()
-            || actual.getMonth() !== this.value.getMonth()
-        ) {
-            console.log('It\'s a new day!');
-            actual.setHours(0, 0, 0, 0);
-            this.value = actual;
-        }
-    }
-};
-today.update();
+function getToday() {
+    const result = new Date();
+    result.setHours(0, 0, 0, 0);
+    return result;
+}
+
+function get_yyyy_mm_dd(date) {
+    const mutatedDate = new Date(date);
+    mutatedDate.setHours(0, -date.getTimezoneOffset());
+    return JSON.stringify(mutatedDate).slice(1, 11);
+}
 
 export {
     newDate,
@@ -70,5 +65,6 @@ export {
     get29OrFeb,
     get30OrFeb,
     getTheThursday,
-    today
+    getToday,
+    get_yyyy_mm_dd
 };

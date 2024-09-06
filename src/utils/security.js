@@ -20,7 +20,6 @@ async function handleLogin(password, username) {
     if(password == 0) {
         data = JSON.parse(localStorage.getItem('rawData'));
     } else {
-        console.log(username);
         data = await dataForPassword(password, username);
     }
 

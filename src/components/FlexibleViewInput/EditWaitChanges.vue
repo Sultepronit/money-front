@@ -1,20 +1,15 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted, onUpdated } from 'vue';
 import { waitDebitChanges } from '@/services/data.js';
-import { today, shiftDate, getRelativeDate } from '@/utils/handleDate';
+import { getToday, get_yyyy_mm_dd, shiftDate, getRelativeDate } from '@/utils/handleDate';
 import updateWaitChanges from '@/services/updateWaitChanges';
 
-function get_yyyy_mm_dd(date) {
-    const mutatedDate = new Date(date);
-    mutatedDate.setHours(0, -date.getTimezoneOffset());
-    // return JSON.stringify(shiftDate(date, 1)).slice(1, 11);
-    return JSON.stringify(mutatedDate).slice(1, 11);
-}
+// the component is created every time it's called, so today should be actual
+const today = getToday();
 
 const editedList = computed(() => {
-    console.log('change!!!');
-    // const nextMonth = shiftDate(today.value, 31);
-    const nextMonth = getRelativeDate(today.value, 1, today.value.getDate());
+    // const nextMonth = shiftDate(today, 31);
+    const nextMonth = getRelativeDate(today, 1, today.getDate());
     const newEntryDate = get_yyyy_mm_dd(nextMonth);
     return [...waitDebitChanges.value, [newEntryDate, '']];
 });
@@ -22,7 +17,7 @@ const editedList = computed(() => {
 let previousJson = JSON.stringify(waitDebitChanges.value);
 
 function isFuture(date) {
-    return date > get_yyyy_mm_dd(today.value);
+    return date > get_yyyy_mm_dd(today);
 }
 
 function update() {

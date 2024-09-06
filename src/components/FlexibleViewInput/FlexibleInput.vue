@@ -70,7 +70,8 @@ const eidtWait = ref(false);
         <button class="wait-button" @click="eidtWait=true">edit wait future</button>
     </div>
 
-    <section v-show="eidtWait" class="floating">
+    <!-- <section v-show="eidtWait" class="floating"> -->
+    <section v-if="eidtWait" class="floating">
         <EditWaitChanges />
         <button class="wait-button" @click="eidtWait=false">hide</button>
     </section>
