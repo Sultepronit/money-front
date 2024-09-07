@@ -5,7 +5,8 @@ import { getToday, get_yyyy_mm_dd, shiftDate, getRelativeDate } from '@/utils/ha
 import updateWaitChanges from '@/services/updateWaitChanges';
 
 // the component is created every time it's called, so today should be actual
-const today = getToday();
+// const today = getToday();
+const today = new Date();
 
 const editedList = computed(() => {
     // const nextMonth = shiftDate(today, 31);

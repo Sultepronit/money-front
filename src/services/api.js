@@ -86,8 +86,12 @@ async function put(path, data) {
     }
 }
 
-async function getRate() {
+async function getUsdRate() {
     return await fetchWithFeatures('usd-rate');
 }
 
-export { dataForPassword, fetchRefresh, patch, put, getRate };
+async function getEurRate() {
+    return await fetchWithFeatures('eur-rate');
+}
+
+export { dataForPassword, fetchRefresh, patch, put, getUsdRate, getEurRate };

@@ -31,8 +31,10 @@ const eidtWait = ref(false);
             { name: 'zp', account: edited.stefko.debitAccounts.account2 },
             { name: 'privat', account: edited.stefko.debitAccounts.account3 },
             { name: 'wait', account: edited.stefko.debitAccounts.account4 },
+            { name: 'EUR', account: edited.stefko.currency.eur },
         ]"
         :additional="[
+            { name: '€/₴', account: edited.stefko.currency.eurToUah },
             { name: 'ready', account: edited.stefko.debitReady },
             { name: 'total', account: edited.stefko.debit },
         ]"

@@ -47,7 +47,7 @@ class Common {
         this.cash = new Balance(row, 'common_cash', previousRow?.common.cash.balance);
 
         this.usd = {
-            date: row.date,
+            date: row.date, // do we need it here???
             balance: new Balance(row, 'common_usd', previousRow?.common.usd.balance.balance),
             rate: new Balance(row, 'common_usd_rate', previousRow?.common.usd.rate.balance),
 
@@ -64,6 +64,10 @@ class Common {
             get income() {
                 return this.balance.change === 0 ? this.change : 0;
             }
+        };
+
+        this.eur = {
+            rate: new Balance(row, 'common_eur_rate', previousRow?.common.eur.rate.balance)
         };
     }
 
@@ -116,6 +120,19 @@ class Stefko {
             }
         };
 
+        this.currency = {
+            eur: new Balance(row, 'stefko_eur', previousRow?.stefko.currency.eur.balance),
+            eurRate: new Balance(row, 'common_eur_rate', previousRow?.common.eur.rate.balance),
+            get eurToUah() {
+                // return this.eur.balance * this.eurRate.balance || null;
+                return this.eur.balance * this.eurRate.balance;
+            },
+            previousUah: previousRow?.stefko.currency.eur.eurToUah,
+            get change() {
+                return this.eurToUah - (this.previousUah || 0);
+            },
+        }
+
         this.income = new Parted(row['stefko_income'], 'stefko_income', row.date);
 
         this.others = {
@@ -124,18 +141,21 @@ class Stefko {
     }
 
     get debit() {
-        return this.debitAccounts.sum - this.others.marta.balance;
+        return this.debitAccounts.sum + this.currency.eurToUah - this.others.marta.balance;
     };
 
     get debitReady() {
         return this.debitAccounts.account1.balance
             + this.debitAccounts.account2.balance
             + this.debitAccounts.account3.balance
+            // + this.currency.eurToUah
             - this.others.marta.balance;
     };
 
     get debitChange() {
-        return this.debitAccounts.change - this.others.marta.change;
+        return this.debitAccounts.change
+            + this.currency.change
+            - this.others.marta.change;
     }
 
     get balance() {

@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue';
-import { getRate, fetchRefresh } from '@/services/api.js';
+import { getUsdRate, getEurRate, fetchRefresh } from '@/services/api.js';
 import { DataRow } from '@/utils/dataStructures.js';
-import setImprovedInterval from '@/utils/improvedInterval.js';
+// import setImprovedInterval from '@/utils/improvedInterval.js';
 import { passdata, chosePassdata } from '@/services/passdata';
 // import { today } from '@/utils/handleDate';
 
@@ -34,8 +34,13 @@ const reversed = computed(() => data.value.slice().reverse());
 
 async function refreshRate() {
     if(reversed.value[0].common.usd.rate.current === null) {
-        const newRate = await getRate();
+        const newRate = await getUsdRate();
         reversed.value[0].common.usd.rate.updateValue(newRate.rate);
+    }
+
+    if(reversed.value[0].common.eur.rate.current === null) {
+        const newRate = await getEurRate();
+        reversed.value[0].common.eur.rate.updateValue(newRate.rate);
     }
 }
 
