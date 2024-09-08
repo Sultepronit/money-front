@@ -62,7 +62,7 @@ class Common {
             },
 
             get income() {
-                return this.balance.change === 0 ? this.change : 0;
+                return this.balance.previous * this.rate.change;
             }
         };
 
@@ -121,16 +121,24 @@ class Stefko {
         };
 
         this.currency = {
-            eur: new Balance(row, 'stefko_eur', previousRow?.stefko.currency.eur.balance),
-            eurRate: new Balance(row, 'common_eur_rate', previousRow?.common.eur.rate.balance),
-            get eurToUah() {
-                // return this.eur.balance * this.eurRate.balance || null;
-                return this.eur.balance * this.eurRate.balance;
+            eur: {
+                balance: new Balance(row, 'stefko_eur', previousRow?.stefko.currency.eur.balance.balance),
+                rate: new Balance(row, 'common_eur_rate', previousRow?.common.eur.rate.balance),
+                get uah() {
+                    return this.balance.balance * this.rate.balance || null;
+                },
+                previousUah: previousRow?.stefko.currency.eur.uah,
+                get change() {
+                    return this.uah - (this.previousUah);
+                },
+                get income() {
+                    return this.balance.previous * this.rate.change;
+                }
             },
-            previousUah: previousRow?.stefko.currency.eur.eurToUah,
-            get change() {
-                return this.eurToUah - (this.previousUah || 0);
-            },
+
+            get income() {
+                return this.eur.income;
+            }
         }
 
         this.income = new Parted(row['stefko_income'], 'stefko_income', row.date);
@@ -141,7 +149,7 @@ class Stefko {
     }
 
     get debit() {
-        return this.debitAccounts.sum + this.currency.eurToUah - this.others.marta.balance;
+        return this.debitAccounts.sum + this.currency.eur.uah - this.others.marta.balance;
     };
 
     get debitReady() {
@@ -154,7 +162,7 @@ class Stefko {
 
     get debitChange() {
         return this.debitAccounts.change
-            + this.currency.change
+            + this.currency.eur.change
             - this.others.marta.change;
     }
 
@@ -214,6 +222,7 @@ class DataRow {
     get income() {
         return Math.round(
             this.stefko.income.sum
+            + this.stefko.currency.income
             + this.vira.income
             + this.additionalIncome.sum
             + this.common.usd.income

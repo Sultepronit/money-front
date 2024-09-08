@@ -29,12 +29,12 @@ const eidtWait = ref(false);
         :balances="[
             { name: 'pumb', account: edited.stefko.debitAccounts.account1 },
             { name: 'zp', account: edited.stefko.debitAccounts.account2 },
-            { name: 'privat', account: edited.stefko.debitAccounts.account3 },
+            { name: 'bvr', account: edited.stefko.debitAccounts.account3 },
             { name: 'wait', account: edited.stefko.debitAccounts.account4 },
-            { name: 'EUR', account: edited.stefko.currency.eur },
+            { name: '€', account: edited.stefko.currency.eur.balance },
         ]"
         :additional="[
-            { name: '€/₴', account: edited.stefko.currency.eurToUah },
+            { name: '€ → ₴', account: edited.stefko.currency.eur.uah },
             { name: 'ready', account: edited.stefko.debitReady },
             { name: 'total', account: edited.stefko.debit },
         ]"
@@ -43,13 +43,14 @@ const eidtWait = ref(false);
     <AccountsGroup
         :date="edited.date"
         :balances="[
-            { name: 'm', account: edited.stefko.others.marta },
-            { name: 'USD rate', account: edited.common.usd.rate },
-            { name: 'USD', account: edited.common.usd.balance },
             { name: 'cash', account: edited.common.cash },
+            { name: '$', account: edited.common.usd.balance },
+            // { name: 'm', account: edited.stefko.others.marta },
+            { name: '$ rate', account: edited.common.usd.rate },
+            { name: '€ rate', account: edited.common.eur.rate },
         ]"
         :additional="[
-            { name: 'USD', account: edited.common.usd.uah },
+            { name: '$ → ₴', account: edited.common.usd.uah },
             { name: 'Vira', account: edited.vira.balance },
             { name: 'Stefko', account: edited.stefko.balance },
             { name: 'total', account: edited.balance },
@@ -65,7 +66,8 @@ const eidtWait = ref(false);
             ]"
             :additional="[
                 { name: 'Vira', account: edited.vira.income },
-                { name: 'usd', account: edited.common.usd.income },
+                { name: '€*', account: edited.stefko.currency.eur.income },
+                { name: '$', account: edited.common.usd.income },
                 { name: 'total', account: edited.income },
             ]"
         />
