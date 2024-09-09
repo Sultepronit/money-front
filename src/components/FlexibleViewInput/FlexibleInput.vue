@@ -50,7 +50,7 @@ const eidtWait = ref(false);
             { name: '€ rate', account: edited.common.eur.rate },
         ]"
         :additional="[
-            { name: '$ → ₴', account: edited.common.usd.uah },
+            { name: '$ ➡ ₴', account: edited.common.usd.uah },
             { name: 'Vira', account: edited.vira.balance },
             { name: 'Stefko', account: edited.stefko.balance },
             { name: 'total', account: edited.balance },
@@ -69,6 +69,23 @@ const eidtWait = ref(false);
                 { name: '€*', account: edited.stefko.currency.eur.income },
                 { name: '$', account: edited.common.usd.income },
                 { name: 'total', account: edited.income },
+            ]"
+        />
+
+        <AccountsGroup
+            :date="edited.date"
+            :balances="[
+                { name: '€ rate', account: edited.common.eur.rate },
+                { name: '€', account: edited.stefko.currency.eur2.balance },
+            ]"
+            :parts="[
+                { name: '₴ ⇄ €', account: edited.stefko.currency.eur2.exchanges },
+            ]"
+            :additional="[
+                { name: '€ → ₴', account: edited.stefko.currency.eur2.availableUah },
+                { name: '₴₴₴', account: edited.stefko.currency.eur2.history },
+                { name: '+++', account: edited.stefko.currency.eur2.incomeHistory },
+                { name: 'income', account: edited.stefko.currency.eur2.income },
             ]"
         />
         <button class="wait-button" @click="eidtWait=true">edit wait future</button>

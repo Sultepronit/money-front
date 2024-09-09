@@ -1,4 +1,3 @@
-import { patch } from '@/services/api.js';
 import update from '@/services/update.js';
 
 class Parted {
@@ -9,14 +8,11 @@ class Parted {
     }
 
     update(parts) {
-        // this.parts = parts.map(entry => Number(entry));
-        // let toSave = JSON.stringify(this.parts);
         parts = parts.map(entry => Number(entry));
         let toSave = JSON.stringify(parts);
         if(parts.length === 0 || parts[0] === 0) {
             toSave = null;
         }
-        // patch(this.date, this.dbColumn, toSave);
         update(this.date, this.dbColumn, toSave);
     }
 
@@ -34,17 +30,50 @@ class Balance {
     }
 
     get balance() {
-        // return this.current || this.previous;
         return this.current !== null ? this.current : this.previous;
     }
 
     updateValue(newVal) {
-        // this.current = newVal;
         update(this.date, this.dbColName, newVal);
     }
 
     get change() {
         return this.balance - this.previous;
+    }
+}
+
+class Currency {
+    constructor(
+        dbRow,
+        dbBalance,
+        previousBalance,
+        dbRate,
+        previousRate,
+        dbExchanges,
+        previousHistory,
+        previousIncomeHistory
+    ) {
+        this.balance = new Balance(dbRow, dbBalance, previousBalance);
+        this.rate = new Balance(dbRow, dbRate, previousRate);
+        this.exchanges = new Parted(dbRow[dbExchanges], dbExchanges, dbRow.date);
+        this.previousHistory = previousHistory || 0;
+        this.previousIncomeHistory = previousIncomeHistory;
+    }
+
+    get availableUah() {
+        return this.balance.balance * this.rate.balance || null;
+    }
+
+    get history() {
+        return - this.exchanges.sum + this.previousHistory;
+    }
+
+    get incomeHistory() {
+        return this.availableUah + this.history;
+    }
+
+    get income() {
+        return this.incomeHistory - this.previousIncomeHistory;
     }
 }
 
@@ -59,17 +88,17 @@ class ViraCard {
     }
 }
 
-class Field {
-    constructor(dbRow, dbColName) {
-        this.value = dbRow[dbColName];
-        this.dbColName = dbColName;
-        this.date = dbRow.date;
-    }
+// class Field {
+//     constructor(dbRow, dbColName) {
+//         this.value = dbRow[dbColName];
+//         this.dbColName = dbColName;
+//         this.date = dbRow.date;
+//     }
 
-    updateValue(newVal) {
-        this.value = newVal;
-        update(this.date, this.dbColName, newVal);
-    }
-}
+//     updateValue(newVal) {
+//         this.value = newVal;
+//         update(this.date, this.dbColName, newVal);
+//     }
+// }
 
-export { Parted, Balance, ViraCard, Field };
+export { Parted, Balance, Currency, ViraCard, /*Field*/ };

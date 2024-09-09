@@ -1,4 +1,5 @@
-import { Parted, Balance, ViraCard, Field } from './basicStructures.js';
+// import { Parted, Balance, ViraCard, Field } from './basicStructures.js';
+import { Parted, Balance, ViraCard, Currency } from './basicStructures.js';
 
 class Vira {
     constructor(row, previousRow) {
@@ -81,12 +82,12 @@ class Common {
 }
 
 class Stefko {
-    constructor(row, previousRow) {
+    constructor(dbRow, previousRow) {
         this.credit = {
-            account1: new Balance(row, 'stefko_credit_1', previousRow?.stefko.credit.account1.balance),
-            account2: new Balance(row, 'stefko_credit_2', previousRow?.stefko.credit.account2.balance),
-            account3: new Balance(row, 'stefko_credit_3', previousRow?.stefko.credit.account3.balance),
-            account4: new Balance(row, 'stefko_credit_4', previousRow?.stefko.credit.account4.balance),
+            account1: new Balance(dbRow, 'stefko_credit_1', previousRow?.stefko.credit.account1.balance),
+            account2: new Balance(dbRow, 'stefko_credit_2', previousRow?.stefko.credit.account2.balance),
+            account3: new Balance(dbRow, 'stefko_credit_3', previousRow?.stefko.credit.account3.balance),
+            account4: new Balance(dbRow, 'stefko_credit_4', previousRow?.stefko.credit.account4.balance),
             get sum() {
                 return this.account1.balance
                     + this.account2.balance
@@ -102,10 +103,10 @@ class Stefko {
         };
 
         this.debitAccounts = {
-            account1: new Balance(row, 'stefko_debit_1', previousRow?.stefko.debitAccounts.account1.balance),
-            account2: new Balance(row, 'stefko_debit_2', previousRow?.stefko.debitAccounts.account2.balance),
-            account3: new Balance(row, 'stefko_debit_3', previousRow?.stefko.debitAccounts.account3.balance),
-            account4: new Balance(row, 'stefko_debit_4', previousRow?.stefko.debitAccounts.account4.balance),
+            account1: new Balance(dbRow, 'stefko_debit_1', previousRow?.stefko.debitAccounts.account1.balance),
+            account2: new Balance(dbRow, 'stefko_debit_2', previousRow?.stefko.debitAccounts.account2.balance),
+            account3: new Balance(dbRow, 'stefko_debit_3', previousRow?.stefko.debitAccounts.account3.balance),
+            account4: new Balance(dbRow, 'stefko_debit_4', previousRow?.stefko.debitAccounts.account4.balance),
             get sum() {
                 return this.account1.balance
                     + this.account2.balance
@@ -122,8 +123,8 @@ class Stefko {
 
         this.currency = {
             eur: {
-                balance: new Balance(row, 'stefko_eur', previousRow?.stefko.currency.eur.balance.balance),
-                rate: new Balance(row, 'common_eur_rate', previousRow?.common.eur.rate.balance),
+                balance: new Balance(dbRow, 'stefko_eur', previousRow?.stefko.currency.eur.balance.balance),
+                rate: new Balance(dbRow, 'common_eur_rate', previousRow?.common.eur.rate.balance),
                 get uah() {
                     return this.balance.balance * this.rate.balance || null;
                 },
@@ -136,15 +137,26 @@ class Stefko {
                 }
             },
 
+            eur2: new Currency(
+                dbRow,
+                'stefko_eur',
+                previousRow?.stefko.currency.eur2.balance.balance,
+                'common_eur_rate',
+                previousRow?.common.eur.rate.balance,
+                'stefko_eur_exchanges',
+                previousRow?.stefko.currency.eur2.history,
+                previousRow?.stefko.currency.eur2.incomeHistory
+            ),
+
             get income() {
                 return this.eur.income;
             }
         }
 
-        this.income = new Parted(row['stefko_income'], 'stefko_income', row.date);
+        this.income = new Parted(dbRow['stefko_income'], 'stefko_income', dbRow.date);
 
         this.others = {
-            marta: new Balance(row, 'others_marta', previousRow?.stefko.others.marta.balance)
+            marta: new Balance(dbRow, 'others_marta', previousRow?.stefko.others.marta.balance)
         }
     }
 
