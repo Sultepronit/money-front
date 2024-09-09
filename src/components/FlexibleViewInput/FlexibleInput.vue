@@ -54,13 +54,13 @@ const toggleCurrency = () => editCurrency.value = !editCurrency.value;
             :date="edited.date"
             :balances="[
                 { name: 'cash', account: edited.common.cash },
-                { name: '$', account: edited.common.usd.balance },
+                // { name: '$', account: edited.common.usd.balance },
                 // { name: 'm', account: edited.stefko.others.marta },
                 // { name: '$ rate', account: edited.common.usd.rate },
                 // { name: '€ rate', account: edited.common.eur.rate },
             ]"
             :additional="[
-                { name: '$ ➡ ₴', account: edited.common.usd.uah },
+                { name: '$', account: edited.common.usd.uah },
                 { name: 'Vira', account: edited.vira.balance },
                 { name: 'Stefko', account: edited.stefko.balance },
                 { name: 'total', account: edited.balance },
@@ -112,10 +112,10 @@ const toggleCurrency = () => editCurrency.value = !editCurrency.value;
                 { name: '€', account: edited.stefko.currency.eur2.balance },
             ]"
             :parts="[
-                { name: '₴ ⇄ €', account: edited.stefko.currency.eur2.exchanges },
+                { name: '⇄', account: edited.stefko.currency.eur2.exchanges },
             ]"
             :additional="[
-                { name: '€ ➡ ₴', account: edited.stefko.currency.eur2.availableUah },
+                { name: '₴', account: edited.stefko.currency.eur2.availableUah },
                 { name: '₴₴₴', account: edited.stefko.currency.eur2.history },
                 { name: '+++', account: edited.stefko.currency.eur2.incomeHistory },
                 { name: 'income', account: edited.stefko.currency.eur2.income },
@@ -128,10 +128,10 @@ const toggleCurrency = () => editCurrency.value = !editCurrency.value;
                 { name: '$', account: edited.common.usd2.balance },
             ]"
             :parts="[
-                { name: '₴ ⇄ $', account: edited.common.usd2.exchanges },
+                { name: '⇄', account: edited.common.usd2.exchanges },
             ]"
             :additional="[
-                { name: '$ ➡ ₴', account: edited.common.usd2.availableUah },
+                { name: '₴', account: edited.common.usd2.availableUah },
                 { name: '₴₴₴', account: edited.common.usd2.history },
                 { name: '+++', account: edited.common.usd2.incomeHistory },
                 { name: 'income', account: edited.common.usd2.income },
@@ -173,7 +173,9 @@ const toggleCurrency = () => editCurrency.value = !editCurrency.value;
 .wait-button {
     /* width: 50%; */
     /* margin-inline: 25%; */
+    font-size: inherit;
     padding-inline: 2em;
+    margin: 0.4rem;
 }
 
 .float-wrap {
