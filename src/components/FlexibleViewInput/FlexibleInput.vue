@@ -6,58 +6,67 @@ import { ref } from 'vue';
 
 defineProps(['edited']);
 
-const eidtWait = ref(false);
+const editWait = ref(false);
+const editCurrency = ref(false);
+const toggleCurrency = () => editCurrency.value = !editCurrency.value;
 </script>
 
 <template>
-<section class="edit-entry">
-    <AccountsGroup
-        :date="edited.date"
-        :balances="[
-            { name: 'pumb', account: edited.stefko.credit.account1 },
-            { name: 'mono', account: edited.stefko.credit.account2 },
-            { name: 'univers', account: edited.stefko.credit.account3 },
-            { name: 'more', account: edited.stefko.credit.account4 },
-        ]"
-        :additional="[
-            { name: 'total', account: edited.stefko.credit.sum },
-        ]"
-    />
+<section class="edited">
+    <section class="float-wrap">
+        <div class="floating" v-if="editWait" >
+            <EditWaitChanges />
+            <button class="wait-button" @click="editWait=false">hide</button>
+        </div>
+    </section>
 
-    <AccountsGroup
-        :date="edited.date"
-        :balances="[
-            { name: 'pumb', account: edited.stefko.debitAccounts.account1 },
-            { name: 'zp', account: edited.stefko.debitAccounts.account2 },
-            { name: 'bvr', account: edited.stefko.debitAccounts.account3 },
-            { name: 'wait', account: edited.stefko.debitAccounts.account4 },
-            { name: '€', account: edited.stefko.currency.eur.balance },
-        ]"
-        :additional="[
-            { name: '€ → ₴', account: edited.stefko.currency.eur.uah },
-            { name: 'ready', account: edited.stefko.debitReady },
-            { name: 'total', account: edited.stefko.debit },
-        ]"
-    />
+    <section class="main-fields">
+        <AccountsGroup
+            :date="edited.date"
+            :balances="[
+                { name: 'pumb', account: edited.stefko.credit.account1 },
+                { name: 'mono', account: edited.stefko.credit.account2 },
+                { name: 'univers', account: edited.stefko.credit.account3 },
+                { name: 'more', account: edited.stefko.credit.account4 },
+            ]"
+            :additional="[
+                { name: 'total', account: edited.stefko.credit.sum },
+            ]"
+        />
 
-    <AccountsGroup
-        :date="edited.date"
-        :balances="[
-            { name: 'cash', account: edited.common.cash },
-            { name: '$', account: edited.common.usd.balance },
-            // { name: 'm', account: edited.stefko.others.marta },
-            { name: '$ rate', account: edited.common.usd.rate },
-            { name: '€ rate', account: edited.common.eur.rate },
-        ]"
-        :additional="[
-            { name: '$ ➡ ₴', account: edited.common.usd.uah },
-            { name: 'Vira', account: edited.vira.balance },
-            { name: 'Stefko', account: edited.stefko.balance },
-            { name: 'total', account: edited.balance },
-        ]"
-    />
+        <AccountsGroup
+            :date="edited.date"
+            :balances="[
+                { name: 'pumb', account: edited.stefko.debitAccounts.account1 },
+                { name: 'zp', account: edited.stefko.debitAccounts.account2 },
+                { name: 'bvr', account: edited.stefko.debitAccounts.account3 },
+                { name: 'wait', account: edited.stefko.debitAccounts.account4 },
+                // { name: '€', account: edited.stefko.currency.eur.balance },
+            ]"
+            :additional="[
+                { name: '€ ➡ ₴', account: edited.stefko.currency.eur.uah },
+                { name: 'ready', account: edited.stefko.debitReady },
+                { name: 'total', account: edited.stefko.debit },
+            ]"
+        />
 
-    <div>
+        <AccountsGroup
+            :date="edited.date"
+            :balances="[
+                { name: 'cash', account: edited.common.cash },
+                { name: '$', account: edited.common.usd.balance },
+                // { name: 'm', account: edited.stefko.others.marta },
+                // { name: '$ rate', account: edited.common.usd.rate },
+                // { name: '€ rate', account: edited.common.eur.rate },
+            ]"
+            :additional="[
+                { name: '$ ➡ ₴', account: edited.common.usd.uah },
+                { name: 'Vira', account: edited.vira.balance },
+                { name: 'Stefko', account: edited.stefko.balance },
+                { name: 'total', account: edited.balance },
+            ]"
+        />
+
         <AccountsGroup
             :parts="[
                 { name: 'stefko', account: edited.stefko.income },
@@ -65,42 +74,64 @@ const eidtWait = ref(false);
                 { name: 'transfer', account: edited.additionalIncome.cancel },
             ]"
             :additional="[
-                { name: 'Vira', account: edited.vira.income },
                 { name: '€*', account: edited.stefko.currency.eur.income },
+                { name: 'Vira', account: edited.vira.income },
                 { name: '$', account: edited.common.usd.income },
                 { name: 'total', account: edited.income },
+            ]"
+        />
+    </section>
+
+    <section class="buttons">
+        <button
+            class="wait-button"
+            @click="editWait = !editWait"
+         >
+            edit wait future
+        </button>
+        <button
+            class="wait-button"
+            @click="editCurrency = !editCurrency"
+        >
+            edit currency
+        </button>
+    </section>
+
+    <section class="currency" v-if="editCurrency">
+        <AccountsGroup
+            :date="edited.date"
+            :balances="[
+                { name: '€ rate', account: edited.common.eur.rate },
+                { name: '$ rate', account: edited.common.usd.rate },
             ]"
         />
 
         <AccountsGroup
             :date="edited.date"
             :balances="[
-                { name: '€ rate', account: edited.common.eur.rate },
                 { name: '€', account: edited.stefko.currency.eur2.balance },
             ]"
             :parts="[
                 { name: '₴ ⇄ €', account: edited.stefko.currency.eur2.exchanges },
             ]"
             :additional="[
-                { name: '€ → ₴', account: edited.stefko.currency.eur2.availableUah },
+                { name: '€ ➡ ₴', account: edited.stefko.currency.eur2.availableUah },
                 { name: '₴₴₴', account: edited.stefko.currency.eur2.history },
                 { name: '+++', account: edited.stefko.currency.eur2.incomeHistory },
                 { name: 'income', account: edited.stefko.currency.eur2.income },
             ]"
         />
-        <button class="wait-button" @click="eidtWait=true">edit wait future</button>
-    </div>
-
-    <!-- <section v-show="eidtWait" class="floating"> -->
-    <section v-if="eidtWait" class="floating">
-        <EditWaitChanges />
-        <button class="wait-button" @click="eidtWait=false">hide</button>
     </section>
 </section>
+
 </template>
 
 <style scoped>
-.edit-entry {
+.edited {
+    display: grid;
+    /* justify-content: space-around; */
+}
+.main-fields {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -109,16 +140,37 @@ const eidtWait = ref(false);
     /* margin: auto; */
 }
 
+.currency {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: fit-content;
+    justify-self: center;
+}
+
+.buttons {
+    display: flex;
+    /* justify-self: center; */
+    justify-content: space-around;
+}
+
 .wait-button {
-    width: 50%;
-    margin-inline: 25%;
+    /* width: 50%; */
+    /* margin-inline: 25%; */
+    padding-inline: 2em;
+}
+
+.float-wrap {
+    display: flex;
+    justify-content: space-around;
 }
 
 .floating {
     /* width: 200px; */
     /* height: 200px; */
     position: absolute;
-    margin-top: 0.5rem;
+    /* margin-top: 0.5rem; */
+    margin: 0.5rem 1rem;
     background: white;
     border: solid 1px;
     border-radius: 5px;
