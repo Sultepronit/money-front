@@ -44,13 +44,22 @@ class Vira {
 }
 
 class Common {
-    constructor(row, previousRow) {
-        this.cash = new Balance(row, 'common_cash', previousRow?.common.cash.balance);
+    constructor(dbRow, previousRow) {
+        this.cash = new Balance(dbRow, 'common_cash', previousRow?.common.cash.balance);
+
+        this.usd2 = new Currency(
+            dbRow,
+            'common_usd',
+            previousRow?.common.usd2,
+            'common_usd_rate',
+            previousRow?.common.usd.rate.balance,
+            'common_usd_exchanges'
+        );
 
         this.usd = {
-            date: row.date, // do we need it here???
-            balance: new Balance(row, 'common_usd', previousRow?.common.usd.balance.balance),
-            rate: new Balance(row, 'common_usd_rate', previousRow?.common.usd.rate.balance),
+            date: dbRow.date, // do we need it here???
+            balance: new Balance(dbRow, 'common_usd', previousRow?.common.usd.balance.balance),
+            rate: new Balance(dbRow, 'common_usd_rate', previousRow?.common.usd.rate.balance),
 
             get uah() {
                 return this.balance.balance * this.rate.balance;
@@ -68,7 +77,7 @@ class Common {
         };
 
         this.eur = {
-            rate: new Balance(row, 'common_eur_rate', previousRow?.common.eur.rate.balance)
+            rate: new Balance(dbRow, 'common_eur_rate', previousRow?.common.eur.rate.balance)
         };
     }
 
@@ -140,12 +149,10 @@ class Stefko {
             eur2: new Currency(
                 dbRow,
                 'stefko_eur',
-                previousRow?.stefko.currency.eur2.balance.balance,
+                previousRow?.stefko.currency.eur2,
                 'common_eur_rate',
                 previousRow?.common.eur.rate.balance,
-                'stefko_eur_exchanges',
-                previousRow?.stefko.currency.eur2.history,
-                previousRow?.stefko.currency.eur2.incomeHistory
+                'stefko_eur_exchanges'
             ),
 
             get income() {

@@ -44,7 +44,7 @@ const toggleCurrency = () => editCurrency.value = !editCurrency.value;
                 // { name: '€', account: edited.stefko.currency.eur.balance },
             ]"
             :additional="[
-                { name: '€ ➡ ₴', account: edited.stefko.currency.eur.uah },
+                { name: '€', account: edited.stefko.currency.eur.uah },
                 { name: 'ready', account: edited.stefko.debitReady },
                 { name: 'total', account: edited.stefko.debit },
             ]"
@@ -101,8 +101,8 @@ const toggleCurrency = () => editCurrency.value = !editCurrency.value;
         <AccountsGroup
             :date="edited.date"
             :balances="[
-                { name: '€ rate', account: edited.common.eur.rate },
-                { name: '$ rate', account: edited.common.usd.rate },
+                { name: '€', account: edited.common.eur.rate },
+                { name: '$', account: edited.common.usd.rate },
             ]"
         />
 
@@ -119,6 +119,22 @@ const toggleCurrency = () => editCurrency.value = !editCurrency.value;
                 { name: '₴₴₴', account: edited.stefko.currency.eur2.history },
                 { name: '+++', account: edited.stefko.currency.eur2.incomeHistory },
                 { name: 'income', account: edited.stefko.currency.eur2.income },
+            ]"
+        />
+
+        <AccountsGroup
+            :date="edited.date"
+            :balances="[
+                { name: '$', account: edited.common.usd2.balance },
+            ]"
+            :parts="[
+                { name: '₴ ⇄ $', account: edited.common.usd2.exchanges },
+            ]"
+            :additional="[
+                { name: '$ ➡ ₴', account: edited.common.usd2.availableUah },
+                { name: '₴₴₴', account: edited.common.usd2.history },
+                { name: '+++', account: edited.common.usd2.incomeHistory },
+                { name: 'income', account: edited.common.usd2.income },
             ]"
         />
     </section>
@@ -169,8 +185,8 @@ const toggleCurrency = () => editCurrency.value = !editCurrency.value;
     /* width: 200px; */
     /* height: 200px; */
     position: absolute;
-    /* margin-top: 0.5rem; */
-    margin: 0.5rem 1rem;
+    margin-top: 0.5rem;
+    /* margin: 0.5rem 1rem; */
     background: white;
     border: solid 1px;
     border-radius: 5px;

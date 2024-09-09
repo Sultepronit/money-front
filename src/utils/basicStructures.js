@@ -46,18 +46,16 @@ class Currency {
     constructor(
         dbRow,
         dbBalance,
-        previousBalance,
+        previous,
         dbRate,
         previousRate,
-        dbExchanges,
-        previousHistory,
-        previousIncomeHistory
+        dbExchanges
     ) {
-        this.balance = new Balance(dbRow, dbBalance, previousBalance);
+        this.balance = new Balance(dbRow, dbBalance, previous?.balance.balance);
         this.rate = new Balance(dbRow, dbRate, previousRate);
         this.exchanges = new Parted(dbRow[dbExchanges], dbExchanges, dbRow.date);
-        this.previousHistory = previousHistory || 0;
-        this.previousIncomeHistory = previousIncomeHistory;
+        this.previousHistory = previous?.history || 0;
+        this.previousIncomeHistory = previous?.incomeHistory;
     }
 
     get availableUah() {
