@@ -54,12 +54,19 @@ class Currency {
         this.balance = new Balance(dbRow, dbBalance, previous?.balance.balance);
         this.rate = new Balance(dbRow, dbRate, previousRate);
         this.exchanges = new Parted(dbRow[dbExchanges], dbExchanges, dbRow.date);
+        this.previousUah = previous?.uah;
         this.previousHistory = previous?.history || 0;
         this.previousIncomeHistory = previous?.incomeHistory;
+        // console.log('constructing object');
     }
 
-    get availableUah() {
+    get uah() {
         return this.balance.balance * this.rate.balance || null;
+    }
+
+    get change() {
+        // console.log('computing change');
+        return this.uah - this.previousUah;
     }
 
     get history() {
@@ -67,7 +74,7 @@ class Currency {
     }
 
     get incomeHistory() {
-        return this.availableUah + this.history;
+        return this.uah + this.history;
     }
 
     get income() {

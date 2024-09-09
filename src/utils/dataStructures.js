@@ -131,25 +131,25 @@ class Stefko {
         };
 
         this.currency = {
-            eur: {
-                balance: new Balance(dbRow, 'stefko_eur', previousRow?.stefko.currency.eur.balance.balance),
-                rate: new Balance(dbRow, 'common_eur_rate', previousRow?.common.eur.rate.balance),
-                get uah() {
-                    return this.balance.balance * this.rate.balance || null;
-                },
-                previousUah: previousRow?.stefko.currency.eur.uah,
-                get change() {
-                    return this.uah - (this.previousUah);
-                },
-                get income() {
-                    return this.balance.previous * this.rate.change;
-                }
-            },
+            // eur: {
+            //     balance: new Balance(dbRow, 'stefko_eur', previousRow?.stefko.currency.eur.balance.balance),
+            //     rate: new Balance(dbRow, 'common_eur_rate', previousRow?.common.eur.rate.balance),
+            //     get uah() {
+            //         return this.balance.balance * this.rate.balance || null;
+            //     },
+            //     previousUah: previousRow?.stefko.currency.eur.uah,
+            //     get change() {
+            //         return this.uah - (this.previousUah);
+            //     },
+            //     get income() {
+            //         return this.balance.previous * this.rate.change;
+            //     }
+            // },
 
-            eur2: new Currency(
+            eur: new Currency(
                 dbRow,
                 'stefko_eur',
-                previousRow?.stefko.currency.eur2,
+                previousRow?.stefko.currency.eur,
                 'common_eur_rate',
                 previousRow?.common.eur.rate.balance,
                 'stefko_eur_exchanges'
