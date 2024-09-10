@@ -8,7 +8,6 @@ defineProps(['edited']);
 
 const editWait = ref(false);
 const editCurrency = ref(false);
-const toggleCurrency = () => editCurrency.value = !editCurrency.value;
 </script>
 
 <template>

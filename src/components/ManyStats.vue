@@ -1,7 +1,7 @@
 <script setup>
 import IncomeExpenseChart from './IncomeExpenseChart.vue';
 import BalanceChart from './BalanceChart.vue';
-import FutureChart from '@/components/FutureChart.vue';
+// import FutureChart from '@/components/FutureChart.vue';
 
 import { computed } from 'vue';
 import { reversed } from '@/services/data.js';

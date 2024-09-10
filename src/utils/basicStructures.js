@@ -93,17 +93,4 @@ class ViraCard {
     }
 }
 
-// class Field {
-//     constructor(dbRow, dbColName) {
-//         this.value = dbRow[dbColName];
-//         this.dbColName = dbColName;
-//         this.date = dbRow.date;
-//     }
-
-//     updateValue(newVal) {
-//         this.value = newVal;
-//         update(this.date, this.dbColName, newVal);
-//     }
-// }
-
-export { Parted, Balance, Currency, ViraCard, /*Field*/ };
+export { Parted, Balance, Currency, ViraCard };

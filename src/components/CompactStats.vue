@@ -3,7 +3,7 @@ import BalanceChange from './BalanceChange.vue';
 import BigNumber from './BigNumber.vue';
 
 import { ref, computed } from 'vue';
-import { reversed as list } from '@/services/data.js';
+import { reversed93 as list } from '@/services/data.js';
 import { ukrainianDate } from '@/utils/formatters';
 
 const selected = ref(0);

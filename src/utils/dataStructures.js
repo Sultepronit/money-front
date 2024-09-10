@@ -1,4 +1,3 @@
-// import { Parted, Balance, ViraCard, Field } from './basicStructures.js';
 import { Parted, Balance, ViraCard, Currency } from './basicStructures.js';
 
 class Vira {
@@ -52,7 +51,7 @@ class Common {
             'common_usd',
             previousRow?.common.usd2,
             'common_usd_rate',
-            previousRow?.common.usd.rate.balance,
+            previousRow?.common.usd2.rate.balance,
             'common_usd_exchanges'
         );
 

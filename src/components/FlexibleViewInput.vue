@@ -3,7 +3,8 @@ import FlexibleInput from '@/components/FlexibleViewInput/FlexibleInput.vue';
 import FlexibleList from '@/components/FlexibleViewInput/FlexibleList.vue';
 
 import { ref } from 'vue';
-import { reversed as data } from '@/services/data.js';
+// import { reversed as data } from '@/services/data.js';
+import { reversed93 as data } from '@/services/data.js';
 
 const selected = ref(0);
 function select(index) {

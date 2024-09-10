@@ -3,8 +3,6 @@ import { getUsdRate, getEurRate, fetchRefresh } from '@/services/api.js';
 import { DataRow } from '@/utils/dataStructures.js';
 // import setImprovedInterval from '@/utils/improvedInterval.js';
 import { passdata, chosePassdata } from '@/services/passdata';
-// import { today } from '@/utils/handleDate';
-
 
 const rawData = ref(null);
 const waitDebitChanges = ref(null);
@@ -14,6 +12,8 @@ function setDbVersion(newVal) {
 };
 
 function parseData(data) {
+    const start = new Date();
+    
     const result = [];
     let previousRow = null;
     for(const row of data) {
@@ -25,12 +25,15 @@ function parseData(data) {
 
     console.log(result);
 
+    alert('parsing time: ' + ((new Date()) - start));
+
     return result;
 }
 
 const wholeData = computed(() => parseData(rawData.value));
 const data = computed(() => wholeData.value.slice(3));
 const reversed = computed(() => data.value.slice().reverse());
+const reversed93 = computed(() => reversed.value.slice(0, 93));
 
 async function refreshRate() {
     if(reversed.value[0].common.usd.rate.current === null) {
@@ -63,8 +66,6 @@ function startSession(inputRawData) {
 }
 
 // refresh data
-// setImprovedInterval(5, 10, async () => {
-// setImprovedInterval(10, 55, async () => {
 setInterval(async () => {
     if(!rawData.value) return;
 
@@ -82,4 +83,13 @@ setInterval(async () => {
 }, 60 * 1000);
 // }, 10 * 1000);
 
-export { startSession, rawData, wholeData, data, reversed, waitDebitChanges, setDbVersion };
+export {
+    startSession,
+    rawData,
+    wholeData,
+    data,
+    reversed,
+    reversed93,
+    waitDebitChanges,
+    setDbVersion
+};
