@@ -2,7 +2,7 @@
 import BalanceChange from './BalanceChange.vue';
 import BigNumber from './BigNumber.vue';
 
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { reversed93 as list } from '@/services/data.js';
 import { ukrainianDate } from '@/utils/formatters';
 
@@ -34,8 +34,8 @@ const selected = ref(0);
 
         <div class="stats-item columns">
             <p class="usd-title">
-                <p>USD</p>
-                <p class="rate">&nbsp;{{ list[selected].common.usd.rate.balance.toFixed(2) }}</p>
+                <p>$</p>
+                <p class="rate">&nbsp;{{ list[selected].common.rates.usd.balance.toFixed(2) }}</p>
             </p>
             <div class="usd">
                 <p>{{ list[selected].common.usd.balance.balance }} /&nbsp;</p>

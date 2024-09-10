@@ -46,38 +46,38 @@ class Common {
     constructor(dbRow, previousRow) {
         this.cash = new Balance(dbRow, 'common_cash', previousRow?.common.cash.balance);
 
-        this.usd2 = new Currency(
+        this.rates = {
+            usd: new Balance(dbRow, 'common_usd_rate', previousRow?.common.rates.usd.balance),
+            eur: new Balance(dbRow, 'common_eur_rate', previousRow?.common.rates.eur.balance),
+        };
+
+        this.usd = new Currency(
             dbRow,
+            previousRow?.common.usd,
             'common_usd',
-            previousRow?.common.usd2,
             'common_usd_rate',
-            previousRow?.common.usd2.rate.balance,
             'common_usd_exchanges'
         );
 
-        this.usd = {
-            date: dbRow.date, // do we need it here???
-            balance: new Balance(dbRow, 'common_usd', previousRow?.common.usd.balance.balance),
-            rate: new Balance(dbRow, 'common_usd_rate', previousRow?.common.usd.rate.balance),
+        // this.usd = {
+        //     date: dbRow.date, // do we need it here???
+        //     balance: new Balance(dbRow, 'common_usd', previousRow?.common.usd.balance.balance),
+        //     rate: new Balance(dbRow, 'common_usd_rate', previousRow?.common.usd.rate.balance),
 
-            get uah() {
-                return this.balance.balance * this.rate.balance;
-            },
+        //     get uah() {
+        //         return this.balance.balance * this.rate.balance;
+        //     },
             
-            previousUah: previousRow?.common.usd.uah,
+        //     previousUah: previousRow?.common.usd.uah,
 
-            get change() {
-                return this.uah - this.previousUah;
-            },
+        //     get change() {
+        //         return this.uah - this.previousUah;
+        //     },
 
-            get income() {
-                return this.balance.previous * this.rate.change;
-            }
-        };
-
-        this.eur = {
-            rate: new Balance(dbRow, 'common_eur_rate', previousRow?.common.eur.rate.balance)
-        };
+        //     get income() {
+        //         return this.balance.previous * this.rate.change;
+        //     }
+        // };
     }
 
     get change() {
@@ -130,27 +130,11 @@ class Stefko {
         };
 
         this.currency = {
-            // eur: {
-            //     balance: new Balance(dbRow, 'stefko_eur', previousRow?.stefko.currency.eur.balance.balance),
-            //     rate: new Balance(dbRow, 'common_eur_rate', previousRow?.common.eur.rate.balance),
-            //     get uah() {
-            //         return this.balance.balance * this.rate.balance || null;
-            //     },
-            //     previousUah: previousRow?.stefko.currency.eur.uah,
-            //     get change() {
-            //         return this.uah - (this.previousUah);
-            //     },
-            //     get income() {
-            //         return this.balance.previous * this.rate.change;
-            //     }
-            // },
-
             eur: new Currency(
                 dbRow,
-                'stefko_eur',
                 previousRow?.stefko.currency.eur,
+                'stefko_eur',
                 'common_eur_rate',
-                previousRow?.common.eur.rate.balance,
                 'stefko_eur_exchanges'
             ),
 
@@ -174,7 +158,6 @@ class Stefko {
         return this.debitAccounts.account1.balance
             + this.debitAccounts.account2.balance
             + this.debitAccounts.account3.balance
-            // + this.currency.eurToUah
             - this.others.marta.balance;
     };
 

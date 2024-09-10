@@ -12,8 +12,6 @@ function setDbVersion(newVal) {
 };
 
 function parseData(data) {
-    const start = new Date();
-    
     const result = [];
     let previousRow = null;
     for(const row of data) {
@@ -25,8 +23,6 @@ function parseData(data) {
 
     console.log(result);
 
-    alert('parsing time: ' + ((new Date()) - start));
-
     return result;
 }
 
@@ -36,12 +32,12 @@ const reversed = computed(() => data.value.slice().reverse());
 const reversed93 = computed(() => reversed.value.slice(0, 93));
 
 async function refreshRate() {
-    if(reversed.value[0].common.usd.rate.current === null) {
+    if(reversed.value[0].common.rates.usd.current === null) {
         const newRate = await getUsdRate();
         reversed.value[0].common.usd.rate.updateValue(newRate.rate);
     }
 
-    if(reversed.value[0].common.eur.rate.current === null) {
+    if(reversed.value[0].common.rates.eur.current === null) {
         const newRate = await getEurRate();
         reversed.value[0].common.eur.rate.updateValue(newRate.rate);
     }

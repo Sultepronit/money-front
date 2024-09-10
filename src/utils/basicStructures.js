@@ -45,27 +45,24 @@ class Balance {
 class Currency {
     constructor(
         dbRow,
-        dbBalance,
         previous,
+        dbBalance,
         dbRate,
-        previousRate,
-        dbExchanges
+        dbExchanges,
     ) {
         this.balance = new Balance(dbRow, dbBalance, previous?.balance.balance);
-        this.rate = new Balance(dbRow, dbRate, previousRate);
+        this.rate = dbRow[dbRate] || previous?.rate;
         this.exchanges = new Parted(dbRow[dbExchanges], dbExchanges, dbRow.date);
         this.previousUah = previous?.uah;
         this.previousHistory = previous?.history || 0;
         this.previousIncomeHistory = previous?.incomeHistory;
-        // console.log('constructing object');
     }
 
     get uah() {
-        return this.balance.balance * this.rate.balance || null;
+        return this.balance.balance * this.rate || null;
     }
 
     get change() {
-        // console.log('computing change');
         return this.uah - this.previousUah;
     }
 

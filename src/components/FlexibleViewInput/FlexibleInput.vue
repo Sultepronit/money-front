@@ -40,7 +40,6 @@ const editCurrency = ref(false);
                 { name: 'zp', account: edited.stefko.debitAccounts.account2 },
                 { name: 'bvr', account: edited.stefko.debitAccounts.account3 },
                 { name: 'wait', account: edited.stefko.debitAccounts.account4 },
-                // { name: '€', account: edited.stefko.currency.eur.balance },
             ]"
             :additional="[
                 { name: 'ready', account: edited.stefko.debitReady },
@@ -53,10 +52,6 @@ const editCurrency = ref(false);
             :date="edited.date"
             :balances="[
                 { name: 'cash', account: edited.common.cash },
-                // { name: '$', account: edited.common.usd.balance },
-                // { name: 'm', account: edited.stefko.others.marta },
-                // { name: '$ rate', account: edited.common.usd.rate },
-                // { name: '€ rate', account: edited.common.eur.rate },
             ]"
             :additional="[
                 { name: '$', account: edited.common.usd.uah },
@@ -100,8 +95,8 @@ const editCurrency = ref(false);
         <AccountsGroup
             :date="edited.date"
             :balances="[
-                { name: '€', account: edited.common.eur.rate },
-                { name: '$', account: edited.common.usd.rate },
+                { name: '€', account: edited.common.rates.eur },
+                { name: '$', account: edited.common.rates.usd },
             ]"
         />
 
@@ -124,16 +119,16 @@ const editCurrency = ref(false);
         <AccountsGroup
             :date="edited.date"
             :balances="[
-                { name: '$', account: edited.common.usd2.balance },
+                { name: '$', account: edited.common.usd.balance },
             ]"
             :parts="[
-                { name: '⇄', account: edited.common.usd2.exchanges },
+                { name: '⇄', account: edited.common.usd.exchanges },
             ]"
             :additional="[
-                { name: '₴', account: edited.common.usd2.uah },
-                { name: '₴₴₴', account: edited.common.usd2.history },
-                { name: '+++', account: edited.common.usd2.incomeHistory },
-                { name: 'income', account: edited.common.usd2.income },
+                { name: '₴', account: edited.common.usd.uah },
+                { name: '₴₴₴', account: edited.common.usd.history },
+                { name: '+++', account: edited.common.usd.incomeHistory },
+                { name: 'income', account: edited.common.usd.income },
             ]"
         />
     </section>
