@@ -34,12 +34,12 @@ const reversed93 = computed(() => reversed.value.slice(0, 93));
 async function refreshRate() {
     if(reversed.value[0].common.rates.usd.current === null) {
         const newRate = await getUsdRate();
-        reversed.value[0].common.usd.rate.updateValue(newRate.rate);
+        reversed.value[0].common.rates.usd.updateValue(newRate.rate);
     }
 
     if(reversed.value[0].common.rates.eur.current === null) {
         const newRate = await getEurRate();
-        reversed.value[0].common.eur.rate.updateValue(newRate.rate);
+        reversed.value[0].common.rates.eur.updateValue(newRate.rate);
     }
 }
 

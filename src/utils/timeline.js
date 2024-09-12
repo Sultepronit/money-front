@@ -5,7 +5,7 @@ import { newDate, getRelativeDate, shiftDate, get29OrFeb, get30OrFeb, getTheThur
 let today = null;
 
 class TimeEntry {
-    constructor(date, debit, wait, credit1, credit2, credit3, credit4) {
+    constructor(date, debit, wait, credit1, credit2, credit3, credit4, currency) {
         this.date = newDate(date);
         this.debit = debit;
         this.wait = wait;
@@ -13,6 +13,7 @@ class TimeEntry {
         this.credit2 = credit2;
         this.credit3 = credit3;
         this.credit4 = credit4;
+        this.currency = currency;
     }
 
     get credit() {
@@ -35,7 +36,9 @@ function fillPast(pastData) {
             entry.stefko.credit.account1.balance,
             entry.stefko.credit.account2.balance,
             entry.stefko.credit.account3.balance,
-            entry.stefko.credit.account4.balance
+            entry.stefko.credit.account4.balance,
+            entry.stefko.currency.eur.uah
+            // 0
         )
     );
     // console.log(entries);
@@ -76,7 +79,8 @@ function addNextEntry(date, creditChanges, waitChange = 0) {
             date || getRelativeDate(lastDate, 1, 1), // next month's 1st
             newDebit,
             newWait,
-            ...newCredits
+            ...newCredits,
+            // 0
         )
     );
 }

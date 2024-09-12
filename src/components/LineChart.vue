@@ -3,10 +3,8 @@ import { ref, onMounted } from 'vue';
 import { Line } from 'vue-chartjs';
 import { Chart, LineElement, PointElement, LinearScale, Title, Tooltip, Legend, BarElement, CategoryScale, Filler, TimeScale } from 'chart.js';
 import 'chartjs-adapter-date-fns';
-import { computed } from 'vue';
 // import annotationPlugin from 'chartjs-plugin-annotation';
 
-// const props = defineProps(['data', 'displayLegend']);
 const props = defineProps({
     data: {
         type: Object
@@ -41,7 +39,10 @@ const chartOptions = {
     plugins: {
         legend: {
             display: props.displayLegend,
-            align: 'end'
+            align: 'end',            
+            labels: {
+                boxWidth: 12,
+            },
         },
         tooltip: {
             callbacks: {
@@ -61,7 +62,7 @@ const chartOptions = {
         },
         y: {
             position: 'right',
-        },
+        }
     }
 };
 

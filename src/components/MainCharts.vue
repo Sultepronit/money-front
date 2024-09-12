@@ -2,6 +2,7 @@
 import FutureChart from '@/components/FutureChart.vue';
 import BalanceChart from './BalanceChart.vue';
 import StefkoChart from './StefkoChart.vue';
+import RatesChart from './RatesChart.vue';
 </script>
 
 <template>
@@ -10,7 +11,9 @@ import StefkoChart from './StefkoChart.vue';
     <hr>
     <StefkoChart />
     <hr>
-    <FutureChart :details="true"  />
+    <FutureChart />
+    <hr>
+    <RatesChart />
 </section>
 </template>
 

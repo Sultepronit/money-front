@@ -6,6 +6,7 @@ import { LineSet } from '@/utils/chartDataSets.js';
 import timeline from '@/utils/timeline.js';
 
 // const props = defineProps(['details']);
+console.log(timeline.value);
 
 const chartData = computed(() => {
     const datasets = [
@@ -14,6 +15,7 @@ const chartData = computed(() => {
         new LineSet('privat', null, 'yellow', 3, timeline, ['credit3']),
         new LineSet('more', null, 'red', 3, timeline, ['credit4']),
         new LineSet('wait', null, 'black', 3, timeline, ['wait']),
+        new LineSet('currency', null, '#0909', 4, timeline, ['currency']),
         new LineSet('balance', 'rgba(0, 0, 0, 0.2)', 'black', 1, timeline, ['balance']),
         new LineSet('debit', 'rgba(0, 255, 0, 0.3)', 'green', 2, timeline, ['debit']),
         new LineSet('credit', 'rgba(255, 0, 0, 0.15)', 'red', 2, timeline, ['credit']),
