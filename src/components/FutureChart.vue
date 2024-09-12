@@ -6,7 +6,7 @@ import { LineSet } from '@/utils/chartDataSets.js';
 import timeline from '@/utils/timeline.js';
 
 // const props = defineProps(['details']);
-console.log(timeline.value);
+// console.log(timeline.value);
 
 const chartData = computed(() => {
     const datasets = [

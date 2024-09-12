@@ -19,8 +19,9 @@ const chartData = computed(() => {
 <template>
     <LineChart
         :data="chartData"
-        height="95dvh"
         :displayLegend="true"
+        height="95dvh"
+        :widthConstraint="1020"
     />
 </template>
 
