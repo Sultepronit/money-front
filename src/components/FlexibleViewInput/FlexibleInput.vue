@@ -110,9 +110,9 @@ const editCurrency = ref(false);
             ]"
             :additional="[
                 { name: '₴', account: edited.stefko.currency.eur.uah },
-                { name: '₴₴₴', account: edited.stefko.currency.eur.history },
+                { name: '⇅', account: edited.stefko.currency.eur.history },
                 { name: '+++', account: edited.stefko.currency.eur.incomeHistory },
-                { name: 'income', account: edited.stefko.currency.eur.income },
+                { name: '+', account: edited.stefko.currency.eur.income },
             ]"
         />
 
@@ -126,9 +126,9 @@ const editCurrency = ref(false);
             ]"
             :additional="[
                 { name: '₴', account: edited.common.usd.uah },
-                { name: '₴₴₴', account: edited.common.usd.history },
+                { name: '⇅', account: edited.common.usd.history },
                 { name: '+++', account: edited.common.usd.incomeHistory },
-                { name: 'income', account: edited.common.usd.income },
+                { name: '+', account: edited.common.usd.income },
             ]"
         />
     </section>
