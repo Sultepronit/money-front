@@ -23,6 +23,8 @@ const chartData = computed(() => {
 
     return { datasets };
 });
+
+// console.log(chartData.value);
 </script>
 
 <template>

@@ -22,7 +22,7 @@ function shiftDate(currentDate, dayShift) {
 }
 
 function get29OrFeb(currentDate, shiftMonth = 0) {
-    if(currentDate.getMonth() === 1) { // february
+    if((currentDate.getMonth() + shiftMonth) === 1) { // february
         return getRelativeDate(currentDate, 1 + shiftMonth, -1) // 27 or 28
     } else {
         return getRelativeDate(currentDate, shiftMonth, 29);

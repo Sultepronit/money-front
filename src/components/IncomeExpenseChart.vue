@@ -52,17 +52,30 @@ const chartData = computed(() => {
     }
 });
 
-const fromDate = new Date(props.data[0].date);
-const toDate = new Date(props.data[props.data.length - 1].date);
-const days = (toDate - fromDate) < 10_000_000_000;
+// const fromDate = new Date(props.data[0].date);
+// const toDate = new Date(props.data[props.data.length - 1].date);
+// const days = (toDate - fromDate) < 10_000_000_000;
 
-const fromDateFormatted = days ? dayMonth(fromDate) : monthYear(fromDate);
-const toDateFormatted = days ? dayMonth(toDate) : monthYear(toDate);
+// const fromDateFormatted = days ? dayMonth(fromDate) : monthYear(fromDate);
+// const toDateFormatted = days ? dayMonth(toDate) : monthYear(toDate);
+
+const dates = computed(() => {
+    const fromDate = new Date(props.data[0].date);
+    const toDate = new Date(props.data[props.data.length - 1].date);
+    const days = (toDate - fromDate) < 10_000_000_000;
+
+    return {
+        from: days ? dayMonth(fromDate) : monthYear(fromDate),
+        to:days ? dayMonth(toDate) : monthYear(toDate)
+    }
+});
+
 </script>
 
 <template>
 <section>
-    <p class="center"><b>{{ fromDateFormatted }} - {{ toDateFormatted }}</b></p>
+    <!-- <p class="center"><b>{{ fromDateFormatted }} - {{ toDateFormatted }}</b></p> -->
+     <p class="center"><b>{{ dates.from }} - {{ dates.to }}</b></p>
     <table class="margin-auto">
         <tbody>
             <tr class="income">
