@@ -1,11 +1,9 @@
 <script setup>
 import { computed, onMounted, onUpdated } from 'vue';
 import { waitDebitChanges } from '@/services/data.js';
-import { getToday, get_yyyy_mm_dd, shiftDate, getRelativeDate } from '@/utils/handleDate';
+import { get_yyyy_mm_dd, shiftDate, getRelativeDate } from '@/utils/handleDate';
 import updateWaitChanges from '@/services/updateWaitChanges';
 
-// the component is created every time it's called, so today should be actual
-// const today = getToday();
 const today = new Date();
 
 const editedList = computed(() => {
@@ -22,8 +20,13 @@ function isFuture(date) {
 }
 
 function update() {
-    const actualData = editedList.value.filter(entry => entry[1] && isFuture(entry[0]));
+    console.log('updating!');
+    const actualData = editedList.value
+        .filter(entry => entry[1] && isFuture(entry[0]))
+        .sort((a, b) => a > b ? 1 : -1);
+
     const actualJson = JSON.stringify(actualData);
+
     if(previousJson === actualJson) return;
 
     previousJson = actualJson;

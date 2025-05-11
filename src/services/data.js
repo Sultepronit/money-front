@@ -88,7 +88,7 @@ function tryToRefresh() {
     document.removeEventListener('touchmove', tryToRefresh);
 
     const now = Date.now();
-    console.log((now - lastTime) / 1000);
+    // console.log((now - lastTime) / 1000);
 
     if (now - lastTime < 60 * 1000) return;
 
