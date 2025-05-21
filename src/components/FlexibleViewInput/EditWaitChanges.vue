@@ -20,7 +20,6 @@ function isFuture(date) {
 }
 
 function update() {
-    console.log('updating!');
     const actualData = editedList.value
         .filter(entry => entry[1] && isFuture(entry[0]))
         .sort((a, b) => a > b ? 1 : -1);

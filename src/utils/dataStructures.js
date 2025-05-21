@@ -6,21 +6,21 @@ class Vira {
             row,
             'vira_black',
             'vira_black_income',
-            previousRow?.vira.black.balance.balance,
+            previousRow?.vira.black.balance.balance
         );
 
         this.white = new ViraCard(
             row,
             'vira_white',
             'vira_white_income',
-            previousRow?.vira.white.balance.balance,
+            previousRow?.vira.white.balance.balance
         );
 
-        this.cash = { 
+        this.cash = {
             income: new Parted(row.vira_cash_income, 'vira_cash_income', row.date),
             expense: new Parted(row.vira_cash_expense, 'vira_cash_expense', row.date),
             get change() {
-                return this.income.sum - this.expense.sum
+                return this.income.sum - this.expense.sum;
             }
         };
     }
@@ -48,7 +48,7 @@ class Common {
 
         this.rates = {
             usd: new Balance(dbRow, 'common_usd_rate', previousRow?.common.rates.usd.balance),
-            eur: new Balance(dbRow, 'common_eur_rate', previousRow?.common.rates.eur.balance),
+            eur: new Balance(dbRow, 'common_eur_rate', previousRow?.common.rates.eur.balance)
         };
 
         this.usd = new Currency(
@@ -58,26 +58,6 @@ class Common {
             'common_usd_rate',
             'common_usd_exchanges'
         );
-
-        // this.usd = {
-        //     date: dbRow.date, // do we need it here???
-        //     balance: new Balance(dbRow, 'common_usd', previousRow?.common.usd.balance.balance),
-        //     rate: new Balance(dbRow, 'common_usd_rate', previousRow?.common.usd.rate.balance),
-
-        //     get uah() {
-        //         return this.balance.balance * this.rate.balance;
-        //     },
-            
-        //     previousUah: previousRow?.common.usd.uah,
-
-        //     get change() {
-        //         return this.uah - this.previousUah;
-        //     },
-
-        //     get income() {
-        //         return this.balance.previous * this.rate.change;
-        //     }
-        // };
     }
 
     get change() {
@@ -92,40 +72,87 @@ class Common {
 class Stefko {
     constructor(dbRow, previousRow) {
         this.credit = {
-            account1: new Balance(dbRow, 'stefko_credit_1', previousRow?.stefko.credit.account1.balance),
-            account2: new Balance(dbRow, 'stefko_credit_2', previousRow?.stefko.credit.account2.balance),
-            account3: new Balance(dbRow, 'stefko_credit_3', previousRow?.stefko.credit.account3.balance),
-            account4: new Balance(dbRow, 'stefko_credit_4', previousRow?.stefko.credit.account4.balance),
+            account1: new Balance(
+                dbRow,
+                'stefko_credit_1',
+                previousRow?.stefko.credit.account1.balance
+            ),
+            account2: new Balance(
+                dbRow,
+                'stefko_credit_2',
+                previousRow?.stefko.credit.account2.balance
+            ),
+            account3: new Balance(
+                dbRow,
+                'stefko_credit_3',
+                previousRow?.stefko.credit.account3.balance
+            ),
+            account4: new Balance(
+                dbRow,
+                'stefko_credit_4',
+                previousRow?.stefko.credit.account4.balance
+            ),
             get sum() {
-                return this.account1.balance
-                    + this.account2.balance
-                    + this.account3.balance
-                    + this.account4.balance;
+                return (
+                    this.account1.balance +
+                    this.account2.balance +
+                    this.account3.balance +
+                    this.account4.balance
+                );
             },
             get change() {
-                return this.account1.change
-                    + this.account2.change
-                    + this.account3.change
-                    + this.account4.change;
+                return (
+                    this.account1.change +
+                    this.account2.change +
+                    this.account3.change +
+                    this.account4.change
+                );
             }
         };
 
         this.debitAccounts = {
-            account1: new Balance(dbRow, 'stefko_debit_1', previousRow?.stefko.debitAccounts.account1.balance),
-            account2: new Balance(dbRow, 'stefko_debit_2', previousRow?.stefko.debitAccounts.account2.balance),
-            account3: new Balance(dbRow, 'stefko_debit_3', previousRow?.stefko.debitAccounts.account3.balance),
-            account4: new Balance(dbRow, 'stefko_debit_4', previousRow?.stefko.debitAccounts.account4.balance),
+            account1: new Balance(
+                dbRow,
+                'stefko_debit_1',
+                previousRow?.stefko.debitAccounts.account1.balance
+            ),
+            account2: new Balance(
+                dbRow,
+                'stefko_debit_2',
+                previousRow?.stefko.debitAccounts.account2.balance
+            ),
+            account3: new Balance(
+                dbRow,
+                'stefko_debit_3',
+                previousRow?.stefko.debitAccounts.account3.balance
+            ),
+            account4: new Balance(
+                dbRow,
+                'stefko_debit_4',
+                previousRow?.stefko.debitAccounts.account4.balance
+            ),
+            account5: new Balance(
+                dbRow,
+                'stefko_debit_5',
+                previousRow?.stefko.debitAccounts.account5.balance
+            ),
             get sum() {
-                return this.account1.balance
-                    + this.account2.balance
-                    + this.account3.balance
-                    + this.account4.balance;
+                return (
+                    this.account1.balance +
+                    this.account2.balance +
+                    this.account3.balance +
+                    this.account4.balance +
+                    this.account5.balance
+                );
             },
             get change() {
-                return this.account1.change
-                    + this.account2.change
-                    + this.account3.change
-                    + this.account4.change;
+                return (
+                    this.account1.change +
+                    this.account2.change +
+                    this.account3.change +
+                    this.account4.change +
+                    this.account5.change
+                );
             }
         };
 
@@ -141,39 +168,40 @@ class Stefko {
             get income() {
                 return this.eur.income;
             }
-        }
+        };
 
         this.income = new Parted(dbRow['stefko_income'], 'stefko_income', dbRow.date);
 
         this.others = {
             marta: new Balance(dbRow, 'others_marta', previousRow?.stefko.others.marta.balance)
-        }
+        };
     }
 
     get debit() {
         return this.debitAccounts.sum + this.currency.eur.uah - this.others.marta.balance;
-    };
+    }
 
     get debitReady() {
-        return this.debitAccounts.account1.balance
-            + this.debitAccounts.account2.balance
-            + this.debitAccounts.account3.balance
-            - this.others.marta.balance;
-    };
+        return (
+            this.debitAccounts.account1.balance +
+            this.debitAccounts.account2.balance +
+            this.debitAccounts.account3.balance +
+            this.debitAccounts.account5.balance -
+            this.others.marta.balance
+        );
+    }
 
     get debitChange() {
-        return this.debitAccounts.change
-            + this.currency.eur.change
-            - this.others.marta.change;
+        return this.debitAccounts.change + this.currency.eur.change - this.others.marta.change;
     }
 
     get balance() {
         return this.credit.sum + this.debit;
-    };
+    }
 
     get change() {
         return this.credit.change + this.debitChange;
-    };
+    }
 }
 
 class AdditionalIncome {
@@ -194,45 +222,33 @@ class DataRow {
         this.common = new Common(rawRow, previousRow);
         this.stefko = new Stefko(rawRow, previousRow);
         this.additionalIncome = new AdditionalIncome(rawRow);
-    };
-    
+    }
+
     get debit() {
-        return Math.round(
-            this.vira.balance
-            + this.common.balance
-            + this.stefko.debit
-        );
-    };
+        return Math.round(this.vira.balance + this.common.balance + this.stefko.debit);
+    }
 
     get balance() {
-        return Math.round(
-            this.vira.balance
-            + this.common.balance
-            + this.stefko.balance
-        );
-    };
+        return Math.round(this.vira.balance + this.common.balance + this.stefko.balance);
+    }
 
     get change() {
-        return Math.round(
-            this.vira.balanceChange
-            + this.common.change
-            + this.stefko.change
-        );
+        return Math.round(this.vira.balanceChange + this.common.change + this.stefko.change);
     }
 
     get income() {
         return Math.round(
-            this.stefko.income.sum
-            + this.stefko.currency.income
-            + this.vira.income
-            + this.additionalIncome.sum
-            + this.common.usd.income
+            this.stefko.income.sum +
+                this.stefko.currency.income +
+                this.vira.income +
+                this.additionalIncome.sum +
+                this.common.usd.income
         );
     }
 
     get expense() {
         return this.change - this.income;
     }
-};
+}
 
 export { DataRow };
