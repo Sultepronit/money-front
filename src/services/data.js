@@ -12,6 +12,7 @@ function setDbVersion(newVal) {
 }
 
 function parseData(data) {
+    console.time('t');
     const result = [];
     let previousRow = null;
     for (const row of data) {
@@ -22,6 +23,7 @@ function parseData(data) {
     }
 
     console.log(result);
+    console.timeLog('t');
 
     return result;
 }

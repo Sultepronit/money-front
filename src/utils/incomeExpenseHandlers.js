@@ -48,10 +48,12 @@ function sumIncomeExpense(period) {
 }
 
 function prepareMonths(reversed) {
+    console.timeLog('t');
     const months = splitMonths(reversed);
     console.log(months);
     const totals = months.map(month => sumIncomeExpense(month));
     // console.log(totals);
+    console.timeEnd('t');
     return [
         ...pastMonths,
         ...totals
