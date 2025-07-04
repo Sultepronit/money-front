@@ -47,15 +47,15 @@ class Common {
         this.cash = new Balance(dbRow, 'common_cash', previousRow?.common.cash.balance);
 
         this.rates = {
-            usd: new Balance(dbRow, 'common_usd_rate', previousRow?.common.rates.usd.balance),
-            eur: new Balance(dbRow, 'common_eur_rate', previousRow?.common.rates.eur.balance)
+            usd: new Balance(dbRow, 'data_usd_rate', previousRow?.common.rates.usd.balance),
+            eur: new Balance(dbRow, 'data_eur_rate', previousRow?.common.rates.eur.balance)
         };
 
         this.usd = new Currency(
             dbRow,
             previousRow?.common.usd,
             'common_usd',
-            'common_usd_rate',
+            'data_usd_rate',
             'common_usd_exchanges'
         );
     }
@@ -161,7 +161,7 @@ class Stefko {
                 dbRow,
                 previousRow?.stefko.currency.eur,
                 'stefko_eur',
-                'common_eur_rate',
+                'data_eur_rate',
                 'stefko_eur_exchanges'
             ),
 
@@ -206,8 +206,16 @@ class Stefko {
 
 class AdditionalIncome {
     constructor(rawRow) {
-        this.cancel = new Parted(rawRow['income_cancel'], 'income_cancel', rawRow.date);
-        this.debit = new Parted(rawRow['income_debit'], 'income_debit', rawRow.date);
+        this.cancel = new Parted(
+            rawRow['commmon_income_cancel'],
+            'commmon_income_cancel',
+            rawRow.date
+        );
+        this.debit = new Parted(
+            rawRow['stefko_deposit_income'],
+            'stefko_deposit_income',
+            rawRow.date
+        );
     }
 
     get sum() {
