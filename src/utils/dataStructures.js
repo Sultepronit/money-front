@@ -207,8 +207,8 @@ class Stefko {
 class AdditionalIncome {
     constructor(rawRow) {
         this.cancel = new Parted(
-            rawRow['commmon_income_cancel'],
-            'commmon_income_cancel',
+            rawRow['common_income_cancel'],
+            'common_income_cancel',
             rawRow.date
         );
         this.debit = new Parted(
